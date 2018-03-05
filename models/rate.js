@@ -7,4 +7,4 @@ let rateSchema = new Schema({
     user: {type: Schema.Types.ObjectId, rel: 'User'},
 });
 
-module.exports = mongoose.model('Software', rateSchema);
+module.exports = mongoose.model('Rate', rateSchema);

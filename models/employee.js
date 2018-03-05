@@ -3,6 +3,8 @@ const mongoose = require('mongoose'),
 
 let employeeSchema = new Schema({
     user_id: {type: Schema.Types.ObjectId, required:true, unique: true, ref: 'User'},
+    first_name: {type: String, required: true},
+    last_name: {type: String, required: true},
     description: String,
     portfolio_link: String,
     git_link: String,
