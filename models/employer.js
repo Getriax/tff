@@ -2,8 +2,6 @@ const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 let employerSchema = new Schema({
-    first_name: {type: String, required: true},
-    last_name: {type: String, required: true},
     user_id: {type: Schema.Types.ObjectId, ref: 'User'},
     asks: [{type: Schema.Types.ObjectId, ref: 'Ask'}],
     company: [{type: Schema.Types.ObjectId, ref: 'Company'}],
