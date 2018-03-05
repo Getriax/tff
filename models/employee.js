@@ -8,7 +8,7 @@ let employeeSchema = new Schema({
     git_link: String,
     linked_in_link: String,
     salary: Number,
-    education: {type: String, required: true},
+    education: {type: String},
     bids: [{type: Schema.Types.ObjectId, ref: 'Bid'}],
     languages: [{type: Schema.Types.ObjectId, ref: 'Language'}],
     software: [{type: Schema.Types.ObjectId, ref: 'Software'}],
