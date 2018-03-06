@@ -1,0 +1,31 @@
+{
+  "name": "tff",
+  "version": "1.0.0",
+  "description": "tinder for freelancers",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Getriax/tff.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Getriax/tff/issues"
+  },
+  "homepage": "https://github.com/Getriax/tff#readme",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "^5.0.8"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
