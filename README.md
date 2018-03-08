@@ -1,9 +1,9 @@
 
-Auth
-User
-Skills
-Employee
-Emloyer
+[Auth](#auth-routes)
+[User](#user-routes)
+[Skills](#skills-routes)
+[Employee](#employee-routes)
+[Emloyer](#employer-routes)
 
 ### Auth routes
 **POST** `/api/auth/login`
@@ -15,6 +15,10 @@ String **password**
     { 
 	    "token": "auth token string" 
     }
+
+
+----------
+
 
 **POST** `/api/auth/register`
 
@@ -28,6 +32,10 @@ String **email**
 	    "token": "auth token string" 
     }
 
+
+----------
+
+
 **GET** `/api/auth/id`
 
 > Auth header required
@@ -35,6 +43,10 @@ String **email**
     {
 		"user_id": "5a9df8f1d1db7a0b3c98a713"
 	}
+
+
+----------
+
 
 ### User routes
 > Auth header required in all routes
@@ -65,6 +77,11 @@ String **email**
 			"status": "-1"
         }
     ]
+
+
+----------
+
+
 **GET** `/api/user/:id`
 
 > If user is of status 0 - employee data will be added, status 1 - empoyer data will be added
@@ -121,36 +138,54 @@ String **email**
     }
 
 
+----------
+
+
 **POST** `/api/user/password`
 
 String **password**
 
-{ "success": "**password** updated" }
+    { 
+	    "success": "password updated" 
+    }
+
+
+----------
+
 
 ### Skills routes
 > Auth header required in all routes
 
-**GET** /api/skills/languages /api/skills/software /api/skills/specializations /api/skills/certifications
+**GET** 
+`/api/skills/languages` 
+`/api/skills/software` 
+`/api/skills/specializations` 
+`/api/skills/certifications`
 
 certifications doesn't have level property - all the rest is the same languages example
 
-[
-    {
-        "name": "Spanish"
-		"level": "B"
-    },
-    {
-        "name": "English"
-    },
-    {
-        "name": "French"
-    },
-    {
-        "name": "Italian"
-    }
-]
-Employee routes
-Auth header required in all routes
+    [
+	    {
+	        "name": "Spanish"
+			"level": "B"
+	    },
+	    {
+	        "name": "English"
+	    },
+	    {
+	        "name": "French"
+	    },
+	    {
+	        "name": "Italian"
+	    }
+	]
+
+
+----------
+
+
+### Employee routes
+> Auth header required in all routes
 
 **POST** /api/employee/create
 
@@ -162,9 +197,14 @@ String **phone**
 
 String **city**
 
-  {
-  	"success": "Employee created"
-  }
+      {
+	  	"success": "Employee created"
+	  }
+
+
+----------
+
+
 **POST** `/api/employee/update/languages`
 
 String array languages
@@ -173,6 +213,11 @@ Example { languages: [ 'English', 'French' ] }
 	{
 		"success": "Updated"
 	}
+
+
+----------
+
+
 **POST** `/api/employee/update/software`
 
 String array software
@@ -181,6 +226,11 @@ Example { software: [ 'Microsoft Word', 'Web Strom' ] }
 	{
 		"success": "Updated"
 	}
+
+
+----------
+
+
 **POST** `/api/employee/update/specs`
 
 String array specs
@@ -189,6 +239,11 @@ Example { specs: [ 'Java', 'C++' ] }
 	{
 		"success": "Updated"
 	}
+
+
+----------
+
+
 **POST** `/api/employee/update/certifications`
 
 String array certifications
@@ -197,8 +252,13 @@ Example { certifications: [ 'CISCO1', 'CISCO2' ] }
 	{
 		"success": "Updated"
 	}
-Employer routes
-Auth header required in all routes
+
+
+----------
+
+
+### Employer routes
+> Auth header required in all routes
 
 **POST** `/api/employer/create`
 
@@ -210,6 +270,7 @@ String **phone**
 
 String **city**
 
-  {
-  	"success": "Employer created"
-  }
+    
+	  {
+	  	"success": "Employer created"
+	  }
