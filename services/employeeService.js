@@ -47,6 +47,7 @@ class EmployeeService {
     populateOne(userId) {
         return new Promise((resolve, reject) => {
             Employee.findOne({user_id: userId})
+                .select('-__v -_id -user_id')
                 .populate('languages', 'name -_id')
                 .populate('software', 'name -_id')
                 .populate('specs', 'name -_id')
@@ -91,7 +92,7 @@ class EmployeeService {
                 data.save((err) => {
                     if(err)
                         return res.status(500);
-                    return res.status(200).json(data);
+                    return res.status(200).json({success: 'Updated'});
                 });
             });
         }
@@ -112,7 +113,7 @@ class EmployeeService {
                     skillsService.languageAddAllUserIds(ids, userId);
 
                     usr.languages = ids;
-                    usr.save((err) => {if(err) console.error(err); else return res.status(200).json(usr);});
+                    usr.save((err) => {if(err) console.error(err); else return res.status(200).json({success: 'Updated'});});
                 });
             });
         }
@@ -137,7 +138,7 @@ class EmployeeService {
                 data.save((err) => {
                     if(err)
                         return res.status(500);
-                    return res.status(200).json(data);
+                    return res.status(200).json({success: 'Updated'});
                 });
             });
         }
@@ -157,7 +158,7 @@ class EmployeeService {
                     skillsService.softwareAddAllUserIds(ids, userId);
 
                     usr.software = ids;
-                    usr.save((err) => {if(err) console.error(err); else return res.status(200).json(usr);});
+                    usr.save((err) => {if(err) console.error(err); else return res.status(200).json({success: 'Updated'});});
                 });
             });
         }
@@ -181,7 +182,7 @@ class EmployeeService {
                 data.save((err) => {
                     if(err)
                         return res.status(500);
-                    return res.status(200).json(data);
+                    return res.status(200).json({success: 'Updated'});
                 });
             });
         }
@@ -200,7 +201,7 @@ class EmployeeService {
                     skillsService.specsAddAllUserIds(ids, userId);
 
                     usr.specs = ids;
-                    usr.save((err) => {if(err) console.error(err); else return res.status(200).json(usr);});
+                    usr.save((err) => {if(err) console.error(err); else return res.status(200).json({success: 'Updated'});});
                 });
             });
         }
@@ -224,7 +225,7 @@ class EmployeeService {
                 data.save((err) => {
                     if(err)
                         return res.status(500);
-                    return res.status(200).json(data);
+                    return res.status(200).json({success: 'Updated'});
                 });
             });
         }
@@ -243,7 +244,7 @@ class EmployeeService {
                     skillsService.certificationsAddAllUserIds(ids, userId);
 
                     usr.certifications = ids;
-                    usr.save((err) => {if(err) console.error(err); else return res.status(200).json(usr);});
+                    usr.save((err) => {if(err) console.error(err); else return res.status(200).json({success: 'Updated'});});
                 });
             });
         }

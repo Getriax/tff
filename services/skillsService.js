@@ -10,7 +10,7 @@ class SkillsService {
 
     getAllLanguages(req, res) {
         Language.find()
-            .select('name -_id')
+            .select('name level -_id')
             .exec((err, data) => {
                 if(err) {
                     console.error(err);
@@ -22,7 +22,7 @@ class SkillsService {
     }
     getAllSpecializations(req, res) {
         Spec.find()
-            .select('name -_id')
+            .select('name level -_id')
             .exec((err, data) => {
                 if(err) {
                     console.error(err);
@@ -34,7 +34,7 @@ class SkillsService {
     }
     getAllSoftware(req, res) {
         Software.find()
-            .select('name -_id')
+            .select('name level -_id')
             .exec((err, data) => {
                 if(err) {
                     console.error(err);

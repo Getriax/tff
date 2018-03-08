@@ -11,7 +11,8 @@ class UserService {
         let userId = req.userID;
         let password = req.body.password;
 
-        hashPromise = new Promise((resolve, reject) => {
+
+        let hashPromise = new Promise((resolve, reject) => {
             bcrypt.hash(password, null, null, (err, hash) => {
                 if(err)
                     reject({message: 'Password encrypting failed'})
@@ -22,7 +23,7 @@ class UserService {
             User.findByIdAndUpdate(userId, {password: hash}, (err, data) => {
                 if(err)
                     return res.status(500).send({message: 'Password update failed'});
-                res.json(data);
+                res.json({success: 'password updated'});
             });
         });
     }
@@ -51,8 +52,32 @@ class UserService {
     getOne(req, res) {
 
         let userId = req.params.id;
+        getUserData(userId, req, res);
 
-        User.findById(userId, (err, body) => {
+    }
+
+    getAll(req, res) {
+        User.find()
+            .select('-_id -password -__v')
+            .exec((err, body) => {
+            if(err)
+                return res.status(500).send({message: 'Something went wrong'});
+
+            res.status(200).json(body);
+        });
+    }
+    getLogged(req, res) {
+        let userId = req.userID;
+        getUserData(userId, req, res)
+    }
+
+
+}
+
+function getUserData(userId, req, res) {
+    User.findById(userId)
+        .select('-_id -__v -password')
+        .exec((err, body) => {
             if(err){
                 console.error(err);
                 return res.status(404).send({message: 'User does not exist'});
@@ -68,15 +93,5 @@ class UserService {
                 });
             }
         });
-    }
-    getAll(req, res) {
-        User.find((err, body) => {
-            if(err)
-                return res.status(500).send({message: 'Something went wrong'});
-
-            res.status(200).json(body);
-        })
-    }
 }
-
 module.exports = new UserService();

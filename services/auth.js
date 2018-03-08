@@ -14,12 +14,12 @@ class Auth {
         user.findOne({username: loginData.username}, (err, usr) => {
             if(err) {
                 console.error(err);
-                return res.status(404).send({message: 'User or password invalid'});
+                return res.status(404).json({message: 'User or password invalid'});
             }
 
             bcrypt.compare(loginData.password, usr.password, (err, answer) => {
                 if(err || !answer) {
-                    return res.status(404).send({message: 'User or password invalid'});
+                    return res.status(404).json({message: 'User or password invalid'});
                 }
                 let payload = {
                     id: usr._id
@@ -28,7 +28,7 @@ class Auth {
                 let authToken = jwt.sign(payload, config.tokenPass);
 
 
-                res.status(200).send({token: authToken});
+                res.status(200).json({token: authToken});
             });
         });
     }
@@ -41,7 +41,7 @@ class Auth {
         bcrypt.hash(registerData.password, null, null, (err, hash) => {
             if(err) {
                 console.log(err);
-                return res.send('500');
+                return res.json('500');
             }
 
 
@@ -49,13 +49,14 @@ class Auth {
                 _id: new mongoose.Types.ObjectId,
                 username: registerData.username,
                 password: hash,
-                email: registerData.email
+                email: registerData.email,
+                status: -1
             });
 
             newUser.save((err) => {
                 if(err) {
                     console.log(err);
-                    return res.status(500).send({message: 'Something went wrong'});
+                    return res.status(500).json({message: 'Something went wrong'});
                 }
 
 
@@ -66,7 +67,7 @@ class Auth {
                 let authToken = jwt.sign(payload, config.tokenPass);
 
 
-                res.status(200).send({token: authToken});
+                res.status(200).json({token: authToken});
             });
         });
 
@@ -79,18 +80,18 @@ class Auth {
 
     authenticateUser(req, res, next) {
         if(!req.header('authorization'))
-            return res.status(401).send({ message: 'Unauthorized. Missing Auth Header' });
+            return res.status(401).json({ message: 'Unauthorized. Missing Auth Header' });
 
         let token = req.header('authorization').split(' ')[1];
 
         let payload = jwt.decode(token, config.tokenPass);
 
         if(!payload)
-            return res.status(401).send({ message: 'Unauthorized. Auth Header Invalid' });
+            return res.status(401).json({ message: 'Unauthorized. Auth Header Invalid' });
 
         user.findById(payload.id, (err, user) => {
             if(err) {
-                res.status(500).send({message: 'Wrong token'});
+                res.status(500).json({message: 'Wrong token'});
             } else {
                 req.userID = payload.id;
 
