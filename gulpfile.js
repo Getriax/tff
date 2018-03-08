@@ -105,4 +105,14 @@ gulp.task('lang', (done) => {
             data.save((err) => {});
         });
     });
+});
+
+gulp.task('promise', (done) => {
+    let promise = new Promise((resolve, reject) => {
+       resolve('ooops');
+    });
+    promise
+        .then((data) => console.log(data))
+        .catch((data) => console.error('Oj' + data));
+
 })

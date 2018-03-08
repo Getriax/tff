@@ -37,40 +37,61 @@ class Auth {
         let registerData = req.body;
         console.log(registerData);
 
+        let chceckPromise = new Promise((resolve, reject) => {
+            user.findOne({username: registerData.username})
+                .exec((err, data) => {
+                    if(data)
+                        reject('User with that name already exists');
+                    else
+                        user.findOne({email: registerData.email})
+                            .exec((err, data) => {
+                                if(data)
+                                    reject('User with that email already exists');
+                                else
+                                    resolve();
+                            });
+                });
+        });
 
-        bcrypt.hash(registerData.password, null, null, (err, hash) => {
-            if(err) {
-                console.log(err);
-                return res.json('500');
-            }
-
-
-            let newUser = new user({
-                _id: new mongoose.Types.ObjectId,
-                username: registerData.username,
-                password: hash,
-                email: registerData.email,
-                status: -1
-            });
-
-            newUser.save((err) => {
+        chceckPromise.then((d) => {
+            console.log('adding user');
+            bcrypt.hash(registerData.password, null, null, (err, hash) => {
                 if(err) {
                     console.log(err);
-                    return res.status(500).json({message: 'Something went wrong'});
+                    return res.json('500');
                 }
 
 
-                let payload = {
-                    id: newUser._id,
-                };
+                let newUser = new user({
+                    _id: new mongoose.Types.ObjectId,
+                    username: registerData.username,
+                    password: hash,
+                    email: registerData.email,
+                    status: -1
+                });
 
-                let authToken = jwt.sign(payload, config.tokenPass);
+                newUser.save((err) => {
+                    if(err) {
+                        console.log(err);
+                        return res.status(500).json({message: 'Something went wrong'});
+                    }
 
 
-                res.status(200).json({token: authToken});
+                    let payload = {
+                        id: newUser._id,
+                    };
+
+                    let authToken = jwt.sign(payload, config.tokenPass);
+
+
+                    res.status(200).json({token: authToken});
+                });
             });
-        });
-
+        })
+            .catch((data) => {
+                console.log('Error with message ' + data);
+                res.json({message: data});
+            });
 
     }
 
