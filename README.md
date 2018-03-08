@@ -1,9 +1,9 @@
 
-[Auth](#auth-routes)
-[User](#user-routes)
-[Skills](#skills-routes)
-[Employee](#employee-routes)
-[Emloyer](#employer-routes)
+* [Auth](#auth-routes)
+* [User](#user-routes)
+* [Skills](#skills-routes)
+* [Employee](#employee-routes)
+* [Emloyer](#employer-routes)
 
 ### Auth routes
 **POST** `/api/auth/login`
@@ -82,11 +82,13 @@ String **email**
 ----------
 
 
-**GET** `/api/user/:id`
+**GET** 
+* `/api/user/:id` 
+* `/api/user/me`
 
 > If user is of status 0 - employee data will be added, status 1 - empoyer data will be added
 
-**:id** - id of user to GET
+**:id** - id of user to GET - **me** stands for logged in user
 > Example of status 0
 
     {
@@ -157,10 +159,10 @@ String **password**
 > Auth header required in all routes
 
 **GET** 
-`/api/skills/languages` 
-`/api/skills/software` 
-`/api/skills/specializations` 
-`/api/skills/certifications`
+* `/api/skills/languages` 
+* `/api/skills/software` 
+* `/api/skills/specializations` 
+* `/api/skills/certifications`
 
 certifications doesn't have level property - all the rest is the same languages example
 
