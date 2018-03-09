@@ -41,7 +41,37 @@ String **email**
     
     
 ----------
+**POST** `/api/auth/check-email`
+> Checks if email is available 
+String **email**
 
+    { 
+	    "success": "good" 
+    }
+    
+**OR** if error
+
+    { 
+	    "message": "Email already registered" 
+    }
+
+----------
+**POST** `/api/auth/check-username`
+> Checks if user name is available 
+String: **username**
+
+
+    { 
+	    "success": "good" 
+    }
+    
+**OR** if error
+
+    { 
+	    "message": "Name already in use" 
+    }
+
+----------
 
 **GET** `/api/auth/id`
 
@@ -213,6 +243,27 @@ String **city**
 
 ----------
 
+**POST** `/api/employee/update`
+> Updates fields other then those below
+
+* String **description**
+* String **portfolio_link**
+* String **git_link**
+* String **linked_in_link**
+* Number **salary**
+* String **education**
+
+	{
+		"success": "Updated"
+	}
+	
+> **OR** if error
+
+	{
+		"message": "reason"
+	}
+	
+----------
 
 **POST** `/api/employee/update/languages`
 
