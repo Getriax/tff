@@ -4,6 +4,7 @@
 * [Skills](#skills-routes)
 * [Employee](#employee-routes)
 * [Emloyer](#employer-routes)
+* [Company](#company-routes)
 
 ### Auth routes
 **POST** `/api/auth/login`
@@ -322,15 +323,50 @@ Example { certifications: [ 'CISCO1', 'CISCO2' ] }
 
 **POST** `/api/employer/create`
 
-String **first_name**
-
-String **last_name**
-
-String **phone**
-
-String **city**
+* String **first_name**
+* String **last_name**
+* String **phone**
+* String **city**
 
     
 	  {
 	  	"success": "Employer created"
+	  }
+	  
+	  
+----------
+
+### Company routes
+> Auth header required in all routes
+
+**POST** `/api/company/create`
+
+* String **name**
+* String **NIP** > UNIQUE - if duplicate returns **message**
+* String **city**
+
+    
+	  {
+	  	"success": "Company created"
+	  }
+
+----------
+**POST** `/api/company/update`
+
+* String **name**
+* String **NIP** > Update is based on NIP
+* String **city**
+
+    
+	  {
+	  	"success": "Company updated"
+	  }
+	  
+----------
+**POST** `/api/company/delete`
+
+* String **NIP**
+    
+	  {
+	  	"success": "Company deleted"
 	  }
