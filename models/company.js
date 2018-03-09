@@ -1,9 +1,9 @@
 const mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 companySchema = new Schema({
-    employer: {type: Schema.Types.ObjectId, ref: 'Employer', unique: true},
+    employer: {type: Schema.Types.ObjectId, ref: 'Employer'},
     name: String,
-    NIP: String,
+    NIP: {type: String, unique: true},
     city: String
 });
 

@@ -80,8 +80,11 @@ class SkillsService {
             console.log(names);
             let ids = new Array();
             names.forEach(n => Language.findOne({name: n}, (err, data) => {
+                if(data === null)
+                    return reject('We do not support that language');
                 if(err)
-                    reject('Languages failure')
+                   return reject('Languages failure');
+                if(data)
                 ids.push(data._id);
             }));
             resolve(ids);
@@ -110,8 +113,11 @@ class SkillsService {
             console.log(names);
             let ids = new Array();
             names.forEach(n => Software.findOne({name: n}, (err, data) => {
+                if(!data)
+                    reject('We do not support that software');
                 if(err)
-                    reject('Languages failure')
+                    reject('Languages failure');
+                if(data)
                 ids.push(data._id);
             }));
             resolve(ids);
@@ -141,8 +147,11 @@ class SkillsService {
             console.log(names);
             let ids = new Array();
             names.forEach(n => Spec.findOne({name: n}, (err, data) => {
+                if(!data)
+                    reject('We do not support that specialization');
                 if(err)
-                    reject('Languages failure')
+                    reject('Languages failure');
+                if(data)
                 ids.push(data._id);
             }));
             resolve(ids);
@@ -172,8 +181,11 @@ class SkillsService {
             console.log(names);
             let ids = new Array();
             names.forEach(n => Certification.findOne({name: n}, (err, data) => {
+                if(!data)
+                    reject('We do not support that certification');
                 if(err)
-                    reject('Languages failure')
+                    reject('Languages failure');
+                if(data)
                 ids.push(data._id);
             }));
             resolve(ids);

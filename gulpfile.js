@@ -8,6 +8,7 @@ const gulp = require('gulp'),
     Software = require('./models/software'),
     Certification = require('./models/certification'),
     Employee = require('./models/employee'),
+    Employer = require('./models/employer'),
     skillsService = require('./services/skillsService');
 
 gulp.task('addUser', (done) => {
@@ -119,6 +120,37 @@ gulp.task('promise', (done) => {
         }).then(dat => {
             console.log(dat);
     });
-
-
 });
+
+
+gulp.task('employer', (done) => {
+    database.open(() => {});
+
+    Employer.findOne({user_id: '5aa2e70a8c226d2f027d2bb7'}, (err, body) => {
+        if(err)
+            console.log('BBB');
+        console.log(body);
+    });
+});
+
+gulp.task('save', (done) => {
+    database.open(() => {});
+
+    let lang = new Language({
+        name: 'Polish'
+    })
+    lang.save((err) => {console.log('NOE')}).then(() => console.log('Created'));
+});
+
+gulp.task('fore', (done) => {
+
+    let someArr = null;
+
+    let promise = new Promise((resolve, reject) => {
+        if(someArr == null)
+            reject('NIPE');
+        resolve('Dziala');
+    })
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
+})

@@ -29,6 +29,7 @@ class EmployerService {
 
 
 
+
         //Create companies
         // let promise = new Promise(((resolve, reject) => {
         //     let companies = new Array(userData.company.length);
@@ -74,6 +75,21 @@ class EmployerService {
         //         }
         //     })
         // });
+    }
+
+    update(req, res) {
+        let userId = req.userID;
+        let updateBody = req.body;
+
+        Employer.findOneAndUpdate({user_id: userId}, updateBody)
+            .exec((err, body) => {
+                if(!body)
+                    return req.status(404).json({message: 'Employer not found'});
+                if(err)
+                    return req.status(500).json({message: 'Something went wrong'});
+
+                return res.status(200).json({success: 'Updated'});
+            });
     }
 
 }

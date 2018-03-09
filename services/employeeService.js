@@ -103,8 +103,6 @@ class EmployeeService {
 
             skillsService.languageToID(languagess).then((ids) => {
                 Employee.findOne({user_id: userId}, (err, usr) => {
-                    console.log(usr);
-                    console.log(usr.languages.length > 0);
 
                     if(usr.languages.length > 0) {
                         skillsService.languageRemoveAllUserIds(usr.languages, userId);
@@ -115,7 +113,7 @@ class EmployeeService {
                     usr.languages = ids;
                     usr.save((err) => {if(err) console.error(err); else return res.status(200).json({success: 'Updated'});});
                 });
-            });
+            }).catch((err) => {res.status(409).json({message: err})});
         }
     }
 
@@ -160,7 +158,7 @@ class EmployeeService {
                     usr.software = ids;
                     usr.save((err) => {if(err) console.error(err); else return res.status(200).json({success: 'Updated'});});
                 });
-            });
+            }).catch((err) => {res.status(409).json({message: err})});
         }
     }
 
@@ -203,7 +201,7 @@ class EmployeeService {
                     usr.specs = ids;
                     usr.save((err) => {if(err) console.error(err); else return res.status(200).json({success: 'Updated'});});
                 });
-            });
+            }).catch((err) => {res.status(409).json({message: err})});
         }
     }
 
@@ -246,7 +244,7 @@ class EmployeeService {
                     usr.certifications = ids;
                     usr.save((err) => {if(err) console.error(err); else return res.status(200).json({success: 'Updated'});});
                 });
-            });
+            }).catch((err) => {res.status(409).json({message: err})});
         }
     }
 
