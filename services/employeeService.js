@@ -250,6 +250,21 @@ class EmployeeService {
         }
     }
 
+    update(req, res) {
+        let userId = req.userID;
+        let updateBody = req.body;
+
+        Employee.findOneAndUpdate({user_id: userId}, updateBody)
+            .exec((err, body) => {
+                if(!body)
+                    return req.status(404).json({message: 'Employee not found'});
+                if(err)
+                    return req.status(500).json({message: 'Something went wrong'});
+
+                return res.status(200).json({success: 'Updated'});
+            });
+    }
+
 }
 
 

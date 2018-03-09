@@ -8,7 +8,7 @@ let userSchema = new Schema({
     password: {type: String, required: true},
     email: {type: String, required: true},
     rate: [{type: Schema.Types.ObjectId, ref: 'Rate'}],
-    status: Number,
+    status: Number, // -1: just user, 0: employee, 1: employer
     phone: String,
     city: String
 });

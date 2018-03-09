@@ -99,6 +99,26 @@ class Auth {
         res.status(200).json({user_id: req.userID});
     }
 
+    isEmailInUse(req, res) {
+        let e_mail = req.body.email;
+        user.findOne({email: e_mail}, (err , data) => {
+            if(data)
+                return res.json({message: 'Email already registered'});
+
+            return res.status(200).json({success: 'good'});
+        });
+    }
+
+    isNameInUse(req, res) {
+        let user_name = req.body.username;
+        user.findOne({username: user_name}, (err, data) => {
+            if(data)
+                return res.json({message: 'Name already in use'});
+
+            return res.status(200).json({success: 'good'});
+        })
+    }
+
     authenticateUser(req, res, next) {
         if(!req.header('authorization'))
             return res.status(401).json({ message: 'Unauthorized. Missing Auth Header' });

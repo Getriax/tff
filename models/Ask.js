@@ -8,7 +8,11 @@ let askSchema = new Schema({
     salary: Number,
     work_time: Number,
     is_active: Boolean,
-    is_complete: Boolean
+    is_complete: Boolean,
+    languages: [{type: Schema.Types.ObjectId, ref: 'Language'}],
+    software: [{type: Schema.Types.ObjectId, ref: 'Software'}],
+    specs: [{type: Schema.Types.ObjectId, ref: 'Spec'}],
+    certifications:  [{type: Schema.Types.ObjectId, ref: 'Certification'}]
 });
 
 module.exports = mongoose.model('Ask', askSchema);

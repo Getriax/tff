@@ -7,6 +7,7 @@ class Manage {
         router.get('/all', authService.authenticateUser.bind(this), employeeService.getAll.bind(this));
 
         router.post('/create', authService.authenticateUser.bind(this), employeeService.create.bind(this));
+        router.post('/update', authService.authenticateUser.bind(this), employeeService.update.bind(this));
         router.post('/update/languages', authService.authenticateUser.bind(this), employeeService.updateLanguages.bind(this));
         router.post('/update/software', authService.authenticateUser.bind(this), employeeService.updateSoftware.bind(this));
         router.post('/update/specs', authService.authenticateUser.bind(this), employeeService.updateSpecs.bind(this));

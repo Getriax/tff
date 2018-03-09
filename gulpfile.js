@@ -112,7 +112,13 @@ gulp.task('promise', (done) => {
        resolve('ooops');
     });
     promise
-        .then((data) => console.log(data))
-        .catch((data) => console.error('Oj' + data));
+        .then((data) => {
+            return new Promise((resolve, reject) => {
+                resolve(data + ' HEY');
+            });
+        }).then(dat => {
+            console.log(dat);
+    });
 
-})
+
+});
