@@ -26,13 +26,20 @@ String **username**
 
 String **password**
 
+
 String **email**
 
     { 
 	    "token": "auth token string" 
     }
+	
+**OR** if error
 
-
+    { 
+	    "message": "reason" 
+    }
+    
+    
 ----------
 
 
