@@ -58,8 +58,8 @@ class EmployerService {
                     if(!data)
                         reject('Employer not found')
                     resolve(data);
-                })
-        })
+                });
+        });
     }
 
 

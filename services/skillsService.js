@@ -64,19 +64,27 @@ class SkillsService {
         let updateArray;
         let updateID = req.employeeID || req.askID;
 
+        console.log(req.body);
+        console.log('LGNS ' + req.languages);
+        console.log('SPECS ' + req.specs);
+
         if(req.body.languages) {
+            console.log('LANG');
             propertiesMap.set('languages', Language);
             lastProperty = 'languages';
         }
         if(req.body.software) {
+            console.log('SOFT')
             propertiesMap.set('software', Software);
             lastProperty = 'software';
         }
         if(req.body.specs) {
+            console.log('SPEC')
             propertiesMap.set('specs', Spec);
             lastProperty = 'specs';
         }
         if(req.body.certifications) {
+            console.log('CERT')
             propertiesMap.set('certifications', Certification);
             lastProperty = 'certifications';
         }
@@ -86,38 +94,57 @@ class SkillsService {
             if(req.askID)
                 updateArray = 'asks';
 
-
+        if(!lastProperty) {
+            res.status(200).json({success: 'Updated'});
+        }
         for(let [name, object] of propertiesMap) {
 
 
-
             let removePromise = new Promise((resolve, reject) => {
-                for(let id of req[name]) {
-                    object.findById(id, (err, data) => {
-                        if(err)
-                            reject('Update failed');
-                        data[updateArray] = data[updateArray].filter(elID => !elID.equals(updateID));
-                        data.save().then(() => {
-                            if(id.equals(req[name][req[name].length -1])) {
-                                resolve();
-                            }
+                if(req[name] instanceof Array){
 
+                    if(req[name].length == 0)
+                        resolve();
+
+                    for(let id of req[name]) {
+                        object.findById(id, (err, data) => {
+                            if(err)
+                                reject('Update failed');
+                            data[updateArray] = data[updateArray].filter(elID => !elID.equals(updateID));
+                            
+                            data.save().then(() => {
+                                if(id.equals(req[name][req[name].length -1])) {
+                                    resolve();
+                                }
+
+                            });
                         });
-                    });
+                    }
                 }
+                else
+                    resolve();
             });
 
             removePromise.then(() => {
-                for(let id of req.body[name]) {
-                    object.findById(id, (err, data) => {
-                        data[updateArray].push(updateID);
-                        data.save().then(() => {
-                            if(id.equals(req.body[name][req.body[name].length - 1]) && lastProperty == name)
-                                res.status(200).json({success: 'Updated'});
-                        });
-                    })
+                if(req.body[name] instanceof Array) {
+
+                    if(req.body[name].length == 0 && lastProperty == name)
+                            return res.status(200).json({success: 'Updated'});
+
+                    for (let id of req.body[name]) {
+                        console.log('Updating');
+                        object.findById(id, (err, data) => {
+                            data[updateArray].push(updateID);
+                            data.save().then(() => {
+                                if (id.equals(req.body[name][req.body[name].length - 1]) && lastProperty == name)
+                                    res.status(200).json({success: 'Updated'});
+                            });
+                        })
+                    }
                 }
-            });
+                else if(lastProperty == name)
+                    res.status(200).json({success: 'Updated'});
+            }).catch((err) => res.status(500).json({message: err}));
         }
     }
 
