@@ -239,13 +239,12 @@ String **city**
 
       {
 	  	"success": "Employee created"
-	  }
+	}
 
 
 ----------
 
 **POST** `/api/employee/update`
-> Updates fields other then those below
 
 * String **description**
 * String **portfolio_link**
@@ -253,6 +252,13 @@ String **city**
 * String **linked_in_link**
 * Number **salary**
 * String **education**
+* Array[String] **languages** 
+* Array[String] **software**
+* Array[String] **specs**
+* Array[String] **certifications**
+
+>Example array would be { languages: ['English', 'Spanish'] }
+
 
 	{
 		"success": "Updated"
@@ -266,56 +272,6 @@ String **city**
 	
 ----------
 
-**POST** `/api/employee/update/languages`
-
-String array languages
-Example { languages: [ 'English', 'French' ] }
-
-	{
-		"success": "Updated"
-	}
-
-
-----------
-
-
-**POST** `/api/employee/update/software`
-
-String array software
-Example { software: [ 'Microsoft Word', 'Web Strom' ] }
-
-	{
-		"success": "Updated"
-	}
-
-
-----------
-
-
-**POST** `/api/employee/update/specs`
-
-String array specs
-Example { specs: [ 'Java', 'C++' ] }
-
-	{
-		"success": "Updated"
-	}
-
-
-----------
-
-
-**POST** `/api/employee/update/certifications`
-
-String array certifications
-Example { certifications: [ 'CISCO1', 'CISCO2' ] }
-
-	{
-		"success": "Updated"
-	}
-
-
-----------
 
 
 ### Employer routes
