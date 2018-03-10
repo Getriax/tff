@@ -27,54 +27,6 @@ class EmployerService {
             });
         });
 
-
-
-
-        //Create companies
-        // let promise = new Promise(((resolve, reject) => {
-        //     let companies = new Array(userData.company.length);
-        //
-        //     userData.company.forEach((comp) => {
-        //         let newComp = new Company({
-        //             _id: new mongoose.Types.ObjectId,
-        //             employer: employerID,
-        //             name: comp.name,
-        //             NIP: comp.NIP,
-        //             city: comp.city
-        //         });
-        //
-        //         companies.push(newComp._id);
-        //
-        //         newComp.save((err) => {
-        //             if(err) {
-        //                 console.error(err);
-        //                 return res.status(500);
-        //             }
-        //         });
-        //     });
-        //
-        //     resolve(companies);
-        // }));
-
-        //Create employer with those companies
-        // promise.then((companies) => {
-        //     let employer = new Employer({
-        //         _id: employerID,
-        //         company: companies,
-        //         first_name: userData.first_name,
-        //         last_name: userData.last_name,
-        //         user_id: userId,
-        //         git_link: userData.git_link,
-        //         linked_in_link: userData.linked_in_link,
-        //     });
-        //
-        //     employer.save((err) => {
-        //         if(err){
-        //             console.error(err);
-        //             res.status(500);
-        //         }
-        //     })
-        // });
     }
 
     update(req, res) {
@@ -91,6 +43,21 @@ class EmployerService {
                 return res.status(200).json({success: 'Employer updated'});
             });
     }
+
+    populateOne(userId)  {
+        return new Promise((resolve, reject) => {
+            Employer.findOne({user_id: userId})
+                .select('-__v -_id -user_id')
+                .populate('company')
+                .populate('asks')
+                .exec((err, data) => {
+                    if(err)
+                        reject(404);
+                    resolve(data);
+                })
+        })
+    }
+
 
 }
 

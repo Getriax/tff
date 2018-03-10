@@ -3,6 +3,7 @@ const mongoose = require('mongoose'),
     bcrypt = require('bcrypt-nodejs'),
     Rate = require('../models/rate'),
     employeeService = require('./employeeService');
+    employerService = require('./employerService');
 
 
 class UserService {
@@ -88,6 +89,15 @@ function getUserData(userId, req, res) {
                     let payload = {
                         user: body,
                         employee: empdData
+                    };
+                    res.status(200).json(payload);
+                });
+            }
+            else {
+                employerService.populateOne(userId).then((empdData) => {
+                    let payload = {
+                        user: body,
+                        employer: empdData
                     };
                     res.status(200).json(payload);
                 });
