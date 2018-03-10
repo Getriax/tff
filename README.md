@@ -1,10 +1,12 @@
 
+
 * [Auth](#auth-routes)
 * [User](#user-routes)
 * [Skills](#skills-routes)
 * [Employee](#employee-routes)
 * [Emloyer](#employer-routes)
 * [Company](#company-routes)
+* [Ask](#ask-routes)
 
 ### Auth routes
 **POST** `/api/auth/login`
@@ -59,6 +61,7 @@ String **email**
 ----------
 **POST** `/api/auth/check-username`
 > Checks if user name is available 
+
 String: **username**
 
 
@@ -185,9 +188,7 @@ String: **username**
 
 String **password**
 
-    { 
-	    "success": "password updated" 
-    }
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 
 
 ----------
@@ -237,11 +238,7 @@ String **phone**
 
 String **city**
 
-      {
-	  	"success": "Employee created"
-	}
-
-
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 ----------
 
 **POST** `/api/employee/update`
@@ -260,15 +257,7 @@ String **city**
 >Example array would be { languages: ['English', 'Spanish'] }
 
 
-	{
-		"success": "Updated"
-	}
-	
-> **OR** if error
-
-	{
-		"message": "reason"
-	}
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 	
 ----------
 
@@ -285,9 +274,7 @@ String **city**
 * String **city**
 
     
-	  {
-	  	"success": "Employer created"
-	  }
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 	  
 	  
 ----------
@@ -302,9 +289,7 @@ String **city**
 * String **city**
 
     
-	  {
-	  	"success": "Company created"
-	  }
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 
 ----------
 **POST** `/api/company/update`
@@ -313,16 +298,137 @@ String **city**
 * String **NIP** > Update is based on NIP
 * String **city**
 
-    
-	  {
-	  	"success": "Company updated"
-	  }
-	  
+   
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 ----------
 **POST** `/api/company/delete`
 
 * String **NIP**
     
-	  {
-	  	"success": "Company deleted"
-	  }
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+
+----------
+
+### Ask routes
+> Auth header required in all routes
+
+**GET** `/api/ask/all`
+
+
+    [
+	    {
+	        "bids": [],
+	        "languages": [
+	            {
+	                "name": "English"
+	            },
+	            {
+	                "name": "French"
+	            }
+	        ],
+	        "software": [
+	            {
+	                "name": "Photoshop"
+	            },
+	            {
+	                "name": "Web Storm"
+	            }
+	        ],
+	        "specs": [],
+	        "certifications": [],
+	        "_id": "5aa42a0861ba6718ae25c7b4",
+	        "employer": {
+	            "asks": [
+	                "5aa42a0861ba6718ae25c7b4"
+	            ],
+	            "company": [],
+	            "_id": "5aa41cf16bb9a816cc7b880c",
+	            "user_id": "5aa40ded85f618149ea77e46",
+	            "__v": 21
+	        },
+	        "description": "ASK2",
+	        "salary": 1012,
+	        "work_time": 2411,
+	        "is_active": true,
+	        "is_complete": false,
+	        "__v": 0
+	    }
+    ]
+
+
+----------
+
+**GET** `/api/ask/:id`
+* **:id** - id of ask to show
+> Example route `/api/ask/5aa42a0861ba6718ae25c7b4`
+
+    {
+	    "bids": [],
+	    "languages": [
+	        {
+	            "name": "English"
+	        },
+	        {
+	            "name": "French"
+	        }
+	    ],
+	    "software": [
+	        {
+	            "name": "Photoshop"
+	        },
+	        {
+	            "name": "Web Storm"
+	        }
+	    ],
+	    "specs": [],
+	    "certifications": [],
+	    "_id": "5aa42a0861ba6718ae25c7b4",
+	    "employer": {
+	        "asks": [
+	            "5aa42a0861ba6718ae25c7b4"
+	        ],
+	        "company": [],
+	        "_id": "5aa41cf16bb9a816cc7b880c",
+	        "user_id": "5aa40ded85f618149ea77e46",
+	        "__v": 21
+	    },
+	    "description": "ASK2",
+	    "salary": 1012,
+	    "work_time": 2411,
+	    "is_active": true,
+	    "is_complete": false,
+	    "__v": 0
+    }
+
+
+----------
+**POST** `/api/ask/create`
+* String **description**
+* Number **salary**
+* Number **work_time**
+* Array[String] **languages**
+* Array[String] **software**
+* Array[String] **specs**
+* Array[String] **certifications**
+
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+
+
+----------
+**POST** `/api/ask/update/:id`
+* **:id** - id of ask to update
+* String **description**
+* Number **salary**
+* Number **work_time**
+* Array[String] **languages**
+* Array[String] **software**
+* Array[String] **specs**
+* Array[String] **certifications**
+
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+----------
+**POST** `/api/ask/remove/:id`
+
+* **:id** - id of ask to remove
+
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
