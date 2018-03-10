@@ -51,8 +51,10 @@ class EmployerService {
                 .populate('company')
                 .populate('asks')
                 .exec((err, data) => {
+                    if(!data)
+                        reject('Employer not found')
                     if(err)
-                        reject(404);
+                        reject('Internal error');
                     resolve(data);
                 })
         })

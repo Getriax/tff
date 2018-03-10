@@ -91,17 +91,19 @@ function getUserData(userId, req, res) {
                         employee: empdData
                     };
                     res.status(200).json(payload);
-                });
+                }).catch((err) => {res.status(409).send(err)});
             }
-            else {
+            else if(body.status == 1){
                 employerService.populateOne(userId).then((empdData) => {
                     let payload = {
                         user: body,
                         employer: empdData
                     };
                     res.status(200).json(payload);
-                });
+                }).catch((err) => {res.status(409).send(err)});
             }
+            else
+                res.status(200).json(body);
         });
 }
 module.exports = new UserService();
