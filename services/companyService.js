@@ -3,7 +3,7 @@ const mongoose = require('mongoose'),
     Company = require('../models/company');
 
 class CompanyService {
-    
+
     create(req, res) {
         let userId = req.userID;
         let companyBody = req.body;

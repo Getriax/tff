@@ -86,9 +86,9 @@ class EmployerService {
                 if(!body)
                     return req.status(404).json({message: 'Employer not found'});
                 if(err)
-                    return req.status(500).json({message: 'Something went wrong'});
+                    return req.status(500).json({message: 'Cannot update employer'});
 
-                return res.status(200).json({success: 'Updated'});
+                return res.status(200).json({success: 'Employer updated'});
             });
     }
 

@@ -153,4 +153,30 @@ gulp.task('fore', (done) => {
     })
         .then((data) => console.log(data))
         .catch((err) => console.log(err));
-})
+});
+
+gulp.task('each', (done) => {
+    let arr = new Map();
+    arr.set('oh', 'my');
+    arr.set('god', 'what');
+    arr.set('have', 'you done');
+
+    for(let [key, val] of arr) {
+        console.log('KEY ' + key);
+        console.log('VAL ' + val);
+    }
+
+    let lang = {language: ['ANG']};
+    for(let l of lang.language) {
+        console.log(l);
+    }
+});
+
+gulp.task('param', (done) => {
+
+    let prop = 'po';
+
+    let arr = {prop: 'some'}
+
+    console.log(arr);
+});

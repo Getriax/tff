@@ -1,4 +1,4 @@
-const authService = require('../../../services/auth'),
+const authService = require('../../../services/authService'),
       skillsService = require('../../../services/skillsService');
 
 class Skills {
@@ -7,6 +7,7 @@ class Skills {
         router.get('/software', authService.authenticateUser.bind(this), skillsService.getAllSoftware.bind(this));
         router.get('/specializations', authService.authenticateUser.bind(this), skillsService.getAllSpecializations.bind(this));
         router.get('/certifications', authService.authenticateUser.bind(this), skillsService.getAllCertifications.bind(this));
+        router.post('/id', skillsService.changeNamesToIds.bind(this));
     }
 }
 

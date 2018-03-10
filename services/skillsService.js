@@ -57,141 +57,130 @@ class SkillsService {
             });
     }
 
-    languageRemoveAllUserIds(ids, userID) {
-        ids.forEach(id => {
-            Language.findById(id, (err, body) => {
-                body.users = body.users.filter(userId => userId != userID);
+    update(req, res) {
 
-                body.save((err) => {if(err) console.error(err)})
+        let propertiesMap = new Map();
+        let lastProperty;
+        let updateArray;
+        let updateID = req.employeeID || req.askID;
+
+        if(req.body.languages) {
+            propertiesMap.set('languages', Language);
+            lastProperty = 'languages';
+        }
+        if(req.body.software) {
+            propertiesMap.set('software', Software);
+            lastProperty = 'software';
+        }
+        if(req.body.specs) {
+            propertiesMap.set('specs', Spec);
+            lastProperty = 'specs';
+        }
+        if(req.body.certifications) {
+            propertiesMap.set('certifications', Certification);
+            lastProperty = 'certifications';
+        }
+        if(req.employeeID)
+            updateArray = 'employees';
+        else
+            if(req.askID)
+                updateArray = 'asks';
+
+
+        for(let [name, object] of propertiesMap) {
+
+
+
+            let removePromise = new Promise((resolve, reject) => {
+                for(let id of req[name]) {
+                    object.findById(id, (err, data) => {
+                        if(err)
+                            reject('Update failed');
+                        data[updateArray] = data[updateArray].filter(elID => !elID.equals(updateID));
+                        data.save().then(() => {
+                            if(id.equals(req[name][req[name].length -1])) {
+                                resolve();
+                            }
+
+                        });
+                    });
+                }
             });
-        });
-    }
-    languageAddAllUserIds(ids, userID) {
-        ids.forEach(id => {
-            Language.findById(id, (err, body) => {
-                body.users.push(userID);
 
-                body.save((err) => console.error(err));
+            removePromise.then(() => {
+                for(let id of req.body[name]) {
+                    object.findById(id, (err, data) => {
+                        data[updateArray].push(updateID);
+                        data.save().then(() => {
+                            if(id.equals(req.body[name][req.body[name].length - 1]) && lastProperty == name)
+                                res.status(200).json({success: 'Updated'});
+                        });
+                    })
+                }
             });
-        });
+        }
     }
-    languageToID(names) {
-        return new Promise((resolve, reject) => {
-            console.log(names);
-            let ids = new Array();
-            names.forEach(n => Language.findOne({name: n}, (err, data) => {
-                if(data === null)
-                    return reject('We do not support that language');
-                if(err)
-                   return reject('Languages failure');
-                if(data)
-                ids.push(data._id);
-            }));
-            resolve(ids);
-        });
-    }
-    softwareRemoveAllUserIds(ids, userID) {
-        ids.forEach(id => {
-            Software.findById(id, (err, body) => {
-                body.users = body.users.filter(userId => userId != userID);
 
-                body.save((err) => {if(err) console.error(err)})
+    changeNamesToIds(req, res, next) {
+
+        let propertiesMap = new Map();
+        let lastProperty;
+
+        if(req.body.languages) {
+            propertiesMap.set('languages', Language);
+            lastProperty = 'languages';
+        }
+        if(req.body.software) {
+            propertiesMap.set('software', Software);
+            lastProperty = 'software';
+        }
+        if(req.body.specs) {
+            propertiesMap.set('specs', Spec);
+            lastProperty = 'specs';
+        }
+        if(req.body.certifications) {
+            propertiesMap.set('certifications', Certification);
+            lastProperty = 'certifications';
+        }
+        if(!lastProperty)
+            next();
+
+        for(let [name, object] of propertiesMap) {
+
+
+            let idPromise = new Promise((resolve, reject) => {
+                let ids = new Array();
+                for(let n of req.body[name]) {
+
+                        let pushPromise = object.findOne({name: n}).exec();
+                        pushPromise.then((data) => {
+                            if(!data)
+                               return reject('We do not support that');
+                            ids.push(data._id);
+                            if(ids.length == req.body[name].length)
+                                resolve(ids);
+                        });
+                }
             });
-        });
-    }
-    softwareAddAllUserIds(ids, userID) {
-        ids.forEach(id => {
-            Software.findById(id, (err, body) => {
-                body.users.push(userID);
 
-                body.save((err) => console.error(err));
-            });
-        });
-    }
-    softwareToID(names) {
-        return new Promise((resolve, reject) => {
-            console.log(names);
-            let ids = new Array();
-            names.forEach(n => Software.findOne({name: n}, (err, data) => {
-                if(!data)
-                    reject('We do not support that software');
-                if(err)
-                    reject('Languages failure');
-                if(data)
-                ids.push(data._id);
-            }));
-            resolve(ids);
-        });
-    }
+            idPromise
+                .then((ids) => {
+                    req.body[name] = ids;
+                    if(name == lastProperty)
+                        next();
 
-    specsRemoveAllUserIds(ids, userID) {
-        ids.forEach(id => {
-            Spec.findById(id, (err, body) => {
-                body.users = body.users.filter(userId => userId != userID);
+                })
+                .catch((err) => {return res.status(409).json({message: err});});
 
-                body.save((err) => {if(err) console.error(err)})
-            });
-        });
-    }
-    specsAddAllUserIds(ids, userID) {
-        ids.forEach(id => {
-            Spec.findById(id, (err, body) => {
-                body.users.push(userID);
-
-                body.save((err) => console.error(err));
-            });
-        });
-    }
-    specsToID(names) {
-        return new Promise((resolve, reject) => {
-            console.log(names);
-            let ids = new Array();
-            names.forEach(n => Spec.findOne({name: n}, (err, data) => {
-                if(!data)
-                    reject('We do not support that specialization');
-                if(err)
-                    reject('Languages failure');
-                if(data)
-                ids.push(data._id);
-            }));
-            resolve(ids);
-        });
-    }
-
-    certificationsRemoveAllUserIds(ids, userID) {
-        ids.forEach(id => {
-            Certification.findById(id, (err, body) => {
-                body.users = body.users.filter(userId => userId != userID);
-
-                body.save((err) => {if(err) console.error(err)})
-            });
-        });
-    }
-    certificationsAddAllUserIds(ids, userID) {
-        ids.forEach(id => {
-            Certification.findById(id, (err, body) => {
-                body.users.push(userID);
-
-                body.save((err) => console.error(err));
-            });
-        });
-    }
-    certificationsToID(names) {
-        return new Promise((resolve, reject) => {
-            console.log(names);
-            let ids = new Array();
-            names.forEach(n => Certification.findOne({name: n}, (err, data) => {
-                if(!data)
-                    reject('We do not support that certification');
-                if(err)
-                    reject('Languages failure');
-                if(data)
-                ids.push(data._id);
-            }));
-            resolve(ids);
-        });
+        }
     }
 
 }
-
+function contains(table, value) {
+    for(let tVal of table) {
+        if(tVal == value)
+            return true;
+    }
+    return false;
+}
 module.exports = new SkillsService();
