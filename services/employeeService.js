@@ -1,4 +1,5 @@
 const mongoose = require('mongoose'),
+    logger = require('../config/logger'),
     User = require('../models/user'),
     Employee = require('../models/employee'),
     skillsService = require('./skillsService');
@@ -8,7 +9,6 @@ class EmployeeService {
     create(req, res) {
         let userId = req.userID;
         let userData = req.body;
-        console.log(userData);
         User.findByIdAndUpdate(userId, {status: 0, first_name: userData.first_name, last_name: userData.last_name, phone: userData.phone, city: userData.city}, (err, data) => {
             if(err)
                 return res.status(500).send({message: 'Cannot update user'});
@@ -19,7 +19,7 @@ class EmployeeService {
 
             employee.save((err) => {
                 if(err){
-                    console.log(err);
+                    logger.error(err);
                     return res.status(500);
                 }
                 res.status(200).send({success: 'Employee created'})

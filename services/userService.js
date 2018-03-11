@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'),
     User = require('../models/user'),
+    logger = require('../config/logger'),
     bcrypt = require('bcrypt-nodejs'),
     Rate = require('../models/rate'),
     employeeService = require('./employeeService');
@@ -80,7 +81,7 @@ function getUserData(userId, req, res) {
         .select('-_id -__v -password')
         .exec((err, body) => {
             if(err){
-                console.error(err);
+                logger.error(err);
                 return res.status(404).send({message: 'User does not exist'});
             }
 

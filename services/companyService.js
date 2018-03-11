@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'),
     Employer = require('../models/employer'),
+    logger = require('../config/logger'),
     Company = require('../models/company');
 
 class CompanyService {
@@ -54,11 +55,10 @@ class CompanyService {
             if(!data)
                 return res.status(500).json({message: 'Employer with that company not found'});
             if(err) {
-                console.log(err);
+                logger.error(err);
                 return res.status(500).json({message: 'Something went wrong'});
             }
 
-            console.log(data.company instanceof Array);
             if(data.company instanceof Array) {
                 data.company = data.company.filter(element => element.NIP != companyNIP);
             }
@@ -84,7 +84,7 @@ class CompanyService {
     update(req, res) {
         let companyNIP = req.body.NIP;
         let companyUpdate = req.body;
-        console.log(req.body);
+
         Company.findOneAndUpdate({NIP: companyNIP}, companyUpdate ,(err) => {
             if(err)
                 return res.status(500).json({message: 'Something went wrong'});

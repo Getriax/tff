@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'),
     Employer = require('../models/employer'),
+    logger = require('../config/logger'),
     Ask = require('../models/ask');
 
 class AskService {
@@ -8,7 +9,7 @@ class AskService {
         let userId = req.userID;
         let askBody = req.body;
 
-        console.log(userId);
+
 
         Employer.findOne({user_id: userId}, (err, data) => {
             if(!data)
@@ -80,7 +81,7 @@ class AskService {
             req.body.certifications = new Array();
             Employer.findById(data.employer, (err, data) => {
                 if(err) {
-                    console.log(err);
+                    logger.error(err);
                     return res.status(500).json({message: 'Internal error'});
                 }
                 if(!data)
@@ -108,7 +109,7 @@ class AskService {
             .populate('categories', 'name -_id')
             .exec((err, data) => {
                 if(err) {
-                    console.log(err);
+                    logger.error(err);
                     return res.status(500).json({message: 'Internal error'});
                 }
 
@@ -133,7 +134,7 @@ class AskService {
             .populate('categories', 'name -_id')
             .exec((err, data) => {
                 if(err) {
-                    console.log(err);
+                    logger.error(err);
                     return res.status(500).json({message: 'Internal error'});
                 }
 

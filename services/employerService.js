@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'),
     User = require('../models/user'),
+    logger = require('../config/logger'),
     Company = require('../models/company'),
     Employer = require('../models/employer');
 
@@ -52,7 +53,7 @@ class EmployerService {
                 .populate('asks')
                 .exec((err, data) => {
                     if(err) {
-                        console.log(err);
+                        logger.error(err);
                         reject('Internal error');
                     }
                     if(!data)

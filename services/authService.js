@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'),
       jwt = require('jsonwebtoken'),
+      logger = require('../config/logger'),
       bcrypt = require('bcrypt-nodejs'),
       config = require('../config/config'),
       user = require('../models/user');
@@ -37,7 +38,6 @@ class Auth {
 
     registerUser(req, res) {
         let registerData = req.body;
-        console.log(registerData);
 
         let chceckPromise = new Promise((resolve, reject) => {
             user.findOne({username: registerData.username})
@@ -56,10 +56,8 @@ class Auth {
         });
 
         chceckPromise.then((d) => {
-            console.log('adding user');
             bcrypt.hash(registerData.password, null, null, (err, hash) => {
                 if(err) {
-                    console.log(err);
                     return res.json('500');
                 }
 
@@ -74,7 +72,7 @@ class Auth {
 
                 newUser.save((err) => {
                     if(err) {
-                        console.log(err);
+                        logger.error(err);
                         return res.status(500).json({message: 'Something went wrong'});
                     }
 
@@ -91,7 +89,7 @@ class Auth {
             });
         })
             .catch((data) => {
-                console.log('Error with message ' + data);
+                logger.error('Error with message ' + data);
                 res.json({message: data});
             });
 
@@ -132,11 +130,11 @@ class Auth {
         if(!payload)
             return res.status(401).json({ message: 'Unauthorized. Auth Header Invalid' });
 
-        console.log(payload.id);
+
 
         user.findById(payload.id, (err, user) => {
             if(err) {
-                console.log(err);
+                logger.error(err);
                 return res.status(500).json({message: 'Internal error'});
             }
             if(!user) {

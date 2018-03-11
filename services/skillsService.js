@@ -1,4 +1,5 @@
 const mongoose = require('mongoose'),
+    logger = require('../config/logger'),
     User = require('../models/user'),
     Employee = require('../models/employee'),
     Language = require('../models/language'),
@@ -77,31 +78,24 @@ class SkillsService {
         let updateArray;
         let updateID = req.employeeID || req.askID;
 
-        console.log(req.body);
-        console.log('LGNS ' + req.languages);
-        console.log('SPECS ' + req.specs);
 
         if(req.body.categories) {
             propertiesMap.set('categories', Category);
             lastProperty = 'categories';
         }
         if(req.body.languages) {
-            console.log('LANG');
             propertiesMap.set('languages', Language);
             lastProperty = 'languages';
         }
         if(req.body.software) {
-            console.log('SOFT')
             propertiesMap.set('software', Software);
             lastProperty = 'software';
         }
         if(req.body.specs) {
-            console.log('SPEC')
             propertiesMap.set('specs', Spec);
             lastProperty = 'specs';
         }
         if(req.body.certifications) {
-            console.log('CERT')
             propertiesMap.set('certifications', Certification);
             lastProperty = 'certifications';
         }
@@ -125,11 +119,21 @@ class SkillsService {
 
                     for(let id of req[name]) {
                         object.findById(id, (err, data) => {
-                            if(err)
-                                reject('Update failed');
+                            if(err) {
+                                logger.error(err);
+                                reject('Internal error');
+                            }
+                            if(!data) {
+                                logger.warn('id of ' + name + ' : ' + id + " does not exist")
+                            }
+
                             data[updateArray] = data[updateArray].filter(elID => !elID.equals(updateID));
 
-                            data.save().then(() => {
+                            data.save().then((err) => {
+                                if(err) {
+                                    logger.error(err);
+                                    reject('Update failed');
+                                }
                                 if(id.equals(req[name][req[name].length -1])) {
                                     resolve();
                                 }
@@ -149,8 +153,15 @@ class SkillsService {
                             return res.status(200).json({success: 'Updated'});
 
                     for (let id of req.body[name]) {
-                        console.log('Updating');
+
                         object.findById(id, (err, data) => {
+                            if(err) {
+                                logger.error(err);
+                                res.status(500).json({message: 'Internal error'});
+                            }
+                            if(!data) {
+                                logger.warn('id of ' + name + ' : ' + id + " does not exist")
+                            }
                             data[updateArray].push(updateID);
                             data.save().then(() => {
                                 if (id.equals(req.body[name][req.body[name].length - 1]) && lastProperty == name)
@@ -204,8 +215,7 @@ class SkillsService {
                         let pushPromise = object.findOne({name: n}).exec();
                         pushPromise.then((err, data) => {
                             if(err) {
-                                console.log(err);
-                                
+                                return reject(err);
                             }
                             if(!data)
                                return reject('We do not support that');
@@ -225,6 +235,7 @@ class SkillsService {
                 })
                 .catch((err) => {
                     error = true;
+                    logger.warn(err);
                     return res.status(409).json({message: err});
                 });
         }
