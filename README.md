@@ -198,6 +198,7 @@ String **password**
 > Auth header required in all routes
 
 **GET** 
+* `/api/skills/categories`
 * `/api/skills/languages` 
 * `/api/skills/software` 
 * `/api/skills/specializations` 
@@ -249,6 +250,7 @@ String **city**
 * String **linked_in_link**
 * Number **salary**
 * String **education**
+* Array[String] **categories** 
 * Array[String] **languages** 
 * Array[String] **software**
 * Array[String] **specs**
@@ -406,6 +408,7 @@ String **city**
 * String **description**
 * Number **salary**
 * Number **work_time**
+* Array[String] **categories** 
 * Array[String] **languages**
 * Array[String] **software**
 * Array[String] **specs**
@@ -420,6 +423,7 @@ String **city**
 * String **description**
 * Number **salary**
 * Number **work_time**
+* Array[String] **categories** 
 * Array[String] **languages**
 * Array[String] **software**
 * Array[String] **specs**
