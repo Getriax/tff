@@ -52,6 +52,7 @@ class EmployeeService {
                 .populate('software', 'name -_id')
                 .populate('specs', 'name -_id')
                 .populate('certifications', 'name -_id')
+                .populate('categories', 'name -_id')
                 .exec((err, data) => {
                     if(!data)
                         reject('Employer not found')
@@ -87,7 +88,8 @@ class EmployeeService {
                 if(err)
                     return res.status(500).json({message: 'Cannot update employee'});
 
-                req.languages = data.languages
+                req.categories = data.categories;
+                req.languages = data.languages;
                 req.software = data.software;
                 req.specs = data.specs;
                 req.certifications = data.certifications;

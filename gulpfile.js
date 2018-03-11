@@ -7,6 +7,7 @@ const gulp = require('gulp'),
     Spec = require('./models/spec'),
     Software = require('./models/software'),
     Certification = require('./models/certification'),
+    Category = require('./models/category'),
     Employee = require('./models/employee'),
     Employer = require('./models/employer'),
     skillsService = require('./services/skillsService');
@@ -83,6 +84,11 @@ gulp.task('skills', (done) => {
     Certification.create({name: 'CISCO2'}, (err) => {});
     Certification.create({name: 'GOOLE1'}, (err) => {});
     Certification.create({name: 'GOOGLE2'}, (err) => {});
+
+    Category.create({name: 'Web developer'}, (err) => {});
+    Category.create({name: 'Front-end developer'}, (err) => {});
+    Category.create({name: 'Android developer'}, (err) => {});
+    Category.create({name: 'Copywriter'}, (err) => {});
 });
 
 function tableContains(arr, value) {
@@ -179,4 +185,12 @@ gulp.task('param', (done) => {
     let arr = {prop: 'some'}
 
     console.log(arr);
+});
+
+gulp.task('find', (done) => {
+    database.open(() => {});
+
+    Category.findOne({name: {$regex: 'web developer', $options: 'i'}}, (err, data) => {
+        console.log(data);
+    });
 });

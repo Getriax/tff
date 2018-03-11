@@ -7,7 +7,7 @@ class Skills {
         router.get('/software', authService.authenticateUser.bind(this), skillsService.getAllSoftware.bind(this));
         router.get('/specializations', authService.authenticateUser.bind(this), skillsService.getAllSpecializations.bind(this));
         router.get('/certifications', authService.authenticateUser.bind(this), skillsService.getAllCertifications.bind(this));
-        router.post('/id', skillsService.changeNamesToIds.bind(this));
+        router.get('/categories', authService.authenticateUser.bind(this), skillsService.getAllCategories.bind(this));
     }
 }
 

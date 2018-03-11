@@ -53,6 +53,7 @@ class AskService {
             if(err)
                 return res.status(500).json({message: 'Internal error'});
 
+            req.categories = data.categories;
             req.languages = data.languages;
             req.software = data.software;
             req.specs = data.specs;
@@ -66,11 +67,13 @@ class AskService {
         let askID = req.params.id;
 
         Ask.findByIdAndRemove(askID, (err, data) => {
+            req.categories = data.categories;
             req.languages = data.languages;
             req.software = data.software;
             req.specs = data.specs;
             req.certifications = data.certifications;
             req.askID = data._id;
+            req.body.categories = new Array();
             req.body.languages = new Array();
             req.body.software = new Array();
             req.body.specs = new Array();
@@ -102,6 +105,7 @@ class AskService {
             .populate('software', 'name -_id')
             .populate('specs', 'name -_id')
             .populate('certifications', 'name -_id')
+            .populate('categories', 'name -_id')
             .exec((err, data) => {
                 if(err) {
                     console.log(err);
@@ -126,11 +130,15 @@ class AskService {
             .populate('software', 'name -_id')
             .populate('specs', 'name -_id')
             .populate('certifications', 'name -_id')
+            .populate('categories', 'name -_id')
             .exec((err, data) => {
-                if(!data)
-                    return res.status(404).json({message: 'Ask not found'});
-                if(err)
+                if(err) {
+                    console.log(err);
                     return res.status(500).json({message: 'Internal error'});
+                }
+
+                if(!data)
+                    return res.status(404).json({message: 'Asks not found'});
 
                 res.status(200).json(data);
             });

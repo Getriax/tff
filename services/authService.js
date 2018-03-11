@@ -9,11 +9,13 @@ class Auth {
     //post /auth/login
     loginUser(req, res) {
         let loginData = req.body;
-        console.log(loginData);
 
         user.findOne({username: loginData.username}, (err, usr) => {
             if(err) {
                 console.error(err);
+                return res.status(404).json({message: 'Internal error'});
+            }
+            if(!usr) {
                 return res.status(404).json({message: 'User or password invalid'});
             }
 
@@ -123,21 +125,27 @@ class Auth {
         if(!req.header('authorization'))
             return res.status(401).json({ message: 'Unauthorized. Missing Auth Header' });
 
-        let token = req.header('authorization').split(' ')[1];
+        let token = req.header('authorization');
 
         let payload = jwt.decode(token, config.tokenPass);
 
         if(!payload)
             return res.status(401).json({ message: 'Unauthorized. Auth Header Invalid' });
 
+        console.log(payload.id);
+
         user.findById(payload.id, (err, user) => {
             if(err) {
-                res.status(500).json({message: 'Wrong token'});
-            } else {
+                console.log(err);
+                return res.status(500).json({message: 'Internal error'});
+            }
+            if(!user) {
+                return res.status(401).json({message: 'Wrong token'});
+            }
                 req.userID = payload.id;
 
                 next();
-            }
+
         });
 
     }

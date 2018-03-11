@@ -23,7 +23,8 @@
     "cors": "^2.8.4",
     "express": "^4.16.2",
     "jsonwebtoken": "^8.2.0",
-    "mongoose": "^5.0.8"
+    "mongoose": "^5.0.8",
+    "winston": "^3.0.0-rc2"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

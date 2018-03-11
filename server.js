@@ -5,7 +5,7 @@ const express = require('express'),
 
       config = require('./config/config'),
       router = require('./routes/routes'),
-
+      logger = require('./config/logger'),
       app = express();
 
 
@@ -18,7 +18,7 @@ class Server {
     }
     startServer() {
         app.listen(config.port, (err) => {
-            console.log('Connected at port %s', config.port);
+            logger.info('Connected at port ' + config.port);
         });
     }
     initMiddleware() {
