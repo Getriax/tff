@@ -1,5 +1,4 @@
 const mongoose = require('mongoose'),
-    Employer = require('../models/employer'),
     logger = require('../config/logger'),
     Ask = require('../models/ask');
 
@@ -9,38 +8,44 @@ class AskService {
         let userId = req.userID;
         let askBody = req.body;
 
+        Ask.create(askBody, (err) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Failed creating ask'});
+            }
+            req.askID = req.body._id;
+            next();
+        })
 
-
-        Employer.findOne({user_id: userId}, (err, data) => {
-            if(!data)
-                return res.status(404).json({message: 'Employer not found'});
-            if(err)
-                return res.status(500).json({message: 'Internal error'});
-
-            let ask = new Ask({
-                _id: new mongoose.Types.ObjectId,
-                employer: data._id,
-                description: askBody.description,
-                salary: askBody.salary,
-                work_time: askBody.work_time,
-                is_active: true,
-                is_complete: false,
-                languages: askBody.languages,
-                software: askBody.software,
-                specs: askBody.specs,
-                certifications:  askBody.certifications
-            });
-            req.askID = ask._id;
-            data.asks.push(ask._id);
-
-            data.save()
-                .then(() => ask.save()
-                    .catch(() => res.status(500).json({message: 'Saveing error'}))
-                    .then(() => {
-                        next();
-                    }))
-                .catch(() => res.status(500).json({message: 'Saveing error'}));
-        });
+        // Employer.findOne({user_id: userId}, (err, data) => {
+        //     if(!data)
+        //         return res.status(404).json({message: 'Employer not found'});
+        //
+        //
+        //     let ask = new Ask({
+        //         _id: new mongoose.Types.ObjectId,
+        //         employer: data._id,
+        //         description: askBody.description,
+        //         salary: askBody.salary,
+        //         work_time: askBody.work_time,
+        //         is_active: true,
+        //         is_complete: false,
+        //         languages: askBody.languages,
+        //         software: askBody.software,
+        //         specs: askBody.specs,
+        //         certifications:  askBody.certifications
+        //     });
+        //     req.askID = ask._id;
+        //     data.asks.push(ask._id);
+        //
+        //     data.save()
+        //         .then(() => ask.save()
+        //             .catch(() => res.status(500).json({message: 'Saveing error'}))
+        //             .then(() => {
+        //                 next();
+        //             }))
+        //         .catch(() => res.status(500).json({message: 'Saveing error'}));
+        // });
 
     }
 
@@ -79,20 +84,25 @@ class AskService {
             req.body.software = new Array();
             req.body.specs = new Array();
             req.body.certifications = new Array();
-            Employer.findById(data.employer, (err, data) => {
-                if(err) {
-                    logger.error(err);
-                    return res.status(500).json({message: 'Internal error'});
-                }
-                if(!data)
-                    return res.status(404).json({message: 'Employer not found'});
-                data.asks = data.asks.filter(a => !a.equals(askID));
-
-                data.save()
-                    .then(() => {
-                        next();
-                    });
-            });
+            next();
+            // Employer.findById(data.employer, (err, data) => {
+            //     if(err) {
+            //         logger.error(err);
+            //         return res.status(500).json({message: 'Internal error'});
+            //     }
+            //     if(!data)
+            //         return res.status(404).json({message: 'Employer not found'});
+            //     data.asks = data.asks.filter(a => !a.equals(askID));
+            //
+            //     data.save((err) => {
+            //         if(err) {
+            //             logger.error(err);
+            //             return res.status(500).json({message: 'Failed saving ask'});
+            //         }
+            //         next();
+            //     })
+            //
+            // });
 
         });
     }
@@ -123,9 +133,9 @@ class AskService {
     }
 
     getOne(req, res) {
-        let askID = req.params.id;
+        let askId = req.params.id;
 
-        Ask.findById(askID)
+        Ask.findById(askId)
             .populate('employer')
             .populate('languages', 'name -_id')
             .populate('software', 'name -_id')
@@ -139,10 +149,36 @@ class AskService {
                 }
 
                 if(!data)
-                    return res.status(404).json({message: 'Asks not found'});
+                    return res.status(404).json({message: 'Ask not found'});
 
                 res.status(200).json(data);
             });
+    }
+
+    addBid(req, res, next) {
+        let bidId = req.body._id;
+        let askId = req.params.id;
+
+        Ask.findById(askId, (err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Internal error'});
+            }
+
+            if(!data)
+                return res.status(404).json({message: 'Ask not found'});
+
+            req.body.ask = data._id;
+            data.bids.push(bidId);
+
+            data.save((err) => {
+                if(err) {
+                    logger.error(err);
+                    return res.status(500).json({message: 'Failed saving ask'});
+                }
+                next();
+            });
+        })
     }
 
 }

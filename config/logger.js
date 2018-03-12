@@ -1,17 +1,5 @@
 const winston = require('winston');
 
-const myCustomLevels = {
-    levels: {
-        error: 0,
-        warn: 1,
-        info: 2,
-    },
-    colors: {
-        info: 'green',
-        error: 'red',
-        warn: 'orange'
-    }
-};
 
 const logger = winston.createLogger({
     level: 'info',
@@ -35,5 +23,4 @@ if (process.env.NODE_ENV !== 'production') {
         )
     }));
 }
-winston.addColors(myCustomLevels);
 module.exports = logger;

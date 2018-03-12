@@ -212,13 +212,13 @@ class SkillsService {
                 let ids = new Array();
                 for(let n of req.body[name]) {
 
-                        let pushPromise = object.findOne({name: n}).exec();
-                        pushPromise.then((err, data) => {
+                        object.findOne({name: n}, (err, data) => {
                             if(err) {
+                                logger.error(err);
                                 return reject(err);
                             }
                             if(!data)
-                               return reject('We do not support that');
+                                return reject('We do not support that');
                             ids.push(data._id);
                             if(ids.length == req.body[name].length)
                                 resolve(ids);

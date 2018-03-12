@@ -7,8 +7,5 @@ let categorySchema = new Schema({
     asks: [{type: Schema.Types.ObjectId, ref: 'Ask'}]
 });
 
-function toLower(v) {
-    return v.toLowerCase();
-}
 
 module.exports = mongoose.model('Category', categorySchema);

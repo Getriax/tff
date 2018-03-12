@@ -63,6 +63,57 @@ class EmployerService {
         });
     }
 
+    createAsk(req, res, next) {
+        let askId = new mongoose.Types.ObjectId;
+        let userId = req.userID;
+
+        Employer.findOne({user_id: userId}, (err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Adding bid failed'});
+            }
+            if(!data) {
+                return res.status(404).json({message: 'Employer not found'});
+            }
+
+            data.asks.push(askId);
+            req.body.employer = data._id;
+            data.save((err) => {
+                if(err) {
+                    logger.error(err);
+                    return res.status(500).json({message: 'Adding bid failed'});
+                }
+                req.body._id = askId;
+                next();
+            });
+        });
+
+    }
+
+    deleteAsk(req, res, next) {
+        let userId = req.userID;
+        let askID = req.params.id;
+
+        Employer.findOne({user_id: userId}, (err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Internal error'});
+            }
+            if(!data)
+                return res.status(404).json({message: 'Employer not found'});
+
+            data.asks = data.asks.filter(a => !a.equals(askID));
+
+            data.save((err) => {
+                if(err) {
+                    logger.error(err);
+                    return res.status(500).json({message: 'Failed saving ask'});
+                }
+                next();
+            })
+
+        });
+    }
 
 }
 

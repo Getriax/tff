@@ -1,8 +1,7 @@
 const mongoose = require('mongoose'),
     logger = require('../config/logger'),
     User = require('../models/user'),
-    Employee = require('../models/employee'),
-    skillsService = require('./skillsService');
+    Employee = require('../models/employee');
 
 class EmployeeService {
 
@@ -98,6 +97,33 @@ class EmployeeService {
             });
     }
 
+    addBid(req, res, next) {
+        let userId = req.userID;
+        let bidId = new mongoose.Types.ObjectId;
+
+
+        Employee.findOne({user_id: userId}, (err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Adding bid failed'});
+            }
+            if(!data) {
+                return res.status(404).json({message: 'Employee not found'});
+            }
+
+            data.bids.push(bidId);
+            req.body.employee = data._id;
+
+            data.save((err) => {
+                if(err) {
+                    logger.error(err);
+                    return res.status(500).json({message: 'Adding bid failed'});
+                }
+                req.body._id = bidId;
+                next();
+            });
+        });
+    }
 }
 
 

@@ -3,10 +3,10 @@ const mongoose = require('mongoose'),
 
 let bidSchema = new Schema({
     employee: {type: Schema.Types.ObjectId, ref: 'Employee'},
-    bids: {type: Schema.Types.ObjectId, ref: 'Ask'},
+    ask: {type: Schema.Types.ObjectId, ref: 'Ask'},
     description: String,
     salary: Number,
-    is_accepted: Boolean
+    is_accepted: {type: Boolean, default:false}
 });
 
 module.exports = mongoose.model('Bid', bidSchema);

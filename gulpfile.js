@@ -10,6 +10,7 @@ const gulp = require('gulp'),
     Category = require('./models/category'),
     Employee = require('./models/employee'),
     Employer = require('./models/employer'),
+    Bid = require('./models/bid'),
     skillsService = require('./services/skillsService');
 
 gulp.task('addUser', (done) => {
@@ -139,13 +140,18 @@ gulp.task('employer', (done) => {
     });
 });
 
-gulp.task('save', (done) => {
+gulp.task('findT', (done) => {
     database.open(() => {});
 
-    let lang = new Language({
-        name: 'Polish'
-    })
-    lang.save((err) => {console.log('NOE')}).then(() => console.log('Created'));
+    Employee.find((err, data) => {
+        console.log(data[data.length - 1]);
+        console.log(data instanceof Array);
+        data.forEach(o => {
+            console.log("RAZ");
+            if(o._id.equals(data[data.length - 1]._id))
+                console.log("dziala");
+        })
+    });
 });
 
 gulp.task('fore', (done) => {
@@ -193,4 +199,16 @@ gulp.task('find', (done) => {
     Category.findOne({name: {$regex: 'web developer', $options: 'i'}}, (err, data) => {
         console.log(data);
     });
+});
+
+gulp.task('many', (done) => {
+    database.open(() => {});
+
+    Bid.find({ask: '5aa6e7018666aa4a2ae0baf2'}, (err, data) => {
+        console.log(data);
+        data.forEach(object => {
+            object.remove((err) => {if(err) console.log(err)});
+        })
+    })
+
 });
