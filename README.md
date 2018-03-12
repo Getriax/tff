@@ -7,6 +7,7 @@
 * [Emloyer](#employer-routes)
 * [Company](#company-routes)
 * [Ask](#ask-routes)
+* [Bid](#bid-routes)
 
 ### Auth routes
 **POST** `/api/auth/login`
@@ -431,8 +432,19 @@ String **city**
 
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 ----------
-**POST** `/api/ask/remove/:id`
+**POST** `/api/ask/delete/:id`
 
 * **:id** - id of ask to remove
+
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+----------
+### Bid routes
+> Auth header required in all routes
+
+**POST** `/api/bid/create/:id`
+
+* **:id** - id of ask to bid to
+* String **description**
+* Number **salary**
 
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
