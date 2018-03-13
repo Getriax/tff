@@ -115,6 +115,25 @@ class EmployerService {
         });
     }
 
+    getId(req, res, next) {
+        let userId = req.userID;
+
+        Employer.findOne({user_id: userId}, (err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Internal error'});
+            }
+            if(!data)
+                return res.status(404).json({message: 'Employer not found'});
+
+            req.employerID = data._id;
+
+            next();
+        });
+    }
+
+
+
 }
 
 module.exports = new EmployerService();

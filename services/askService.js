@@ -181,6 +181,28 @@ class AskService {
         })
     }
 
+    getAllOfEmployer(req, res) {
+        let employerId = req.employerID || req.params.id;
+
+        Ask.find({employer: employerId})
+            .populate('languages', 'name -_id')
+            .populate('software', 'name -_id')
+            .populate('specs', 'name -_id')
+            .populate('certifications', 'name -_id')
+            .populate('categories', 'name -_id')
+            .exec((err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Internal error'});
+            }
+
+            if(!data)
+                return res.status(404).json({message: 'This user does not have any asks'});
+
+            res.status(200).json(data);
+        });
+    }
+
 }
 
 module.exports = new AskService();

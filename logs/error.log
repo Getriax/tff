@@ -4,3 +4,4 @@
 {"message":{"employees":[],"asks":[],"_id":"5aa6de2a2388fa48d540d116","name":"French","__v":0},"level":"error"}
 {"message":{"employees":[],"asks":[],"_id":"5aa6de2a2388fa48d540d11f","name":"Web Storm","__v":0},"level":"error"}
 {"message":{"employees":[],"asks":[],"_id":"5aa6de2a2388fa48d540d11d","name":"Photoshop","__v":0},"level":"error"}
+{"message":"Cast to ObjectId failed for value \"me\" at path \"employer\" for model \"Ask\"","name":"CastError","stringValue":"\"me\"","kind":"ObjectId","value":"me","path":"employer","level":"error"}

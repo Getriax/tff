@@ -6,6 +6,7 @@ let bidSchema = new Schema({
     ask: {type: Schema.Types.ObjectId, ref: 'Ask'},
     description: String,
     salary: Number,
+    create_date: {type: Date, default: Date.now()},
     is_accepted: {type: Boolean, default:false}
 });
 
