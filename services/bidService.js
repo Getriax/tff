@@ -4,13 +4,6 @@ const mongoose = require('mongoose'),
     Bid = require('../models/bid');
 
 class BidService {
-    /**
-     employee: {type: Schema.Types.ObjectId, ref: 'Employee'},
-     ask: {type: Schema.Types.ObjectId, ref: 'Ask'},
-     description: String,
-     salary: Number,
-     is_accepted: Boolean
-     */
 
     create(req, res) {
         let bidBody = req.body;

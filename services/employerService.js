@@ -63,6 +63,7 @@ class EmployerService {
         });
     }
 
+
     createAsk(req, res, next) {
         let askId = new mongoose.Types.ObjectId;
         let userId = req.userID;
@@ -132,8 +133,60 @@ class EmployerService {
         });
     }
 
+    addCompany(req, res, next) {
+        let userId = req.userID;
+        let companyId = new mongoose.Types.ObjectId;
+
+        Employer.findOne({user_id: userId}, (err, data) => {
+            if(err) {
+                console.error(err);
+                return res.status(404).json({message: 'User not found'});
+            }
+
+            req.body._id = companyId;
+            req.body.employer = data._id;
+
+            data.company.push(companyId);
+
+            data.save((err) => {
+                if(err) {
+                    logger.error(err);
+                    return res.status(500).json({message: 'Internal error'});
+                }
+                next();
+            });
+        });
+    }
+
+    removeCompany(req, res, next) {
+        let userId = req.userID;
+        let companyId = req.params.id;
 
 
+        Employer.findOne({user_id: userId}, (err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Something went wrong'});
+            }
+            if(!data)
+                return res.status(500).json({message: 'Employer with that company not found'});
+
+
+                if(data.company instanceof Array) {
+                    data.company = data.company.filter(element => !element._id.equals(companyId) );
+                }
+                else {
+                    data.company = [];
+                }
+                data.save((err) => {
+                    if(err) {
+                        logger.error(err);
+                        return res.status(500).json({message: 'Fail while saving employer'});
+                    }
+                    next();
+                });
+            });
+    }
 }
 
 module.exports = new EmployerService();

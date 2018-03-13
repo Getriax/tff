@@ -5,10 +5,19 @@ const authService = require('../../../services/authService'),
 
 class Manage {
     constructor(router) {
-        router.get('/all', authService.authenticateUser.bind(this), employeeService.getAll.bind(this));
+        router.get('/all',
+            authService.authenticateUser.bind(this),
+            employeeService.getAll.bind(this));
 
-        router.post('/create', authService.authenticateUser.bind(this), employeeService.create.bind(this));
-        router.post('/update', authService.authenticateUser.bind(this), skillsService.changeNamesToIds.bind(this), employeeService.update.bind(this), skillsService.update.bind(this));
+        router.post('/create',
+            authService.authenticateUser.bind(this),
+            employeeService.create.bind(this));
+
+        router.post('/update',
+            authService.authenticateUser.bind(this),
+            skillsService.changeNamesToIds.bind(this),
+            employeeService.update.bind(this),
+            skillsService.update.bind(this));
     }
 }
 

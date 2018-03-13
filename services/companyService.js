@@ -6,89 +6,55 @@ const mongoose = require('mongoose'),
 class CompanyService {
 
     create(req, res) {
-        let userId = req.userID;
         let companyBody = req.body;
 
-
-
-        Employer.findOne({user_id: userId}, (err, data) => {
+        Company.create(companyBody, (err) => {
             if(err) {
-                console.error(err);
-                return res.status(404).json({message: 'User not found'});
+                logger.error(err);
+                return res.status(500).json({message: 'Company save went wrong'});
             }
-
-
-           let employerId = data._id;
-
-           let company = new Company({
-               _id: new mongoose.Types.ObjectId,
-               employer: employerId,
-               name: companyBody.name,
-               NIP: companyBody.NIP,
-               city: companyBody.city
-           });
-
-           data.company.push(company._id);
-
-           data.save()
-               .then(() => {
-                   company.save((err) => {
-                       if(err) {
-                           console.error(err);
-                           res.status(500).json({message: 'Company save went wrong'});
-                       }
-
-                       res.status(200).json({success: 'Company created'});
-                   });
-           });
-
+            return res.status(200).json({success: 'Company created'});
         });
+
     }
 
     remove(req, res) {
-        let userId = req.userID;
-        let companyNIP = req.body.NIP;
+        let companyId = req.params.id;
 
-        Employer.findOne({user_id: userId})
-            .populate('company')
-            .exec((err, data) => {
-            if(!data)
-                return res.status(500).json({message: 'Employer with that company not found'});
-            if(err) {
-                logger.error(err);
-                return res.status(500).json({message: 'Something went wrong'});
+        Company.findByIdAndRemove(companyId, (err) => {
+            if(err)  {
+                console.error(err);
+                return res.status(500).json({message: 'Failed while removing company'});
             }
 
-            if(data.company instanceof Array) {
-                data.company = data.company.filter(element => element.NIP != companyNIP);
-            }
-            else {
-                data.company = '';
-            }
-            data.save()
-                .catch(() => {return res.status(500).json({message: 'Cannot update employer'});})
-                .then(() => {
-                    Company.findOne({NIP: companyNIP}).remove().exec((err) => {
-                        if(err)
-                            return res.status(500).json({message: 'Something went wrong'});
-
-
-                       return res.status(200).json({success: `Company deleted`});
-                    });
-                });
+            return res.status(200).json({success: `Company deleted`});
         });
-        
-
     }
 
     update(req, res) {
-        let companyNIP = req.body.NIP;
+        let companyId = req.params.id;
         let companyUpdate = req.body;
 
-        Company.findOneAndUpdate({NIP: companyNIP}, companyUpdate ,(err) => {
-            if(err)
-                return res.status(500).json({message: 'Something went wrong'});
-            return res.status(200).json({success: `Company updated`});
+        Company.findById(companyId ,(err, data) => {
+            if(err) {
+                console.error(err);
+                return res.status(500).json({message: 'Failed while looking for company'});
+            }
+            if(!data)
+                return res.status(404).json({message: 'Company with that id does not exist'});
+
+            if(!req.employerID.equals(data.employer))
+                return res.status(401).json({message: `You are not authorized to do that`});
+
+            data = companyUpdate;
+
+            data.save((err) => {
+                if(err) {
+                    console.error(err);
+                    return res.status(404).json({message: 'Failed while saving company, make sure you have sent appropriate values'});
+                }
+                return res.status(200).json({success: `Company updated`});
+            });
         });
     }
 
@@ -99,6 +65,38 @@ class CompanyService {
                 return res.status(409).json({message: 'Comapny with that NIP already exists'});
 
             next();
+        })
+    }
+
+    getOne(req, res) {
+        let companyId = req.params.id;
+
+        Company.findById(companyId, (err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Internal error'});
+            }
+
+            if(!data)
+                return res.status(404).json({message: 'Company with that id does not exist'});
+
+            res.status(200).json(data);
+        });
+    }
+
+    getAllOfEmployer(req, res) {
+        let employerId = req.employerID || req.params.id;
+
+        Company.find({employer: employerId}, (err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Internal error'});
+            }
+
+            if(!data)
+                return res.status(404).json({message: 'This user does not have any companies'});
+
+            res.status(200).json(data);
         })
     }
 }
