@@ -278,9 +278,71 @@ String **city**
 
     
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
-	  
+	  	  
+----------
+**POST** `/api/employer/update`
+
+* String **git_link**
+* String **linked_in_link**
+
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+
+----------
+
+**GET**
+*  `/api/employer/asks/my`
+*  `/api/employer/asks/:id`
+
+**:id** - id of a employer to get asks from.
+
+> Returns all asks of the current employer
+    
+    [
+		    {
+		        "bids": [],
+		        "is_active": true,
+		        "is_complete": false,
+		        "creation_date": "2018-03-13T18:03:18.306Z",
+		        "languages": [],
+		        "software": [],
+		        "specs": [],
+		        "certifications": [],
+		        "categories": [],
+		        "_id": "5aa814425367262b5634bd33",
+		        "description": "opis",
+		        "salary": 1500,
+		        "work_time": 12,
+		        "employer": "5aa7f6fc696ead16a3deb1c8",
+		        "__v": 0
+		    },
+		    {
+		        "bids": [],
+		        "is_active": true,
+		        "is_complete": false,
+		        "creation_date": "2018-03-13T18:03:18.306Z",
+		        "languages": [],
+		        "software": [],
+		        "specs": [],
+		        "certifications": [],
+		        "categories": [
+		            {
+		                "name": "Android developer"
+		            },
+		            {
+		                "name": "Web developer"
+		            }
+		        ],
+		        "_id": "5aa816115367262b5634bd34",
+		        "description": "opis",
+		        "salary": 1500,
+		        "work_time": 12,
+		        "employer": "5aa7f6fc696ead16a3deb1c8",
+		        "__v": 0
+		    }
+    ]
 	  
 ----------
+
 
 ### Company routes
 > Auth header required in all routes
