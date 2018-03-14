@@ -290,12 +290,11 @@ String **city**
 ----------
 
 **GET**
-*  `/api/employer/asks/my`
-*  `/api/employer/asks/:id`
+*  `/api/employer/asks/my` - returns all asks of logged user
+*  `/api/employer/asks/:id` - returns all asks of employer with given id
 
 **:id** - id of a employer to get asks from.
 
-> Returns all asks of the current employer
     
     [
 		    {
@@ -340,7 +339,28 @@ String **city**
 		        "__v": 0
 		    }
     ]
-	  
+
+
+----------  
+
+**GET**  
+* `/api/employer/companies/my` - returns all companies of logged user.
+* `/api/employer/companies/:id` - returns all companies of employer with given id
+
+ **:id** - id of employer to get companies from.
+
+	    [
+		    {
+		        "_id": "5aa80434696ead16a3deb1cb",
+		        "employer": "5aa7f6fc696ead16a3deb1c8",
+		        "name": "firma1",
+		        "NIP": "123",
+		        "city": "dc",
+		        "__v": 0
+		    }
+	    ]
+
+
 ----------
 
 
@@ -357,20 +377,35 @@ String **city**
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 
 ----------
-**POST** `/api/company/update`
+**POST** `/api/company/update/:id`
 
+* **:id** - id of company to update
 * String **name**
-* String **NIP** > Update is based on NIP
+* String **NIP** 
 * String **city**
 
    
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 ----------
-**POST** `/api/company/delete`
+**POST** `/api/company/delete/:id`
 
+* **:id** - id of company to delete
 * String **NIP**
     
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+
+----------
+**GET**  `/api/company/:id`
+* **:id** - id of company to get.
+
+	    {
+		    "_id": "5aa80434696ead16a3deb1cb",
+		    "employer": "5aa7f6fc696ead16a3deb1c8",
+		    "name": "firma1",
+		    "NIP": "123",
+		    "city": "dc",
+		    "__v": 0
+	    }
 
 ----------
 
