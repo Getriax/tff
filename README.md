@@ -8,8 +8,9 @@
 * [Company](#company-routes)
 * [Ask](#ask-routes)
 * [Bid](#bid-routes)
+* [Message](#message-routes)
 
-### Auth routes
+# Auth routes
 **POST** `/api/auth/login`
 
 String: **username**
@@ -90,7 +91,7 @@ String: **username**
 ----------
 
 
-### User routes
+# User routes
 > Auth header required in all routes
 
 **GET** `/api/user/all`
@@ -195,7 +196,7 @@ String **password**
 ----------
 
 
-### Skills routes
+# Skills routes
 > Auth header required in all routes
 
 **GET** 
@@ -227,7 +228,7 @@ certifications doesn't have level property - all the rest is the same languages 
 ----------
 
 
-### Employee routes
+# Employee routes
 > Auth header required in all routes
 
 **POST** /api/employee/create
@@ -266,7 +267,7 @@ String **city**
 
 
 
-### Employer routes
+# Employer routes
 > Auth header required in all routes
 
 **POST** `/api/employer/create`
@@ -364,7 +365,7 @@ String **city**
 ----------
 
 
-### Company routes
+# Company routes
 > Auth header required in all routes
 
 **POST** `/api/company/create`
@@ -409,52 +410,82 @@ String **city**
 
 ----------
 
-### Ask routes
+# Ask routes
 > Auth header required in all routes
 
-**GET** `/api/ask/all`
+**POST** `/api/ask/all`
 
+> Filter is implemented
 
-    [
-	    {
-	        "bids": [],
-	        "languages": [
-	            {
-	                "name": "English"
-	            },
-	            {
-	                "name": "French"
-	            }
-	        ],
-	        "software": [
-	            {
-	                "name": "Photoshop"
-	            },
-	            {
-	                "name": "Web Storm"
-	            }
-	        ],
-	        "specs": [],
-	        "certifications": [],
-	        "_id": "5aa42a0861ba6718ae25c7b4",
-	        "employer": {
-	            "asks": [
-	                "5aa42a0861ba6718ae25c7b4"
+* Array[String] **categories** 
+* Array[String] **languages**
+* Array[String] **software**
+* Array[String] **specs**
+* Array[String] **certifications**
+* Number **pagesize** - default 10
+* Number **page** - default 0
+
+    {
+	    "count": 1,
+	    "asks": [
+	        {
+	            "bids": [],
+	            "is_active": true,
+	            "is_complete": false,
+	            "creation_date": "2018-03-14T16:14:00.253Z",
+	            "languages": [
+	                {
+	                    "name": "Spanish"
+	                }
 	            ],
-	            "company": [],
-	            "_id": "5aa41cf16bb9a816cc7b880c",
-	            "user_id": "5aa40ded85f618149ea77e46",
-	            "__v": 21
-	        },
-	        "description": "ASK2",
-	        "salary": 1012,
-	        "work_time": 2411,
-	        "is_active": true,
-	        "is_complete": false,
-	        "__v": 0
-	    }
-    ]
+	            "software": [
+	                {
+	                    "name": "Microsoft World"
+	                }
+	            ],
+	            "specs": [
+	                {
+	                    "name": "C++"
+	                }
+	            ],
+	            "certifications": [
+	                {
+	                    "name": "CISCO1"
+	                },
+	                {
+	                    "name": "CISCO2"
+	                }
+	            ],
+	            "categories": [
+	                {
+	                    "name": "Android developer"
+	                },
+	                {
+	                    "name": "Front-end developer"
+	                }
+	            ],
+	            "_id": "5aa954ef5508eb109781b3c2",
+	            "description": "ogloszenie 1",
+	            "salary": 1500,
+	            "work_time": 12,
+	            "employer": {
+	                "asks": [
+	                    "5aa954ef5508eb109781b3c2",
+	                    "5aa958b80e2d093ba2d936df"
+	                ],
+	                "company": [
+	                    "5aa80434696ead16a3deb1cb"
+	                ],
+	                "_id": "5aa7f6fc696ead16a3deb1c8",
+	                "user_id": "5aa7f6e9696ead16a3deb1c6",
+	                "__v": 13
+	            },
+	            "__v": 0
+	        }
+	    ]
+    }
 
+> count is a maximum size of avaiable asks with given filter - **not the count of returned items**
 
 ----------
 
@@ -535,7 +566,7 @@ String **city**
 
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 ----------
-### Bid routes
+# Bid routes
 > Auth header required in all routes
 
 **POST** `/api/bid/create/:id`
@@ -543,5 +574,14 @@ String **city**
 * **:id** - id of ask to bid to
 * String **description**
 * Number **salary**
+
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+
+# Message routes
+
+**POST** `/api/message/send`
+
+* String **content** - content of the message
+* String **to** - id of a user to send message to
 
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
