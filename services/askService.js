@@ -109,27 +109,78 @@ class AskService {
 
     //BID IS NOT POPULATED
 
-    getAll(req, res) {
-        Ask.find()
-            .populate('employer')
-            .populate('languages', 'name -_id')
-            .populate('software', 'name -_id')
-            .populate('specs', 'name -_id')
-            .populate('certifications', 'name -_id')
-            .populate('categories', 'name -_id')
-            .exec((err, data) => {
+    getAllLimit(req, res) {
+
+        let pageSize = req.body.pagesize || 10;
+        let offset = req.body.page * pageSize || 0;
+
+
+        let askQuery = Ask.find();
+        let countQuery = Ask.find();
+
+        if(req.body.languages) {
+            askQuery
+                .where('languages').all(req.body.languages);
+            countQuery
+                .where('languages').all(req.body.languages);
+        }
+        if(req.body.categories) {
+            askQuery
+                .where('categories').all(req.body.categories);
+            countQuery
+                .where('categories').all(req.body.categories);
+        }
+        if(req.body.software) {
+            askQuery
+                .where('software').all(req.body.software);
+            countQuery
+                .where('software').all(req.body.software);
+        }
+        if(req.body.specs) {
+            askQuery
+                .where('specs').all(req.body.specs);
+            countQuery
+                .where('specs').all(req.body.specs);
+        }
+        if(req.body.certifications) {
+            askQuery
+                .where('certifications').all(req.body.certifications);
+            countQuery
+                .where('certifications').all(req.body.certifications);
+        }
+
+        countQuery.count().exec((err, amount) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Internal error'});
+            }
+            if(!amount)
+                return res.status(404).json({message: 'Asks not found, try changing filters'});
+
+            askQuery
+                .skip(offset)
+                .limit(pageSize)
+                .populate('employer')
+                .populate('languages', 'name -_id')
+                .populate('software', 'name -_id')
+                .populate('specs', 'name -_id')
+                .populate('certifications', 'name -_id')
+                .populate('categories', 'name -_id');
+
+            askQuery.exec((err, data) => {
                 if(err) {
                     logger.error(err);
                     return res.status(500).json({message: 'Internal error'});
                 }
 
-                if(!data)
-                    return res.status(404).json({message: 'Asks not found'});
+                let responseData = {
+                   count: amount,
+                   asks: data
+                }
+                res.status(200).json(responseData);
+            })
+        });
 
-
-
-                res.status(200).json(data);
-            });
     }
 
     getOne(req, res) {

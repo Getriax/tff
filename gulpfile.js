@@ -11,6 +11,7 @@ const gulp = require('gulp'),
     Employee = require('./models/employee'),
     Employer = require('./models/employer'),
     Bid = require('./models/bid'),
+    Message = require('./models/message'),
     skillsService = require('./services/skillsService');
 
 gulp.task('addUser', (done) => {
@@ -212,3 +213,89 @@ gulp.task('many', (done) => {
     })
 
 });
+
+gulp.task('date', (done) => {
+
+    let messages =
+    [
+        {
+            date: new Date(1521057765 * 1000),
+            text: 'Four'
+        },
+        {
+            date: new Date(1521055765 * 1000),
+            text: 'Two'
+        },
+        {
+            date: new Date(1521056765 * 1000),
+            text: 'Tree'
+        },
+        {
+            date: new Date(1521054765 * 1000),
+            text: 'One'
+        }
+
+    ];
+    console.log(`${new Date(1521054765 * 1000)}`);
+
+    messages.forEach(el => {
+        console.log(el.text + " date " + el.date);
+    });
+
+    messages.sort((el1, el2) => {
+        return el1.date - el2.date;
+    });
+
+    messages.forEach(el => {
+        console.log(el.text + " date " + el.date);
+    });
+
+    messages.sort((el1, el2) => {
+        if(el1.date < el2.date)
+            return -1;
+        else
+            return 1;
+    });
+
+    messages.forEach(el => {
+        console.log(el.text + " date " + el.date + " secs " + el.date.getSeconds());
+    });
+});
+
+gulp.task('dat', (done) => {
+    database.open(() => {});
+
+
+    Message.count((err, data) => {
+        console.log(data);
+    })
+
+    // Message.find((err, data) => {
+    //     console.log(data);
+    // });
+});
+
+gulp.task('in', (done) => {
+    database.open(() => {});
+
+    let emplQ = Employee.find();
+       // .where('software').all(['5aa6e44c3ec2b549cb0f0d60']);
+
+    emplQ
+        .where('languages').all([ '5aa6e44c3ec2b549cb0f0d56']);
+
+    emplQ
+        .where('software').all(['5aa6e44c3ec2b549cb0f0d60']);
+
+    let emC = emplQ;
+    emC.count();
+
+    emplQ
+        .exec((err, data) => {
+            console.log(data);
+
+            emC.exec((err, d) => {
+                console.log(d);
+            });
+        });
+})

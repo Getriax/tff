@@ -22,7 +22,7 @@ class Manage {
             employerService.getId.bind(this),
             companyService.update.bind(this));
 
-        router.post('/delete/:id',
+        router.delete('/delete/:id',
             authService.authenticateUser.bind(this),
             employerService.removeCompany.bind(this),
             companyService.remove.bind(this));

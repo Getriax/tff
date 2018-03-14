@@ -6,9 +6,10 @@ const authService = require('../../../services/authService'),
 
 class Manage {
     constructor(router) {
-       router.get('/all',
+       router.post('/all',
            authService.authenticateUser.bind(this),
-           askService.getAll.bind(this));
+           skillsService.changeNamesToIds.bind(this),
+           askService.getAllLimit.bind(this));
 
        router.get('/:id',
            authService.authenticateUser.bind(this),
@@ -25,14 +26,15 @@ class Manage {
        router.post('/update/:id',
            authService.authenticateUser.bind(this),
            skillsService.changeNamesToIds.bind(this),
+           employerService.getId.bind(this),
            askService.update.bind(this),
            skillsService.update.bind(this));
 
-       router.post('/delete/:id',
+       router.delete('/delete/:id',
            authService.authenticateUser.bind(this),
            skillsService.changeNamesToIds.bind(this),
-           askService.remove.bind(this),
            employerService.deleteAsk.bind(this),
+           askService.remove.bind(this),
            bidService.removeBids.bind(this),
            skillsService.update.bind(this));
     }
