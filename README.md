@@ -425,65 +425,65 @@ String **city**
 * Number **pagesize** - default 10
 * Number **page** - default 0
 
-    {
-	    "count": 1,
-	    "asks": [
-	        {
-	            "bids": [],
-	            "is_active": true,
-	            "is_complete": false,
-	            "creation_date": "2018-03-14T16:14:00.253Z",
-	            "languages": [
-	                {
-	                    "name": "Spanish"
-	                }
-	            ],
-	            "software": [
-	                {
-	                    "name": "Microsoft World"
-	                }
-	            ],
-	            "specs": [
-	                {
-	                    "name": "C++"
-	                }
-	            ],
-	            "certifications": [
-	                {
-	                    "name": "CISCO1"
-	                },
-	                {
-	                    "name": "CISCO2"
-	                }
-	            ],
-	            "categories": [
-	                {
-	                    "name": "Android developer"
-	                },
-	                {
-	                    "name": "Front-end developer"
-	                }
-	            ],
-	            "_id": "5aa954ef5508eb109781b3c2",
-	            "description": "ogloszenie 1",
-	            "salary": 1500,
-	            "work_time": 12,
-	            "employer": {
-	                "asks": [
-	                    "5aa954ef5508eb109781b3c2",
-	                    "5aa958b80e2d093ba2d936df"
-	                ],
-	                "company": [
-	                    "5aa80434696ead16a3deb1cb"
-	                ],
-	                "_id": "5aa7f6fc696ead16a3deb1c8",
-	                "user_id": "5aa7f6e9696ead16a3deb1c6",
-	                "__v": 13
-	            },
-	            "__v": 0
-	        }
-	    ]
-    }
+	    {
+		    "count": 1,
+		    "asks": [
+			{
+			    "bids": [],
+			    "is_active": true,
+			    "is_complete": false,
+			    "creation_date": "2018-03-14T16:14:00.253Z",
+			    "languages": [
+				{
+				    "name": "Spanish"
+				}
+			    ],
+			    "software": [
+				{
+				    "name": "Microsoft World"
+				}
+			    ],
+			    "specs": [
+				{
+				    "name": "C++"
+				}
+			    ],
+			    "certifications": [
+				{
+				    "name": "CISCO1"
+				},
+				{
+				    "name": "CISCO2"
+				}
+			    ],
+			    "categories": [
+				{
+				    "name": "Android developer"
+				},
+				{
+				    "name": "Front-end developer"
+				}
+			    ],
+			    "_id": "5aa954ef5508eb109781b3c2",
+			    "description": "ogloszenie 1",
+			    "salary": 1500,
+			    "work_time": 12,
+			    "employer": {
+				"asks": [
+				    "5aa954ef5508eb109781b3c2",
+				    "5aa958b80e2d093ba2d936df"
+				],
+				"company": [
+				    "5aa80434696ead16a3deb1cb"
+				],
+				"_id": "5aa7f6fc696ead16a3deb1c8",
+				"user_id": "5aa7f6e9696ead16a3deb1c6",
+				"__v": 13
+			    },
+			    "__v": 0
+			}
+		    ]
+	    }
 
 > count is a maximum size of avaiable asks with given filter - **not the count of returned items**
 
