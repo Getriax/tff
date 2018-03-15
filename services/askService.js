@@ -24,7 +24,6 @@ class AskService {
         let askID = req.params.id;
 
 
-
         Ask.findByIdAndUpdate(askID, updateBody, (err, data) => {
             if(!data)
                 return res.status(404).json({message: 'Wrong ask id'});

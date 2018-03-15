@@ -24,7 +24,7 @@ gulp.task('addUser', (done) => {
     });
 
     usr.save((err) => {console.log('User saved')});
-})
+});
 
 gulp.task('json', (done) => {
     usr = {
@@ -39,7 +39,7 @@ gulp.task('json', (done) => {
         "last_name": "Ja",
         "first_name": "Nikodem",
         "status": 0
-    }
+    };
 
     for(let key in usr) {
         if(usr[key] != 0) {
@@ -50,7 +50,7 @@ gulp.task('json', (done) => {
 });
 
 gulp.task('table', (done) => {
-   let tab = new Array('Ala', 'Ana', 'Ama');
+   let tab = ['Ala', 'Ana', 'Ama'];
 
    let one = tableContains(tab, 'Ala');
    let two = tableContains(tab, 'Ela');
@@ -189,7 +189,7 @@ gulp.task('param', (done) => {
 
     let prop = 'po';
 
-    let arr = {prop: 'some'}
+    let arr = {prop: 'some'};
 
     console.log(arr);
 });
@@ -293,9 +293,16 @@ gulp.task('dat', (done) => {
 
                     let ret = data2.concat(data);
 
-                    ret.sort((el1, el2) => {
-                        el1.date = el2.date;
+                    ret = ret.filter((element, index, self) => {
+
+                        index !== self.findIndex(t => t._id.equals(element._id) && (t.date - element.date));
+
+                        // console.log({el: element});
+                        // console.log(index);
+                        // console.log({selff: self});
                     })
+
+                    console.log(ret);
 
                 })
         });
@@ -330,4 +337,4 @@ gulp.task('in', (done) => {
                 console.log(d);
             });
         });
-})
+});

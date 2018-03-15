@@ -175,9 +175,9 @@ class SkillsService {
     changeNamesToIds(req, res, next) {
 
         let propertiesMap = new Map();
-        let lastProperty;
+        let lastProperty = null;
         let nextError = false;
-
+        
 
         if(req.body.categories && req.body.categories.length > 0) {
             propertiesMap.set('categories', Category);
@@ -199,7 +199,7 @@ class SkillsService {
             propertiesMap.set('certifications', Certification);
             lastProperty = 'certifications';
         }
-        if(!lastProperty)
+        if(lastProperty === null)
             next();
 
         for(let [name, object] of propertiesMap) {
