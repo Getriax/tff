@@ -293,7 +293,9 @@ gulp.task('dat', (done) => {
 
                     let ret = data2.concat(data);
 
-                    console.log(ret);
+                    ret.sort((el1, el2) => {
+                        el1.date = el2.date;
+                    })
 
                 })
         });

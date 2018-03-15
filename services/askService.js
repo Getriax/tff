@@ -23,21 +23,7 @@ class AskService {
         let updateBody = req.body;
         let askID = req.params.id;
 
-        if(req.body.categories !== undefined && req.body.categories.length === 0) {
-            updateBody.categories = [];
-        }
-        if(req.body.languages !== undefined && req.body.languages.length === 0) {
-            updateBody.languages = [];
-        }
-        if(req.body.specs !== undefined && req.body.specs.length === 0) {
-            updateBody.specs = [];
-        }
-        if(req.body.software !== undefined && req.body.software.length === 0) {
-            updateBody.software = [];
-        }
-        if(req.body.certifications !== undefined && req.body.certifications.length === 0) {
-            updateBody.certifications = [];
-        }
+
 
         Ask.findByIdAndUpdate(askID, updateBody, (err, data) => {
             if(!data)

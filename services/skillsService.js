@@ -178,23 +178,24 @@ class SkillsService {
         let lastProperty;
         let nextError = false;
 
-        if(req.body.categories) {
+
+        if(req.body.categories && req.body.categories.length > 0) {
             propertiesMap.set('categories', Category);
             lastProperty = 'categories';
         }
-        if(req.body.languages) {
+        if(req.body.languages && req.body.languages.length > 0) {
             propertiesMap.set('languages', Language);
             lastProperty = 'languages';
         }
-        if(req.body.software) {
+        if(req.body.software && req.body.software.length > 0) {
             propertiesMap.set('software', Software);
             lastProperty = 'software';
         }
-        if(req.body.specs) {
+        if(req.body.specs && req.body.specs.length > 0) {
             propertiesMap.set('specs', Spec);
             lastProperty = 'specs';
         }
-        if(req.body.certifications) {
+        if(req.body.certifications && req.body.certifications.length > 0) {
             propertiesMap.set('certifications', Certification);
             lastProperty = 'certifications';
         }
