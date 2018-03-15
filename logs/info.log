@@ -171,3 +171,16 @@ info: Connected at port 3000 {}
 error: Cast to ObjectId failed for value "French" at path "languages" for model "Ask" {"name":"CastError","stringValue":"\"French\"","kind":"ObjectId","value":"French","path":"languages"}
 error: Cast to ObjectId failed for value "French" at path "languages" for model "Ask" {"name":"CastError","stringValue":"\"French\"","kind":"ObjectId","value":"French","path":"languages"}
 info: Connected at port 3000 {}
+info: Connected at port 3000 {}
+error: We do not support that {}
+error: Cast to ObjectId failed for value "Web Storm" at path "categories" for model "Ask" {"name":"CastError","stringValue":"\"Web Storm\"","kind":"ObjectId","value":"Web Storm","path":"categories"}
+error: We do not support that {}
+error: We do not support that {}
+error: We do not support that {}
+error: We do not support that {}
+error: We do not support that {}
+error: We do not support that {}
+info: Connected at port 3000 {}
+error: We do not support that {}
+info: Connected at port 3000 {}
+info: Connected at port 3000 {}

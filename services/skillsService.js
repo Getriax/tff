@@ -78,6 +78,7 @@ class SkillsService {
         let nextError = false;
 
 
+
         if(req.query.categories) {
             propertiesMap.set('categories', Category);
             lastProperty = 'categories';
@@ -93,14 +94,14 @@ class SkillsService {
         if(req.query.software && req.query.software.length > 0) {
             propertiesMap.set('software', Software);
             lastProperty = 'software';
-            if(!(req.query.specs instanceof Array))
-                req.query.specs = [req.query.specs];
+            if(!(req.query.software instanceof Array))
+                req.query.software = [req.query.software];
         }
         if(req.query.specs && req.query.specs.length > 0) {
             propertiesMap.set('specs', Spec);
             lastProperty = 'specs';
-            if(!(req.query.software instanceof Array))
-                req.query.software = [req.query.software];
+            if(!(req.query.specs instanceof Array))
+                req.query.specs = [req.query.specs];
         }
         if(req.query.certifications && req.query.certifications.length > 0) {
             propertiesMap.set('certifications', Certification);
@@ -111,7 +112,7 @@ class SkillsService {
         if(lastProperty === null)
             next();
 
-
+        
         for(let [name, object] of propertiesMap) {
 
 
