@@ -8,7 +8,10 @@ class Manage {
         router.post('/send',
             authService.authenticateUser.bind(this),
             messageService.send.bind(this));
-        
+
+        router.get('/all',
+            authService.authenticateUser.bind(this),
+            messageService.getAll.bind(this));
     }
 }
 

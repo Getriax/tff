@@ -86,3 +86,24 @@
 {"message":"Connected at port 3000","level":"info"}
 {"message":"Connected at port 3000","level":"info"}
 {"message":"Connected at port 3000","level":"info"}
+{"message":"Connected at port 3000","level":"info"}
+{"message":"Connected at port 3000","level":"info"}
+{"message":"Connected at port 3000","level":"info"}
+{"message":"Connected at port 3000","level":"info"}
+{"message":"Connected at port 3000","level":"info"}
+{"message":"Connected at port 3000","level":"info"}
+{"message":{"employees":[],"asks":[],"_id":"5aaab02c4829aa976faa808b","name":"English","__v":4},"level":"error"}
+{"message":{"employees":[],"asks":[],"_id":"5aaab02c4829aa976faa808c","name":"Spanish","__v":4},"level":"error"}
+{"message":{"employees":[],"asks":[],"_id":"5aaab02c4829aa976faa808f","name":"Java","__v":2},"level":"error"}
+{"message":{"employees":[],"asks":[],"_id":"5aaab02c4829aa976faa8090","name":"C++","__v":2},"level":"error"}
+{"message":"Connected at port 3000","level":"info"}
+{"message":"Connected at port 3000","level":"info"}
+{"message":{"employees":[],"asks":[],"_id":"5aaab02c4829aa976faa8092","name":"Angular 2","__v":2},"level":"error"}
+{"message":{"employees":[],"asks":[],"_id":"5aaab02c4829aa976faa808e","name":"Italian","__v":2},"level":"error"}
+{"message":{"employees":[],"asks":[],"_id":"5aaab02c4829aa976faa808b","name":"English","__v":6},"level":"error"}
+{"message":{"employees":[],"asks":[],"_id":"5aaab02c4829aa976faa808f","name":"Java","__v":4},"level":"error"}
+{"message":"Connected at port 3000","level":"info"}
+{"message":"Connected at port 3000","level":"info"}
+{"message":"Connected at port 3000","level":"info"}
+{"message":"Connected at port 3000","level":"info"}
+{"message":"Connected at port 3000","level":"info"}

@@ -129,16 +129,12 @@ class SkillsService {
 
                             data[updateArray] = data[updateArray].filter(elID => !elID.equals(updateID));
 
-                            data.save().then((err) => {
-                                if(err) {
-                                    logger.error(err);
-                                    reject('Update failed');
-                                }
+                            data.save().then(() => {
                                 if(id.equals(req[name][req[name].length -1])) {
                                     resolve();
                                 }
 
-                            });
+                            }).catch((err) => {logger.error(err); return res.status(500).json({message: 'Save failed'})});
                         });
                     }
                 }
@@ -166,7 +162,7 @@ class SkillsService {
                             data.save().then(() => {
                                 if (id.equals(req.body[name][req.body[name].length - 1]) && lastProperty == name)
                                     res.status(200).json({success: 'Updated'});
-                            });
+                            }).catch((err) => {logger.error(err); return res.status(500).json({message: 'Save failed'})})
                         })
                     }
                 }
@@ -229,7 +225,7 @@ class SkillsService {
             idPromise
                 .then((ids) => {
                     req.body[name] = ids;
-                    if(name == lastProperty && !error)
+                    if(name.equals(lastProperty) && !error)
                         next();
 
                 })

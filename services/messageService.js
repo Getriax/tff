@@ -22,6 +22,18 @@ class messageService {
     getAll(req, res) {
         let userId = req.userID;
 
+        Message.find({ $or: [{from: userId}, {to: userId}]})
+            .sort([['send_date', -1]])
+            .exec((err, data) => {
+                if(err) {
+                    logger.error(err);
+                    return res.status(500).json({message: 'Failed to get messages'});
+                }
+                if(!data)
+                    return res.status(500).json({message: 'You do not have messages'});
+
+                res.status(200).json(data);
+            });
         /**
          *
          * message {
