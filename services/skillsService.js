@@ -216,7 +216,7 @@ class SkillsService {
                             if(!data)
                                 return reject('We do not support that');
                             ids.push(data._id);
-                            if(ids.length.equals() === req.body[name].length)
+                            if(ids.length === req.body[name].length)
                                 resolve(ids);
                         });
                 }

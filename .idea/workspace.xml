@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aff8df0a-b9ac-415b-a5b2-416ab02e4537" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
       <change beforePath="$PROJECT_DIR$/services/skillsService.js" afterPath="$PROJECT_DIR$/services/skillsService.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -91,8 +89,8 @@
       <file leaf-file-name="skillsService.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/services/skillsService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="220" column="27" lean-forward="true" selection-start-line="220" selection-start-column="27" selection-end-line="220" selection-end-column="27" />
+            <state relative-caret-position="466">
+              <caret line="218" column="41" lean-forward="false" selection-start-line="218" selection-start-column="41" selection-end-line="218" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -412,12 +410,12 @@
       <workItem from="1520882699192" duration="7510000" />
       <workItem from="1520964987006" duration="7275000" />
       <workItem from="1521050725604" duration="11231000" />
-      <workItem from="1521131711617" duration="5163000" />
+      <workItem from="1521131711617" duration="5211000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144279000" />
+    <option name="totallyTimeSpent" value="144327000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -809,8 +807,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/services/skillsService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="220" column="27" lean-forward="true" selection-start-line="220" selection-start-column="27" selection-end-line="220" selection-end-column="27" />
+        <state relative-caret-position="466">
+          <caret line="218" column="41" lean-forward="false" selection-start-line="218" selection-start-column="41" selection-end-line="218" selection-end-column="41" />
           <folding />
         </state>
       </provider>
