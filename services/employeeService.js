@@ -80,6 +80,22 @@ class EmployeeService {
         let userId = req.userID;
         let updateBody = req.body;
 
+        if(req.body.categories !== undefined && req.body.categories.length === 0) {
+            updateBody.categories = [];
+        }
+        if(req.body.languages !== undefined && req.body.languages.length === 0) {
+            updateBody.languages = [];
+        }
+        if(req.body.specs !== undefined && req.body.specs.length === 0) {
+            updateBody.specs = [];
+        }
+        if(req.body.software !== undefined && req.body.software.length === 0) {
+            updateBody.software = [];
+        }
+        if(req.body.certifications !== undefined && req.body.certifications.length === 0) {
+            updateBody.certifications = [];
+        }
+
         Employee.findOneAndUpdate({user_id: userId}, updateBody)
             .exec((err, data) => {
                 if(!data)
@@ -87,7 +103,7 @@ class EmployeeService {
                 if(err)
                     return res.status(500).json({message: 'Cannot update employee'});
 
-                res.status(200).json('Updated');
+                res.status(200).json({success: 'Updated'});
             });
     }
 
