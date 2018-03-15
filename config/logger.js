@@ -3,7 +3,7 @@ const winston = require('winston');
 
 const logger = winston.createLogger({
     level: 'info',
-    format: winston.format.json(),
+    format: winston.format.simple(),
     transports: [
         new winston.transports.File({ filename: `${__dirname}/../logs/error.log`, level: 'error', timestamp: true}),
         new winston.transports.File({ filename: `${__dirname}/../logs/info.log`, timestamp: true}),

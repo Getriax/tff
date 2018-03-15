@@ -271,17 +271,23 @@ gulp.task('dat', (done) => {
     // })
     // Message.create({content: 'LOOOOOL', to: '5aa6e6c88666aa4a2ae0baef', from: '5aa6e8a44048684a68cf346c'}, (err) => {});
     let userId = '5aa6e6c88666aa4a2ae0baef';
+    //
+    // Message.aggregate()
+    //     .group({
+    //         _id: "$from",
+    //         text: {$last: "$content"}
+    //     })
+    //     .exec((err, data) => {
+    //         if(err)
+    //             console.log(err);
+    //         console.log(data);
+    //     })
 
-    Message.aggregate()
-        .group({
-            _id: "$from",
-            text: {$last: "$content"}
-        })
+    Message.find({ $or: [{from: userId}, {to: userId}]})
+        .sort([['send_date', -1]])
         .exec((err, data) => {
-            if(err)
-                console.log(err);
             console.log(data);
-        })
+        });
 });
 
 gulp.task('in', (done) => {

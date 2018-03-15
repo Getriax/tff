@@ -16,8 +16,7 @@ class Manage {
         router.post('/update',
             authService.authenticateUser.bind(this),
             skillsService.changeNamesToIds.bind(this),
-            employeeService.update.bind(this),
-            skillsService.update.bind(this));
+            employeeService.update.bind(this));
     }
 }
 
