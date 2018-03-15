@@ -87,13 +87,7 @@ class EmployeeService {
                 if(err)
                     return res.status(500).json({message: 'Cannot update employee'});
 
-                req.categories = data.categories;
-                req.languages = data.languages;
-                req.software = data.software;
-                req.specs = data.specs;
-                req.certifications = data.certifications;
-                req.employeeID = data._id;
-                next();
+                res.status(200).json('Updated');
             });
     }
 
