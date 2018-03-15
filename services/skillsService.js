@@ -15,7 +15,7 @@ class SkillsService {
             .select('name level -_id')
             .exec((err, data) => {
                 if(err) {
-                    console.error(err);
+                    logger.error(err);
                     return res.status(500).send({message: 'Cannot get languages'});
                 }
 
@@ -27,7 +27,7 @@ class SkillsService {
             .select('name level -_id')
             .exec((err, data) => {
                 if(err) {
-                    console.error(err);
+                    logger.error(err);
                     return res.status(500).send({message: 'Cannot get specializations'});
                 }
 
@@ -39,7 +39,7 @@ class SkillsService {
             .select('name level -_id')
             .exec((err, data) => {
                 if(err) {
-                    console.error(err);
+                    logger.error(err);
                     return res.status(500).send({message: 'Cannot get software'});
                 }
 
@@ -51,7 +51,7 @@ class SkillsService {
             .select('name -_id')
             .exec((err, data) => {
                 if(err) {
-                    console.error(err);
+                    logger.error(err);
                     return res.status(500).send({message: 'Cannot get certifications'});
                 }
 
@@ -63,7 +63,7 @@ class SkillsService {
             .select('name -_id')
             .exec((err, data) => {
                 if(err) {
-                    console.error(err);
+                    logger.error(err);
                     return res.status(500).send({message: 'Cannot get categories'});
                 }
 
@@ -209,7 +209,9 @@ class SkillsService {
                 for(let n of req.body[name]) {
 
                         object.findOne({name: n}, (err, data) => {
+
                             if(err) {
+
                                 logger.error(err);
                                 return reject(err);
                             }
@@ -218,6 +220,8 @@ class SkillsService {
                             ids.push(data._id);
                             if(ids.length === req.body[name].length)
                                 resolve(ids);
+
+
                         });
                 }
             });
@@ -225,13 +229,13 @@ class SkillsService {
             idPromise
                 .then((ids) => {
                     req.body[name] = ids;
-                    if(name.equals(lastProperty) && !error)
+                    if(name === lastProperty && !error)
                         next();
 
                 })
                 .catch((err) => {
                     error = true;
-                    logger.err(err);
+                    logger.error(err);
                     return res.status(409).json({message: err});
                 });
         }

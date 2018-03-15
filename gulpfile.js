@@ -275,7 +275,7 @@ gulp.task('dat', (done) => {
     Message.aggregate()
         .group({
             _id: "$from",
-            count: {$sum: 1}
+            text: {$last: "$content"}
         })
         .exec((err, data) => {
             if(err)
