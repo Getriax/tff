@@ -216,7 +216,7 @@ class SkillsService {
                             if(!data)
                                 return reject('We do not support that');
                             ids.push(data._id);
-                            if(ids.length == req.body[name].length)
+                            if(ids.length.equals() === req.body[name].length)
                                 resolve(ids);
                         });
                 }
@@ -231,7 +231,7 @@ class SkillsService {
                 })
                 .catch((err) => {
                     error = true;
-                    logger.warn(err);
+                    logger.err(err);
                     return res.status(409).json({message: err});
                 });
         }
