@@ -71,6 +71,88 @@ class SkillsService {
             });
     }
 
+    changeNamesToIdsGET(req, res, next) {
+
+        let propertiesMap = new Map();
+        let lastProperty = null;
+        let nextError = false;
+
+
+        if(req.query.categories) {
+            propertiesMap.set('categories', Category);
+            lastProperty = 'categories';
+            if(!(req.query.categories instanceof Array))
+                req.query.categories = [req.query.categories];
+        }
+        if(req.query.languages && req.query.languages.length > 0) {
+            propertiesMap.set('languages', Language);
+            lastProperty = 'languages';
+            if(!(req.query.languages instanceof Array))
+                req.query.languages = [req.query.languages];
+        }
+        if(req.query.software && req.query.software.length > 0) {
+            propertiesMap.set('software', Software);
+            lastProperty = 'software';
+            if(!(req.query.specs instanceof Array))
+                req.query.specs = [req.query.specs];
+        }
+        if(req.query.specs && req.query.specs.length > 0) {
+            propertiesMap.set('specs', Spec);
+            lastProperty = 'specs';
+            if(!(req.query.software instanceof Array))
+                req.query.software = [req.query.software];
+        }
+        if(req.query.certifications && req.query.certifications.length > 0) {
+            propertiesMap.set('certifications', Certification);
+            lastProperty = 'certifications';
+            if(!(req.query.certifications instanceof Array))
+                req.query.certifications = [req.query.certifications];
+        }
+        if(lastProperty === null)
+            next();
+
+
+        for(let [name, object] of propertiesMap) {
+
+
+            let idPromise = new Promise((resolve, reject) => {
+                let ids = new Array();
+                for(let n of req.query[name]) {
+
+                    object.findOne({name: n}, (err, data) => {
+
+                        if(err) {
+
+                            logger.error(err);
+                            return reject(err);
+                        }
+                        if(!data)
+                            return reject('We do not support that');
+                        ids.push(data._id);
+                        if(ids.length === req.query[name].length)
+                            resolve(ids);
+
+
+                    });
+                }
+            });
+
+            idPromise
+                .then((ids) => {
+                    req.query[name] = ids;
+                    if(name === lastProperty && !nextError)
+                        next();
+
+                })
+                .catch((err) => {
+                    console.log(err);
+                    nextError = true;
+                    logger.error(err);
+                    return res.status(409).json({message: err});
+                });
+        }
+    }
+
     // update(req, res) {
     //
     //     let propertiesMap = new Map();
@@ -177,7 +259,9 @@ class SkillsService {
         let propertiesMap = new Map();
         let lastProperty = null;
         let nextError = false;
-        
+
+        req.body.languages = ['French'];
+        req.body.software = ['Photoshop'];
 
         if(req.body.categories && req.body.categories.length > 0) {
             propertiesMap.set('categories', Category);

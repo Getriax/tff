@@ -56,42 +56,42 @@ class AskService {
 
     getAllLimit(req, res) {
 
-        let pageSize = req.body.pagesize || 10;
-        let offset = req.body.page * pageSize || 0;
+        let pageSize = req.query.pagesize || 10;
+        let offset = req.query.page * pageSize || 0;
 
 
         let askQuery = Ask.find();
         let countQuery = Ask.find();
 
-        if(req.body.languages) {
+        if(req.query.languages) {
             askQuery
-                .where('languages').all(req.body.languages);
+                .where('languages').all(req.query.languages);
             countQuery
-                .where('languages').all(req.body.languages);
+                .where('languages').all(req.query.languages);
         }
-        if(req.body.categories) {
+        if(req.query.categories) {
             askQuery
-                .where('categories').all(req.body.categories);
+                .where('categories').all(req.query.categories);
             countQuery
-                .where('categories').all(req.body.categories);
+                .where('categories').all(req.query.categories);
         }
-        if(req.body.software) {
+        if(req.query.software) {
             askQuery
-                .where('software').all(req.body.software);
+                .where('software').all(req.query.software);
             countQuery
-                .where('software').all(req.body.software);
+                .where('software').all(req.query.software);
         }
-        if(req.body.specs) {
+        if(req.query.specs) {
             askQuery
-                .where('specs').all(req.body.specs);
+                .where('specs').all(req.query.specs);
             countQuery
-                .where('specs').all(req.body.specs);
+                .where('specs').all(req.query.specs);
         }
-        if(req.body.certifications) {
+        if(req.query.certifications) {
             askQuery
-                .where('certifications').all(req.body.certifications);
+                .where('certifications').all(req.query.certifications);
             countQuery
-                .where('certifications').all(req.body.certifications);
+                .where('certifications').all(req.query.certifications);
         }
 
         countQuery.count().exec((err, amount) => {

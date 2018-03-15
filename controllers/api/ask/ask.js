@@ -6,9 +6,9 @@ const authService = require('../../../services/authService'),
 
 class Manage {
     constructor(router) {
-       router.post('/all',
+       router.get('/all',
            authService.authenticateUser.bind(this),
-           skillsService.changeNamesToIds.bind(this),
+           skillsService.changeNamesToIdsGET.bind(this),
            askService.getAllLimit.bind(this));
 
        router.get('/:id',
