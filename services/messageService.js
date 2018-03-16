@@ -94,7 +94,6 @@ class messageService {
             .populate('from', 'username first_name last_name')
             .populate('to', 'username first_name last_name')
             .select('-__v -_id')
-            .limit(2)
             .exec((err, data) => {
                 if (err) {
                     logger.error(err);

@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aff8df0a-b9ac-415b-a5b2-416ab02e4537" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/controllers/api/message/message.js" afterPath="$PROJECT_DIR$/controllers/api/message/message.js" />
-      <change beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
-      <change beforePath="$PROJECT_DIR$/logs/exceptions.log" afterPath="$PROJECT_DIR$/logs/exceptions.log" />
-      <change beforePath="$PROJECT_DIR$/logs/info.log" afterPath="$PROJECT_DIR$/logs/info.log" />
-      <change beforePath="$PROJECT_DIR$/models/message.js" afterPath="$PROJECT_DIR$/models/message.js" />
-      <change beforePath="$PROJECT_DIR$/models/rate.js" afterPath="$PROJECT_DIR$/models/rate.js" />
       <change beforePath="$PROJECT_DIR$/services/messageService.js" afterPath="$PROJECT_DIR$/services/messageService.js" />
-      <change beforePath="$PROJECT_DIR$/services/userService.js" afterPath="$PROJECT_DIR$/services/userService.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,8 +29,8 @@
       <file leaf-file-name="messageService.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/services/messageService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="632">
-              <caret line="111" column="79" lean-forward="false" selection-start-line="111" selection-start-column="79" selection-end-line="111" selection-end-column="79" />
+            <state relative-caret-position="360">
+              <caret line="95" column="32" lean-forward="false" selection-start-line="95" selection-start-column="32" selection-end-line="95" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -360,12 +353,12 @@
       <workItem from="1520964987006" duration="7275000" />
       <workItem from="1521050725604" duration="11231000" />
       <workItem from="1521131711617" duration="15764000" />
-      <workItem from="1521198878419" duration="12050000" />
+      <workItem from="1521198878419" duration="12202000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="166930000" />
+    <option name="totallyTimeSpent" value="167082000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -772,8 +765,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/services/messageService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="632">
-          <caret line="111" column="79" lean-forward="false" selection-start-line="111" selection-start-column="79" selection-end-line="111" selection-end-column="79" />
+        <state relative-caret-position="360">
+          <caret line="95" column="32" lean-forward="false" selection-start-line="95" selection-start-column="32" selection-end-line="95" selection-end-column="32" />
           <folding />
         </state>
       </provider>
