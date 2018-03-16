@@ -76,50 +76,43 @@ class messageService {
                         next();
                     });
             });
-        /**
-         *
-         * message {
-         *  with:
-         *      {
-         *          id: id of user,
-         *          username: username of id,
-         *      },
-         *  texts: [
-         *      {
-         *          content: 'lala',
-         *          send_date: date,
-         *          received: true/false (false means I've sent the message, true otherwise)
-         *      },
-         *      {
-         *          content: 'lala',
-         *          send_date: date,
-         *          received: true/false (false means I've sent the message, true otherwise)
-         *      }
-         *  ]
-         * }
-         *
-         * {
-         *  [
-         *  with:
-         *      {
-         *         id: id of user,
-         *         username: username of id,
-         *      }
-         *  last:
-         *      {
-         *          content: 'lala',
-         *          send_date: date,
-         *          received: true/false (false means I've sent the message, true otherwise)
-         *      }
-         *  ]
-         * }
-         *
-         * @type {Array}
-         */
+    }
 
-        let messages = [];
+    getAllWithOne(req, res) {
+        let userId = new mongoose.Types.ObjectId(req.userID);
+        let withId = new mongoose.Types.ObjectId(req.params.id);
+        let page = req.query.page || 0;
+        let offset = req.query.pagesize * page || 0;
+
+        Message.find({
+            $or : [
+                {$and: [{from: userId}, {to: withId}]},
+                {$and: [{from: withId}, {to: userId}]}
+            ]
+        })
+            .sort([['send_date', -1]])
+            .populate('from', 'username first_name last_name')
+            .populate('to', 'username first_name last_name')
+            .select('-__v -_id')
+            .limit(2)
+            .exec((err, data) => {
+                if (err) {
+                    logger.error(err);
+                    return res.status(500).json({message: 'Failed to load messages'});
+                }
+                if (!data)
+                    res.status(404).json({message: 'There is no correspondence between those users'});
 
 
+                let messages = data.map(msg => {
+                    msg._doc.is_sent = msg.from._id.equals(userId);
+                    return msg;
+                });
+
+                messages.sort((msg1, msg2) => msg1.send_date - msg2.send_date);
+
+                res.status(200).json(messages);
+            });
     }
 
 }

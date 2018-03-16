@@ -75,7 +75,7 @@ class UserService {
 
     userMessages(req, res) {
         let messages = res.locals.messages;
-        
+
         let idToNamesPromise = new Promise((resolve, reject) => {
             for(let element of messages) {
                 User.findById(element._id, (err, data) => {

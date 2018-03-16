@@ -4,8 +4,8 @@ const mongoose = require('mongoose'),
 let rateSchema = new Schema({
     grade: {type: Number, min: 1, max: 5},
     description: String,
-    user_from: {type: Schema.Types.ObjectId, rel: 'User'},
-    user_to: {type: Schema.Types.ObjectId, rel: 'User'}
+    user_from: {type: Schema.Types.ObjectId, ref: 'User'},
+    user_to: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 
 module.exports = mongoose.model('Rate', rateSchema);

@@ -315,11 +315,7 @@ gulp.task('dat', (done) => {
                 })
         });
 
-    // Message.find({ $or: [{from: userId}, {to: userId}]})
-    //     .sort([['send_date', -1]])
-    //     .exec((err, data) => {
-    //         console.log(data);
-    //     });
+
 });
 
 gulp.task('in', (done) => {

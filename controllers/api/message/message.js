@@ -14,6 +14,10 @@ class Manage {
             authService.authenticateUser.bind(this),
             messageService.getAll.bind(this),
             userService.userMessages.bind(this));
+
+        router.get('/with/:id',
+            authService.authenticateUser.bind(this),
+            messageService.getAllWithOne.bind(this));
     }
 }
 
