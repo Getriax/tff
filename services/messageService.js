@@ -81,8 +81,8 @@ class messageService {
     getAllWithOne(req, res) {
         let userId = new mongoose.Types.ObjectId(req.userID);
         let withId = new mongoose.Types.ObjectId(req.params.id);
-        let page = req.query.page || 0;
-        let offset = req.query.pagesize * page || 0;
+        let pageSize = req.query.pagesize || 10;
+        let offset = req.query.page * pageSize || 0;
 
         Message.find({
             $or : [
@@ -94,6 +94,8 @@ class messageService {
             .populate('from', 'username first_name last_name')
             .populate('to', 'username first_name last_name')
             .select('-__v -_id')
+            .skip(offset)
+            .limit(pageSize)
             .exec((err, data) => {
                 if (err) {
                     logger.error(err);
@@ -103,12 +105,17 @@ class messageService {
                     res.status(404).json({message: 'There is no correspondence between those users'});
 
 
+                data.sort((msg1, msg2) => msg1.send_date - msg2.send_date);
+
                 let messages = data.map(msg => {
                     msg._doc.is_sent = msg.from._id.equals(userId);
+                    msg._doc.send_date = new Date(msg.send_date).toLocaleString('en-US', {hour12: false});
                     return msg;
                 });
 
-                messages.sort((msg1, msg2) => msg1.send_date - msg2.send_date);
+
+
+
 
                 res.status(200).json(messages);
             });
