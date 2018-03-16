@@ -578,6 +578,7 @@ String **city**
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 
 # Message routes
+> Auth header required in all routes
 
 **POST** `/api/message/send`
 
@@ -585,3 +586,27 @@ String **city**
 * String **to** - id of a user to send message to
 
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+
+**GET** `/api/messages/all`
+> **Returns** all of logged user latest messages 
+
+    [
+	    {
+	        "_id": "5aaada4043fb9a3e9c0aab06",
+	        "content": "Hello",
+	        "send_date": "1/19/2018, 19:20:14",
+	        "is_read": false,
+	        "username": "jankowal",
+	        "first_name": "Jan",
+	        "last_name": "Kowalski"
+	    },
+	    {
+	        "_id": "5aaad2641752053ae942d328",
+	        "content": "Przepisy",
+	        "send_date": "3/19/2018, 21:20:14",
+	        "is_read": true,
+	        "username": "delme",
+	        "first_name": "Wiktoria",
+	        "last_name": "Delekta"
+	    }
+    ]
