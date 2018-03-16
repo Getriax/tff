@@ -19,20 +19,58 @@ class messageService {
         });
     }
 
-    getAll(req, res) {
+    getAll(req, res, next) {
         let userId = req.userID;
 
-        Message.find({ $or: [{from: userId}, {to: userId}]})
-            .sort([['send_date', -1]])
+        Message.aggregate()
+            .match({to: new mongoose.Types.ObjectId(userId)})
+            .sort({send_date: 1})
+            .group({
+                _id: "$from",
+                text: {$last: "$content"},
+                date: {$last: "$send_date"}
+            })
             .exec((err, data) => {
                 if(err) {
                     logger.error(err);
-                    return res.status(500).json({message: 'Failed to get messages'});
+                    return res.status(500).json({message: 'Failed to send message'});
                 }
-                if(!data)
-                    return res.status(500).json({message: 'You do not have messages'});
+                Message.aggregate()
+                    .match({from: new mongoose.Types.ObjectId(userId)})
+                    .sort({send_date: 1})
+                    .group({
+                        _id: "$to",
+                        text: {$last: "$content"},
+                        date: {$last: "$send_date"}
+                    })
+                    .exec((err2, data2) => {
+                        if(err2) {
+                            logger.error(err);
+                            return res.status(500).json({message: 'Failed to load messages'});
+                        }
 
-                res.status(200).json(data);
+                        let ret;
+
+                        if(data && data2)
+                        ret = data2.concat(data);
+                        else if(data)
+                            ret = data;
+                        else if(data2)
+                            ret = data2;
+                        else
+                            res.status(404).json({message: 'User does not have messages'});
+
+                        ret = ret.filter((element, index, self) => {
+
+                            return -1 === self.findIndex((t) => {
+                                return t._id.equals(element._id) && ((element.date - t.date) < 0)
+                            });
+
+                        });
+
+                        res.locals.messages = ret;
+                        next();
+                    });
             });
         /**
          *

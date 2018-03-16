@@ -63,6 +63,10 @@ class AskService {
         let askQuery = Ask.find();
         let countQuery = Ask.find();
 
+        console.log("LOCALS: ");
+        console.log(res.locals);
+        console.log("END OF LOCALS: ")
+
         if(res.locals.languages) {
             askQuery
                 .where('languages').all(res.locals.languages);

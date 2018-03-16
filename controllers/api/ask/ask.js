@@ -8,7 +8,11 @@ class Manage {
     constructor(router) {
        router.get('/all',
            authService.authenticateUser.bind(this),
-           skillsService.changeNamesToIdsGET.bind(this),
+           skillsService.languagesNamesToIds.bind(this),
+           skillsService.categoriesNamesToIds.bind(this),
+           skillsService.softwareNamesToIds.bind(this),
+           skillsService.specsNamesToIds.bind(this),
+           skillsService.certificationsNamesToIds.bind(this),
            askService.getAllLimit.bind(this));
 
        router.get('/:id',

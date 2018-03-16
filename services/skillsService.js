@@ -70,6 +70,200 @@ class SkillsService {
                 res.json(data);
             });
     }
+    languagesNamesToIds(req, res, next) {
+
+        if(!req.query.languages) {
+            next();
+        }
+        else {
+
+
+            if (!(req.query.languages instanceof Array))
+                req.query.languages = [req.query.languages];
+
+            let idPromise = new Promise((resolve, reject) => {
+                let ids = [];
+                for (let n of req.query.languages) {
+                    Language.findOne({name: n}, (err, data) => {
+                        if (err) {
+                            logger.error(err);
+                            return reject(err);
+                        }
+                        if (!data)
+                            return reject('We do not support that 0');
+                        ids.push(new mongoose.Types.ObjectId(data._id));
+                        if (ids.length === req.query.languages.length)
+                            resolve(ids);
+                    });
+                }
+            });
+
+            idPromise.then(IDS => {
+                res.locals.languages = IDS;
+                next();
+            })
+                .catch((err) => {
+                    return res.status(409).json({message: err + 'halo'})
+                });
+        }
+    }
+    categoriesNamesToIds(req, res, next) {
+        console.log('HAVE ');
+        console.log(req.query);
+        console.log('HAVE END');
+
+
+        if(!req.query.categories) {
+            console.log('NEXT');
+            next();
+        }
+        else {
+
+            if (!(req.query.categories instanceof Array))
+                req.query.categories = [req.query.categories];
+
+            let idPromise = new Promise((resolve, reject) => {
+                let ids = [];
+                for (let n of req.query.categories) {
+                    Category.findOne({name: n}, (err, data) => {
+                        if (err) {
+                            logger.error(err);
+                            reject(err);
+                            return;
+                        }
+                        if (!data) {
+                            reject('We do not support that 1');
+                            return;
+                        }
+
+                        ids.push(new mongoose.Types.ObjectId(data._id));
+                        if (ids.length === req.query.categories.length)
+                            resolve(ids);
+                    });
+                }
+            });
+
+            idPromise.then(IDS => {
+                res.locals.categories = IDS;
+                next();
+            })
+                .catch((err) => {
+                    return res.status(409).json({message: err})
+                });
+        }
+    }
+    softwareNamesToIds(req, res, next) {
+
+        if(!req.query.software) {
+            next();
+        }
+        else {
+
+            if (!(req.query.software instanceof Array))
+                req.query.software = [req.query.software];
+
+            let idPromise = new Promise((resolve, reject) => {
+                let ids = [];
+                for (let n of req.query.software) {
+                    Software.findOne({name: n}, (err, data) => {
+                        if (err) {
+                            logger.error(err);
+                            return reject(err);
+                        }
+                        if (!data)
+                            return reject('We do not support that 2');
+                        ids.push(new mongoose.Types.ObjectId(data._id));
+                        if (ids.length === req.query.software.length)
+                            resolve(ids);
+                    });
+                }
+            });
+
+            idPromise.then(IDS => {
+                res.locals.software = IDS;
+                next();
+            })
+                .catch((err) => {
+                    return res.status(409).json({message: err})
+                });
+        }
+    }
+    specsNamesToIds(req, res, next) {
+
+        if(!req.query.specs) {
+            next();
+        }
+        else {
+
+
+            if (!(req.query.specs instanceof Array))
+                req.query.specs = [req.query.specs];
+
+            let idPromise = new Promise((resolve, reject) => {
+                let ids = [];
+                for (let n of req.query.specs) {
+                    Spec.findOne({name: n}, (err, data) => {
+                        if (err) {
+                            logger.error(err);
+                            return reject(err);
+                        }
+                        if (!data)
+                            return reject('We do not support that 3');
+                        ids.push(new mongoose.Types.ObjectId(data._id));
+                        if (ids.length === req.query.specs.length)
+                            resolve(ids);
+                    });
+                }
+            });
+
+            idPromise.then(IDS => {
+                res.locals.specs = IDS;
+                next();
+            })
+                .catch((err) => {
+                    return res.status(409).json({message: err})
+                });
+        }
+    }
+
+    certificationsNamesToIds(req, res, next) {
+
+        if(!req.query.certifications) {
+            next();
+        }
+        else {
+
+
+            if (!(req.query.certifications instanceof Array))
+                req.query.certifications = [req.query.certifications];
+
+            let idPromise = new Promise((resolve, reject) => {
+                let ids = [];
+                for (let n of req.query.certifications) {
+                    Certification.findOne({name: n}, (err, data) => {
+                        if (err) {
+                            logger.error(err);
+                            return reject(err);
+                        }
+                        if (!data)
+                            return reject('We do not support that 4');
+                        ids.push(new mongoose.Types.ObjectId(data._id));
+                        if (ids.length === req.query.certifications.length)
+                            resolve(ids);
+                    });
+                }
+            });
+
+            idPromise.then(IDS => {
+                res.locals.certifications = IDS;
+                next();
+            })
+                .catch((err) => {
+                    return res.status(409).json({message: err})
+                });
+        }
+    }
+
 
     changeNamesToIdsGET(req, res, next) {
 
@@ -77,7 +271,9 @@ class SkillsService {
         let lastProperty = null;
         let nextError = false;
 
-
+        console.log("QUERY : ");
+        console.log(req.query);
+        console.log("QUERY END: ");
 
         if(req.query.categories) {
             propertiesMap.set('categories', Category);
@@ -89,7 +285,7 @@ class SkillsService {
         if(req.query.languages && req.query.languages.length > 0) {
             propertiesMap.set('languages', Language);
             lastProperty = 'languages';
-            res.locals.languages = []
+            res.locals.languages = [];
             if(!(req.query.languages instanceof Array))
                 req.query.languages = [req.query.languages];
         }
@@ -137,7 +333,7 @@ class SkillsService {
                         }
                         if(!data)
                             return reject('We do not support that');
-                        ids.push(data._id);
+                        ids.push(new mongoose.Types.ObjectId(data._id));
                         if(ids.length === req.query[name].length)
                             resolve(ids);
 
@@ -269,8 +465,6 @@ class SkillsService {
         let lastProperty = null;
         let nextError = false;
 
-        req.body.languages = ['French'];
-        req.body.software = ['Photoshop'];
 
         if(req.body.categories && req.body.categories.length > 0) {
             propertiesMap.set('categories', Category);
