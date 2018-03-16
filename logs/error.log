@@ -44,3 +44,7 @@ error: Cast to ObjectId failed for value "Photoshop" at path "software" for mode
 error: Cannot set property 'languages' of undefined {}
 error: Cannot set property 'software' of undefined {}
 error: Cannot set property 'certifications' of undefined {}
+error: Cannot read property '_id' of undefined {}
+error: Cannot read property '_id' of undefined {}
+error: Cannot read property '_id' of undefined {}
+error: Cannot read property '_id' of undefined {}

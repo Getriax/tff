@@ -1,5 +1,6 @@
 const authService = require('../../../services/authService'),
     messageService = require('../../../services/messageService'),
+    userService = require('../../../services/userService'),
     skillsService = require('../../../services/skillsService');
 
 class Manage {
@@ -11,7 +12,8 @@ class Manage {
 
         router.get('/all',
             authService.authenticateUser.bind(this),
-            messageService.getAll.bind(this));
+            messageService.getAll.bind(this),
+            userService.userMessages.bind(this));
     }
 }
 

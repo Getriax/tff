@@ -73,7 +73,40 @@ class UserService {
         getUserData(userId, req, res)
     }
 
+    userMessages(req, res) {
+        let messages = res.locals.messages;
+        
+        let idToNamesPromise = new Promise((resolve, reject) => {
+            for(let element of messages) {
+                User.findById(element._id, (err, data) => {
+                   if(err) {
+                       logger.error(err);
+                       reject(err);
+                   }
+                   if(!data) {
+                       reject('User not found');
+                   }
 
+                   element.username = data.username;
+                   element.first_name = data.first_name;
+                   element.last_name = data.last_name;
+                   element.send_date = new Date(element.send_date).toLocaleString('en-US', {hour12: false});
+
+
+
+                   if(element._id.equals(messages[messages.length - 1]._id)){
+                       resolve();
+                   }
+
+                });
+            }
+        });
+
+        idToNamesPromise.then(() => {
+            res.status(200).json(messages);
+        })
+            .catch((err) => res.status(200).json({message: `${err}`}));
+    }
 }
 
 function getUserData(userId, req, res) {

@@ -270,7 +270,7 @@ gulp.task('dat', (done) => {
     //     console.log(data);
     // })
     //Message.create({content: 'Co tam?', from: '5aa6e6c88666aa4a2ae0baef', to: '5aa6e8a44048684a68cf346c'}, (err) => {});
-    let userId = '5aabafb3f1ba5fabcaa530ce';
+    let userId = '5aaac7e584b8179c8a320ae7';
     //
     Message.aggregate()
         .match({to: new mongoose.Types.ObjectId(userId)})
@@ -302,7 +302,7 @@ gulp.task('dat', (done) => {
                             return t._id.equals(element._id) && ((element.date - t.date) < 0)
                         });
 
-                         console.log('RET ' + rat)
+                         console.log('RET ' + rat);
 
                         return rat === -1;
                         // console.log({el: element});
@@ -350,12 +350,12 @@ gulp.task('in', (done) => {
 gulp.task('messages', (done) => {
     database.open(() => {});
 
-    let f = new mongoose.Types.ObjectId('5aabafb3f1ba5fabcaa530ce');
-    let t = new mongoose.Types.ObjectId('5aabafb3f1ba5fabcaa530cf');
+    let f = new mongoose.Types.ObjectId('5aaac7e584b8179c8a320ae7');
+    let t = new mongoose.Types.ObjectId('5aaada4043fb9a3e9c0aab06');
 
-    Message.create({from: f, to: t, content: 'new', send_date: new Date(1521210822)}, (err) => {if(err) console.log(err)});
-    // Message.create({from: t, to: f, content: '2w', send_date: new Date(1521211822)}, (err) => {});
-    // Message.create({from: f, to: t, content: '3w', send_date: new Date(1521212822)}, (err) => {});
-    // Message.create({from: t, to: f, content: '4w', send_date: new Date(1521213822)}, (err) => {});
-    // Message.create({from: t, to: f, content: '5w', send_date: new Date(1521214822)}, (err) => {});
+    Message.create({from: f, to: t, content: '1q', send_date: new Date(1621210822)}, (err) => {if(err) console.log(err)});
+    Message.create({from: t, to: f, content: '2q', send_date: new Date(1621211822)}, (err) => {});
+    Message.create({from: f, to: t, content: '3q', send_date: new Date(1621212822)}, (err) => {});
+    Message.create({from: t, to: f, content: '4q', send_date: new Date(1621213822)}, (err) => {});
+    Message.create({from: t, to: f, content: '5q', send_date: new Date(1621214822)}, (err) => {});
 })

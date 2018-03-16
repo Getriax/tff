@@ -21,14 +21,16 @@ class messageService {
 
     getAll(req, res, next) {
         let userId = req.userID;
+       // let userId = '5aabafb3f1ba5fabcaa530ce';
 
         Message.aggregate()
             .match({to: new mongoose.Types.ObjectId(userId)})
             .sort({send_date: 1})
             .group({
                 _id: "$from",
-                text: {$last: "$content"},
-                date: {$last: "$send_date"}
+                content: {$last: "$content"},
+                send_date: {$last: "$send_date"},
+                is_read: {$last: "$is_read"}
             })
             .exec((err, data) => {
                 if(err) {
@@ -40,8 +42,9 @@ class messageService {
                     .sort({send_date: 1})
                     .group({
                         _id: "$to",
-                        text: {$last: "$content"},
-                        date: {$last: "$send_date"}
+                        content: {$last: "$content"},
+                        send_date: {$last: "$send_date"},
+                        is_read: {$last: "$is_read"}
                     })
                     .exec((err2, data2) => {
                         if(err2) {
@@ -63,10 +66,11 @@ class messageService {
                         ret = ret.filter((element, index, self) => {
 
                             return -1 === self.findIndex((t) => {
-                                return t._id.equals(element._id) && ((element.date - t.date) < 0)
+                                return t._id.equals(element._id) && ((element.send_date - t.send_date) < 0)
                             });
 
                         });
+
 
                         res.locals.messages = ret;
                         next();
