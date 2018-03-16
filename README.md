@@ -576,7 +576,7 @@ String **city**
 * Number **salary**
 
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
-
+----------
 # Message routes
 > Auth header required in all routes
 
@@ -586,7 +586,7 @@ String **city**
 * String **to** - id of a user to send message to
 
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
-
+----------
 **GET** `/api/messages/all`
 > **Returns** all of logged user latest messages 
 
@@ -596,7 +596,7 @@ String **city**
 	        "content": "Hello",
 	        "send_date": "1/19/2018, 19:20:14",
 	        "is_read": false,
-	        "username": "jankowal",
+	        "username": "janek",
 	        "first_name": "Jan",
 	        "last_name": "Kowalski"
 	    },
@@ -605,8 +605,56 @@ String **city**
 	        "content": "Przepisy",
 	        "send_date": "3/19/2018, 21:20:14",
 	        "is_read": true,
-	        "username": "delme",
-	        "first_name": "Wiktoria",
-	        "last_name": "Delekta"
+	        "username": "mymaj",
+	        "first_name": "Krzysztof",
+	        "last_name": "Skoczek"
 	    }
     ]
+----------    
+**GET** `/api/message/with/:id`
+> **Resturns** messages between logged user and given one. Newest ones are at the bottom.
+
+* **:id** - id of a user with whom logged user is corresponding (path param)
+* **pagesize** - number of messages to get (get param) - **default 10**
+* **page** - number of page/offset (get param) - **default 0**
+
+	    [
+		    {
+		        "send_date": "1/19/2018, 19:20:10",
+		        "is_read": false,
+		        "from": {
+		            "_id": "5aaac7e584b8179c8a320ae7",
+		            "username": "janek",
+		            "last_name": "Kowalski",
+		            "first_name": "Jan"
+		        },
+		        "to": {
+		            "_id": "5aaada4043fb9a3e9c0aab06",
+		            "username": "mymaj",
+		            "last_name": "Skoczek",
+		            "first_name": "Krzysztof"
+		        },
+		        "content": "Dzien dobry!",
+		        "is_sent": true
+		    },
+		    {
+		        "send_date": "1/19/2018 19:31:11",
+		        "is_read": false,
+		        "from": {
+		            "_id": "5aaada4043fb9a3e9c0aab06",
+		            "username": "mymaj",
+		            "last_name": "Skoczek",
+		            "first_name": "Krzysztof"
+		        },
+		        "to": {
+		            "_id": "5aaac7e584b8179c8a320ae7",
+		            "username": "janek",
+		            "last_name": "Kowalski",
+		            "first_name": "Jan"
+		        },
+		        "content": "Witam!",
+		        "is_sent": false
+		    }
+	    ]
+
+> **is_sent** tells whether message was received or sent.
