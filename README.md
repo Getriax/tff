@@ -413,15 +413,15 @@ String **city**
 # Ask routes
 > Auth header required in all routes
 
-**POST** `/api/ask/all`
+**GET** `/api/ask/all`
 
 > Filter is implemented
 
-* Array[String] **categories** 
-* Array[String] **languages**
-* Array[String] **software**
-* Array[String] **specs**
-* Array[String] **certifications**
+* Array[String]/String **categories** 
+* Array[String]/String **languages**
+* Array[String]/String **software**
+* Array[String]/String **specs**
+* Array[String]/String **certifications**
 * Number **pagesize** - default 10
 * Number **page** - default 0
 
