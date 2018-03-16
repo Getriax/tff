@@ -63,35 +63,35 @@ class AskService {
         let askQuery = Ask.find();
         let countQuery = Ask.find();
 
-        if(req.query.languages) {
+        if(res.locals.languages) {
             askQuery
-                .where('languages').all(req.query.languages);
+                .where('languages').all(res.locals.languages);
             countQuery
-                .where('languages').all(req.query.languages);
+                .where('languages').all(res.locals.languages);
         }
-        if(req.query.categories) {
+        if(res.locals.categories) {
             askQuery
-                .where('categories').all(req.query.categories);
+                .where('categories').all(res.locals.categories);
             countQuery
-                .where('categories').all(req.query.categories);
+                .where('categories').all(res.locals.categories);
         }
-        if(req.query.software) {
+        if(res.locals.software) {
             askQuery
-                .where('software').all(req.query.software);
+                .where('software').all(res.locals.software);
             countQuery
-                .where('software').all(req.query.software);
+                .where('software').all(res.locals.software);
         }
-        if(req.query.specs) {
+        if(res.locals.specs) {
             askQuery
-                .where('specs').all(req.query.specs);
+                .where('specs').all(res.locals.specs);
             countQuery
-                .where('specs').all(req.query.specs);
+                .where('specs').all(res.locals.specs);
         }
-        if(req.query.certifications) {
+        if(res.locals.certifications) {
             askQuery
-                .where('certifications').all(req.query.certifications);
+                .where('certifications').all(res.locals.certifications);
             countQuery
-                .where('certifications').all(req.query.certifications);
+                .where('certifications').all(res.locals.certifications);
         }
 
         countQuery.count().exec((err, amount) => {
@@ -121,7 +121,7 @@ class AskService {
                 let responseData = {
                    count: amount,
                    asks: data
-                }
+                };
                 res.status(200).json(responseData);
             })
         });
