@@ -98,7 +98,6 @@ String: **username**
 
     [
         {
-            "rate": [],
             "username": "niko1",
             "email": "some@ema2il.com",
             "city": "Sepolno3",
@@ -108,13 +107,11 @@ String: **username**
             "status": 0
         },
         {
-            "rate": [],
             "**username**": "niko",
             "email": "some@ema2il.com"
 			"status": "-1"
         },
         {
-            "rate": [],
             "**username**": "niko23",
             "email": "some@ema2il.com"
 			"status": "-1"
@@ -179,23 +176,69 @@ String: **username**
 	                "name": "CISCO1"
 	            }
 	        ]
-	    }
+	    },
+	    "rate" : 3
     }
+
+> rate is the average of all rates
+
 
 
 ----------
 
 
 **POST** `/api/user/password`
+> Changes password of the logged user
 
 String **password**
 
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
-
-
 ----------
 
+**GET** `/api/user/:id/rates`
+> **Resturns** All rates of a user.
 
+* **:id** - id of a user to get rates from (path property)
+* **pagesize** - number of rates to return - **defuault 10**
+* **page** - number of the page of rates - **default 0**
+
+		{
+		    "rates": [
+		        {
+		            "grade": 4,
+		            "description": "good",
+		            "user_to": "5aaac7e584b8179c8a320ae7",
+		            "user_from": {
+		                "_id": "5aaad2641752053ae942d328",
+		                "username": "janek",
+		                "last_name": "Kowalski",
+		                "first_name": "Jan"
+		            }
+		        },
+		        {
+		            "grade": 2,
+		            "description": "not that good",
+		            "user_to": "5aaac7e584b8179c8a320ae7",
+		            "user_from": {
+		                "_id": "5aaada4043fb9a3e9c0aab06",
+		                "username": "meme",
+		                "last_name": "Skoczek",
+		                "first_name": "Krzysztof "
+		            }
+		        }
+		    ],
+		    "count": 2
+		}
+> **count** - is number of all available rates
+
+----------
+**POST** `/api/user/rate`
+> Adds rate or updates previous rate
+* String **description**
+* Number **grade**
+* String(id) **user_to** - id of a user to rate
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+----------
 # Skills routes
 > Auth header required in all routes
 
@@ -618,8 +661,9 @@ String **city**
 * **pagesize** - number of messages to get (get param) - **default 10**
 * **page** - number of page/offset (get param) - **default 0**
 
-	    [
-		    {
+	    {
+		messages: [  
+		      {
 		        "send_date": "1/19/2018, 19:20:10",
 		        "is_read": false,
 		        "from": {
@@ -655,6 +699,8 @@ String **city**
 		        "content": "Witam!",
 		        "is_sent": false
 		    }
-	    ]
-
+		],
+		"count": 5
+	    }
+> **count** is a maximum size of avaiable asks with given filter - **not the count of returned items**
 > **is_sent** tells whether message was received or sent.
