@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aff8df0a-b9ac-415b-a5b2-416ab02e4537" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/controllers/api/user/user.js" afterPath="$PROJECT_DIR$/controllers/api/user/user.js" />
-      <change beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
-      <change beforePath="$PROJECT_DIR$/logs/error.log" afterPath="$PROJECT_DIR$/logs/error.log" />
       <change beforePath="$PROJECT_DIR$/logs/exceptions.log" afterPath="$PROJECT_DIR$/logs/exceptions.log" />
       <change beforePath="$PROJECT_DIR$/logs/info.log" afterPath="$PROJECT_DIR$/logs/info.log" />
-      <change beforePath="$PROJECT_DIR$/models/user.js" afterPath="$PROJECT_DIR$/models/user.js" />
-      <change beforePath="$PROJECT_DIR$/services/messageService.js" afterPath="$PROJECT_DIR$/services/messageService.js" />
-      <change beforePath="$PROJECT_DIR$/services/userService.js" afterPath="$PROJECT_DIR$/services/userService.js" />
+      <change beforePath="$PROJECT_DIR$/services/rateService.js" afterPath="$PROJECT_DIR$/services/rateService.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,7 +22,7 @@
       <file leaf-file-name="askService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services/askService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1173">
+            <state relative-caret-position="0">
               <caret line="69" column="34" lean-forward="false" selection-start-line="69" selection-start-column="34" selection-end-line="69" selection-end-column="34" />
               <folding />
             </state>
@@ -67,8 +62,8 @@
       <file leaf-file-name="user.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/api/user/user.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="46" lean-forward="false" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
+            <state relative-caret-position="255">
+              <caret line="15" column="26" lean-forward="true" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -87,8 +82,8 @@
       <file leaf-file-name="rateService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services/rateService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1105">
-              <caret line="65" column="45" lean-forward="false" selection-start-line="65" selection-start-column="45" selection-end-line="65" selection-end-column="45" />
+            <state relative-caret-position="576">
+              <caret line="85" column="84" lean-forward="true" selection-start-line="85" selection-start-column="84" selection-end-line="85" selection-end-column="84" />
               <folding />
             </state>
           </provider>
@@ -175,7 +170,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/models/Software.js" />
         <option value="$PROJECT_DIR$/services/EmployerService.js" />
         <option value="$PROJECT_DIR$/models/employer.js" />
         <option value="$PROJECT_DIR$/controllers/api/user/menage.js" />
@@ -224,8 +218,9 @@
         <option value="$PROJECT_DIR$/models/rate.js" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/services/userService.js" />
-        <option value="$PROJECT_DIR$/controllers/api/user/user.js" />
         <option value="$PROJECT_DIR$/services/rateService.js" />
+        <option value="$PROJECT_DIR$/controllers/api/user/user.js" />
+        <option value="$PROJECT_DIR$/controllers/api/rate/rate.js" />
       </list>
     </option>
   </component>
@@ -424,12 +419,12 @@
       <workItem from="1521131711617" duration="15764000" />
       <workItem from="1521198878419" duration="13289000" />
       <workItem from="1521238170461" duration="1956000" />
-      <workItem from="1521290373464" duration="3426000" />
+      <workItem from="1521290373464" duration="4411000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="173551000" />
+    <option name="totallyTimeSpent" value="174536000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -477,13 +472,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/services/database.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="23" lean-forward="false" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -670,14 +658,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/api/ask/ask.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="41" lean-forward="true" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/api/message/message.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -757,7 +737,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/services/askService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
+        <state relative-caret-position="0">
           <caret line="69" column="34" lean-forward="false" selection-start-line="69" selection-start-column="34" selection-end-line="69" selection-end-column="34" />
           <folding />
         </state>
@@ -795,14 +775,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/services/rateService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1105">
-          <caret line="65" column="45" lean-forward="false" selection-start-line="65" selection-start-column="45" selection-end-line="65" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/rate.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -811,10 +783,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/services/rateService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="85" column="84" lean-forward="true" selection-start-line="85" selection-start-column="84" selection-end-line="85" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/api/ask/ask.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="41" lean-forward="true" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/api/rate/rate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/api/user/user.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="46" lean-forward="false" selection-start-line="17" selection-start-column="46" selection-end-line="17" selection-end-column="46" />
+        <state relative-caret-position="255">
+          <caret line="15" column="26" lean-forward="true" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
           <folding />
         </state>
       </provider>

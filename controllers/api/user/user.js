@@ -18,6 +18,11 @@ class Manage {
             rateService.getAverage.bind(this),
             userService.getOne.bind(this));
 
+        router.get('/:id/rates',
+            authService.authenticateUser.bind(this),
+            rateService.getAllOfOne.bind(this));
+
+
         router.post('/password',
             authService.authenticateUser.bind(this),
             userService.changePassword.bind(this));

@@ -55,7 +55,6 @@ class RateService {
                 avg: {$avg: "$grade"}
             })
             .exec((err, data) => {
-                console.log(data);
                 if(err) {
                     logger.error(err);
                     return res.status(500).json({message: 'Failed to load rate'});
@@ -66,6 +65,27 @@ class RateService {
                     res.locals.rate = data[0].avg;
 
                 next();
+            });
+    }
+
+    getAllOfOne(req, res) {
+        let userId = req.params.id;
+        let pagesize = req.query.pagesize || 10;
+        let offset = req.query.page * pagesize || 0;
+
+        Rate.find({user_to: userId})
+            .populate('user_from', 'username first_name last_name _id')
+            .skip(offset)
+            .limit(pagesize)
+            .exec((err, data) => {
+                if(err) {
+                    logger.error(err);
+                    return res.status(500).json({message: 'Failed to load rate'});
+                }
+                if(Object.keys(data).length === 0)
+                    return res.status(404).json({message: 'User does not have rates yet'});
+                else
+                    return res.status(200).json(data);
             });
     }
 }
