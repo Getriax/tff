@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aff8df0a-b9ac-415b-a5b2-416ab02e4537" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/controllers/api/user/user.js" afterPath="$PROJECT_DIR$/controllers/api/user/user.js" />
-      <change beforePath="$PROJECT_DIR$/logs/exceptions.log" afterPath="$PROJECT_DIR$/logs/exceptions.log" />
       <change beforePath="$PROJECT_DIR$/logs/info.log" afterPath="$PROJECT_DIR$/logs/info.log" />
       <change beforePath="$PROJECT_DIR$/services/rateService.js" afterPath="$PROJECT_DIR$/services/rateService.js" />
     </list>
@@ -59,7 +57,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="user.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/api/user/user.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
@@ -79,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rateService.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="rateService.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/services/rateService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="85" column="84" lean-forward="true" selection-start-line="85" selection-start-column="84" selection-end-line="85" selection-end-column="84" />
+            <state relative-caret-position="695">
+              <caret line="108" column="60" lean-forward="false" selection-start-line="108" selection-start-column="60" selection-end-line="108" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -218,9 +216,9 @@
         <option value="$PROJECT_DIR$/models/rate.js" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/services/userService.js" />
-        <option value="$PROJECT_DIR$/services/rateService.js" />
         <option value="$PROJECT_DIR$/controllers/api/user/user.js" />
         <option value="$PROJECT_DIR$/controllers/api/rate/rate.js" />
+        <option value="$PROJECT_DIR$/services/rateService.js" />
       </list>
     </option>
   </component>
@@ -419,12 +417,12 @@
       <workItem from="1521131711617" duration="15764000" />
       <workItem from="1521198878419" duration="13289000" />
       <workItem from="1521238170461" duration="1956000" />
-      <workItem from="1521290373464" duration="4411000" />
+      <workItem from="1521290373464" duration="5444000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="174536000" />
+    <option name="totallyTimeSpent" value="175569000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -783,14 +781,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/services/rateService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="85" column="84" lean-forward="true" selection-start-line="85" selection-start-column="84" selection-end-line="85" selection-end-column="84" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/api/ask/ask.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -811,6 +801,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="15" column="26" lean-forward="true" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/rateService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="695">
+          <caret line="108" column="60" lean-forward="false" selection-start-line="108" selection-start-column="60" selection-end-line="108" selection-end-column="60" />
           <folding />
         </state>
       </provider>

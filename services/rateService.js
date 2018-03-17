@@ -73,20 +73,44 @@ class RateService {
         let pagesize = req.query.pagesize || 10;
         let offset = req.query.page * pagesize || 0;
 
-        Rate.find({user_to: userId})
-            .populate('user_from', 'username first_name last_name _id')
-            .skip(offset)
-            .limit(pagesize)
-            .exec((err, data) => {
-                if(err) {
-                    logger.error(err);
-                    return res.status(500).json({message: 'Failed to load rate'});
-                }
-                if(Object.keys(data).length === 0)
-                    return res.status(404).json({message: 'User does not have rates yet'});
-                else
-                    return res.status(200).json(data);
-            });
+        let countPromise = new Promise((resolve, reject) => {
+            Rate.find({user_to: userId})
+                .count()
+                .exec((err, data) => {
+                    if(err) {
+                        logger.error(err);
+                        reject({status: 500, msg: err});
+                    }
+                    if(!data || data === 0)
+                        reject({status: 404, msg: 'User does not have rates yet'});
+
+                    resolve(data);
+                });
+        });
+
+        countPromise
+            .then((num) => {
+                Rate.find({user_to: userId})
+                    .populate('user_from', 'username first_name last_name _id')
+                    .skip(offset)
+                    .limit(pagesize)
+                    .select('-__v -_id')
+                    .exec((err, data) => {
+                        if(err) {
+                            logger.error(err);
+                            return res.status(500).json({message: 'Failed to load rate'});
+                        }
+
+                        let response = {
+                            rates: data,
+                            count: num
+                        } ;
+
+                        return res.status(200).json(response);
+                    });
+        })
+            .catch((err) => res.status(err.status).json(err.msg));
+
     }
 }
 
