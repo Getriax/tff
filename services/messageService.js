@@ -21,7 +21,6 @@ class messageService {
 
     getAll(req, res, next) {
         let userId = req.userID;
-       // let userId = '5aabafb3f1ba5fabcaa530ce';
 
         Message.aggregate()
             .match({to: new mongoose.Types.ObjectId(userId)})

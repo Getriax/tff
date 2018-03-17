@@ -48,3 +48,4 @@ error: Cannot read property '_id' of undefined {}
 error: Cannot read property '_id' of undefined {}
 error: Cannot read property '_id' of undefined {}
 error: Cannot read property '_id' of undefined {}
+error: $and must be an array {"name":"MongoError","ok":0,"errmsg":"$and must be an array","code":2,"codeName":"BadValue"}

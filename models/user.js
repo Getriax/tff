@@ -7,7 +7,6 @@ let userSchema = new Schema({
     username: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     email: {type: String, required: true},
-    rate: [{type: Schema.Types.ObjectId, ref: 'Rate'}],
     status: Number, // -1: just user, 0: employee, 1: employer
     phone: String,
     city: String

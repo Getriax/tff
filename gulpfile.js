@@ -12,7 +12,8 @@ const gulp = require('gulp'),
     Employer = require('./models/employer'),
     Bid = require('./models/bid'),
     Message = require('./models/message'),
-    skillsService = require('./services/skillsService');
+    skillsService = require('./services/skillsService'),
+    Rate = require('./models/rate');
 
 gulp.task('addUser', (done) => {
     database.open(() => {});
@@ -354,4 +355,45 @@ gulp.task('messages', (done) => {
     Message.create({from: f, to: t, content: '3q', send_date: new Date(1621212822)}, (err) => {});
     Message.create({from: t, to: f, content: '4q', send_date: new Date(1621213822)}, (err) => {});
     Message.create({from: t, to: f, content: '5q', send_date: new Date(1621214822)}, (err) => {});
-})
+});
+
+gulp.task('stack', (done) => {
+    let Users = [{
+        id: 1,
+        name: "Bob",
+        },
+        {
+            id: 2,
+            name: "Alice",
+        },
+        {
+            id: 3,
+            name: "Pete",
+        }];
+    let id = 14;
+
+    new Promise((resolve) => {
+        let user = Users[Users.findIndex(user => user.id === id)];
+        user.age = 12;
+        resolve(user);
+    })
+        .then(user => console.log(user))
+        .catch((err) => console.error('Nothing wrong here'));
+
+});
+
+gulp.task('rate', (done) => {
+    database.open(() => {});
+
+    let userId = new mongoose.Types.ObjectId('5aaac7e5841b819c8a320ae7');
+
+    Rate.aggregate()
+        .match({user_to: userId})
+        .group({
+            _id: "$user_to",
+            avg: {$avg: "$grade"}
+        })
+        .exec((err, data) => {
+            console.log(data);
+        });
+});

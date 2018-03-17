@@ -30,26 +30,6 @@ class UserService {
         });
     }
 
-    rateUser(req, res) {
-        let userId = req.userID;
-        let rateBody = req.body;
-
-        let rate_new = new Rate({
-            _id: new mongoose.Types.ObjectId,
-            grade: rateBody.grade,
-            description: rateBody.description,
-            user_from: userId,
-            user_to: rateBody.user_to
-        });
-
-        rate.save((err) => {if(err) res.status(500).send({message: 'Rating failed'})});
-
-        User.findByIdAndUpdate(rateBody.user_to, {$push: {rate: rate_new._id}}, (err, data) => {
-            if(err)
-                return res.status(500).send({message: 'rating user failed'});
-            res.status(200).json(data);
-        });
-    }
 
     getOne(req, res) {
 
@@ -112,32 +92,37 @@ class UserService {
 function getUserData(userId, req, res) {
     User.findById(userId)
         .select('-_id -__v -password')
-        .exec((err, body) => {
+        .exec((err, data) => {
             if(err){
                 logger.error(err);
                 return res.status(404).send({message: 'User does not exist'});
             }
 
-            if(body.status == 0) {
+            if(data.status == 0) {
                 employeeService.populateOne(userId).then((empdData) => {
                     let payload = {
-                        user: body,
-                        employee: empdData
+                        user: data,
+                        employee: empdData,
+                        rate: res.locals.rate
                     };
                     res.status(200).json(payload);
                 }).catch((err) => {res.status(409).json({message: err})});
             }
-            else if(body.status == 1){
+            else if(data.status == 1){
                 employerService.populateOne(userId).then((empdData) => {
                     let payload = {
-                        user: body,
-                        employer: empdData
+                        user: data,
+                        employer: empdData,
+                        rate: res.locals.rate
                     };
                     res.status(200).json(payload);
                 }).catch((err) => {res.status(409).json({message: err})});
             }
-            else
-                res.status(200).json(body);
+            else {
+                data._doc.rate = res.locals.rate;
+                res.status(200).json(data);
+            }
+
         });
 }
 module.exports = new UserService();
