@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aff8df0a-b9ac-415b-a5b2-416ab02e4537" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
+      <change beforePath="$PROJECT_DIR$/logs/exceptions.log" afterPath="$PROJECT_DIR$/logs/exceptions.log" />
       <change beforePath="$PROJECT_DIR$/logs/info.log" afterPath="$PROJECT_DIR$/logs/info.log" />
-      <change beforePath="$PROJECT_DIR$/services/rateService.js" afterPath="$PROJECT_DIR$/services/rateService.js" />
+      <change beforePath="$PROJECT_DIR$/services/messageService.js" afterPath="$PROJECT_DIR$/services/messageService.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -27,11 +29,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="messageService.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="messageService.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/services/messageService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="100" column="86" lean-forward="true" selection-start-line="99" selection-start-column="20" selection-end-line="100" selection-end-column="86" />
+            <state relative-caret-position="703">
+              <caret line="45" column="38" lean-forward="true" selection-start-line="45" selection-start-column="38" selection-end-line="45" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="message.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/controllers/api/message/message.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -40,8 +52,8 @@
       <file leaf-file-name="gulpfile.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gulpfile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="559">
-              <caret line="391" column="16" lean-forward="true" selection-start-line="391" selection-start-column="16" selection-end-line="391" selection-end-column="16" />
+            <state relative-caret-position="684">
+              <caret line="403" column="31" lean-forward="false" selection-start-line="403" selection-start-column="31" selection-end-line="403" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -50,7 +62,7 @@
       <file leaf-file-name="userService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services/userService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="593">
+            <state relative-caret-position="1184">
               <caret line="121" column="49" lean-forward="true" selection-start-line="121" selection-start-column="49" selection-end-line="121" selection-end-column="49" />
               <folding />
             </state>
@@ -77,11 +89,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="rateService.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="rateService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services/rateService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="695">
-              <caret line="108" column="60" lean-forward="false" selection-start-line="108" selection-start-column="60" selection-end-line="108" selection-end-column="60" />
+            <state relative-caret-position="729">
+              <caret line="111" column="63" lean-forward="true" selection-start-line="111" selection-start-column="28" selection-end-line="111" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -211,14 +223,14 @@
         <option value="$PROJECT_DIR$/services/skillsService.js" />
         <option value="$PROJECT_DIR$/controllers/api/message/message.js" />
         <option value="$PROJECT_DIR$/models/message.js" />
-        <option value="$PROJECT_DIR$/services/messageService.js" />
         <option value="$PROJECT_DIR$/models/user.js" />
         <option value="$PROJECT_DIR$/models/rate.js" />
-        <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/services/userService.js" />
         <option value="$PROJECT_DIR$/controllers/api/user/user.js" />
         <option value="$PROJECT_DIR$/controllers/api/rate/rate.js" />
         <option value="$PROJECT_DIR$/services/rateService.js" />
+        <option value="$PROJECT_DIR$/gulpfile.js" />
+        <option value="$PROJECT_DIR$/services/messageService.js" />
       </list>
     </option>
   </component>
@@ -417,12 +429,12 @@
       <workItem from="1521131711617" duration="15764000" />
       <workItem from="1521198878419" duration="13289000" />
       <workItem from="1521238170461" duration="1956000" />
-      <workItem from="1521290373464" duration="5444000" />
+      <workItem from="1521290373464" duration="7633000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="175569000" />
+    <option name="totallyTimeSpent" value="177758000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -656,13 +668,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/api/message/message.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="51" lean-forward="false" selection-start-line="19" selection-start-column="51" selection-end-line="19" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/ask.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -749,30 +754,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/services/messageService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="100" column="86" lean-forward="true" selection-start-line="99" selection-start-column="20" selection-end-line="100" selection-end-column="86" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gulpfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="559">
-          <caret line="391" column="16" lean-forward="true" selection-start-line="391" selection-start-column="16" selection-end-line="391" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/userService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="121" column="49" lean-forward="true" selection-start-line="121" selection-start-column="49" selection-end-line="121" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/rate.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -807,8 +788,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/services/rateService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="695">
-          <caret line="108" column="60" lean-forward="false" selection-start-line="108" selection-start-column="60" selection-end-line="108" selection-end-column="60" />
+        <state relative-caret-position="729">
+          <caret line="111" column="63" lean-forward="true" selection-start-line="111" selection-start-column="28" selection-end-line="111" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/userService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1184">
+          <caret line="121" column="49" lean-forward="true" selection-start-line="121" selection-start-column="49" selection-end-line="121" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="403" column="31" lean-forward="false" selection-start-line="403" selection-start-column="31" selection-end-line="403" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/api/message/message.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/messageService.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="703">
+          <caret line="45" column="38" lean-forward="true" selection-start-line="45" selection-start-column="38" selection-end-line="45" selection-end-column="38" />
           <folding />
         </state>
       </provider>

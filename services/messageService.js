@@ -8,8 +8,11 @@ class messageService {
         let userId = req.userID;
 
         let messageBody = req.body;
-        messageBody.from = userId;
+        messageBody.from = new mongoose.Types.ObjectId(userId);
 
+        if(messageBody.from.equals(messageBody.to))
+            res.status(409).json({success: 'You cannot send message to yourself'});
+        else
         Message.create(messageBody, (err) => {
             if(err) {
                 logger.error(err);
@@ -21,6 +24,8 @@ class messageService {
 
     getAll(req, res, next) {
         let userId = req.userID;
+        let pageSize = req.query.pagesize || 10;
+        let offset = req.query.page * pageSize || 0;
 
         Message.aggregate()
             .match({to: new mongoose.Types.ObjectId(userId)})
@@ -70,6 +75,9 @@ class messageService {
 
                         });
 
+                        res.locals.num = ret.length;
+
+                        //ret = ret.slice()
 
                         res.locals.messages = ret;
                         next();
@@ -83,41 +91,64 @@ class messageService {
         let pageSize = req.query.pagesize || 10;
         let offset = req.query.page * pageSize || 0;
 
-        Message.find({
-            $or : [
+        let countPrimise = new Promise((resolve, reject) => {
+            Message.find({$or : [
                 {$and: [{from: userId}, {to: withId}]},
                 {$and: [{from: withId}, {to: userId}]}
-            ]
-        })
-            .sort([['send_date', -1]])
-            .populate('from', 'username first_name last_name')
-            .populate('to', 'username first_name last_name')
-            .select('-__v -_id')
-            .skip(offset)
-            .limit(pageSize)
-            .exec((err, data) => {
-                if (err) {
-                    logger.error(err);
-                    return res.status(500).json({message: 'Failed to load messages'});
-                }
-                if (!data)
-                    res.status(404).json({message: 'There is no correspondence between those users'});
+            ]})
+                .count()
+                .exec((err, data) => {
+                    if (err) {
+                        logger.error(err);
+                        reject({status: 500, msg: 'Failed to load messages'});
+                    }
+                    if(!data || data === 0)
+                        reject({status: 404, msg: 'There is no correspondence between those users'});
+
+                    resolve(data);
+                })
+        });
+
+        countPrimise.then((num) => {
+            Message.find({
+                $or : [
+                    {$and: [{from: userId}, {to: withId}]},
+                    {$and: [{from: withId}, {to: userId}]}
+                ]
+            })
+                .sort([['send_date', -1]])
+                .populate('from', 'username first_name last_name')
+                .populate('to', 'username first_name last_name')
+                .select('-__v -_id')
+                .skip(offset)
+                .limit(pageSize)
+                .exec((err, data) => {
+                    if (err) {
+                        logger.error(err);
+                        return res.status(500).json({message: 'Failed to load messages'});
+                    }
+                    if (!data)
+                        res.status(404).json({message: 'There is no correspondence between those users'});
 
 
-                data.sort((msg1, msg2) => msg1.send_date - msg2.send_date);
+                    data.sort((msg1, msg2) => msg1.send_date - msg2.send_date);
 
-                let messages = data.map(msg => {
-                    msg._doc.is_sent = msg.from._id.equals(userId);
-                    msg._doc.send_date = new Date(msg.send_date).toLocaleString('en-US', {hour12: false});
-                    return msg;
+                    let msgs = data.map(msg => {
+                        msg._doc.is_sent = msg.from._id.equals(userId);
+                        msg._doc.send_date = new Date(msg.send_date).toLocaleString('en-US', {hour12: false});
+                        return msg;
+                    });
+
+                    let response = {
+                        messages: msgs,
+                        count: num
+                    };
+
+                    res.status(200).json(response);
                 });
+        }).catch((err) => res.status(err.status).json(err.msg));
 
 
-
-
-
-                res.status(200).json(messages);
-            });
     }
 
 }
