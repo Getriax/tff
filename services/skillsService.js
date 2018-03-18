@@ -1,7 +1,5 @@
 const mongoose = require('mongoose'),
     logger = require('../config/logger'),
-    User = require('../models/user'),
-    Employee = require('../models/employee'),
     Language = require('../models/language'),
     Software = require('../models/software'),
     Spec = require('../models/spec'),
@@ -73,7 +71,6 @@ class SkillsService {
     languagesNamesToIds(req, res, next) {
 
         if(!req.query.languages)  {
-            console.log('NEXT L');
             next();
         }
         else {
@@ -112,7 +109,6 @@ class SkillsService {
 
 
         if(!req.query.categories) {
-            console.log('NEXT CA');
             next();
         }
         else {
@@ -153,7 +149,6 @@ class SkillsService {
     softwareNamesToIds(req, res, next) {
 
         if(!req.query.software)  {
-            console.log('NEXT SO');
             next();
         }
         else {
@@ -190,7 +185,6 @@ class SkillsService {
     specsNamesToIds(req, res, next) {
 
         if(!req.query.specs)  {
-            console.log('NEXT SP');
             next();
         }
         else {
@@ -229,7 +223,6 @@ class SkillsService {
     certificationsNamesToIds(req, res, next) {
 
         if(!req.query.certifications)  {
-            console.log('NEXT CER');
             next();
         }
         else {
@@ -272,9 +265,6 @@ class SkillsService {
         let lastProperty = null;
         let nextError = false;
 
-        console.log("QUERY : ");
-        console.log(req.query);
-        console.log("QUERY END: ");
 
         if(req.query.categories) {
             propertiesMap.set('categories', Category);
@@ -312,7 +302,6 @@ class SkillsService {
                 req.query.certifications = [req.query.certifications];
         }
         if(lastProperty === null) {
-            console.log('NEXT');
             next();
         }
 
@@ -351,7 +340,6 @@ class SkillsService {
 
                 })
                 .catch((err) => {
-                    console.log(err);
                     nextError = true;
                     logger.error(err);
                     return res.status(409).json({message: err});
@@ -523,7 +511,6 @@ class SkillsService {
 
                 })
                 .catch((err) => {
-                    console.log(err);
                     nextError = true;
                     logger.error(err);
                     return res.status(409).json({message: err});

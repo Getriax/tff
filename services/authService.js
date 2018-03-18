@@ -13,7 +13,7 @@ class Auth {
 
         user.findOne({username: loginData.username}, (err, usr) => {
             if(err) {
-                console.error(err);
+                logger.error(err);
                 return res.status(404).json({message: 'Internal error'});
             }
             if(!usr) {

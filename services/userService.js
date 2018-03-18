@@ -1,9 +1,11 @@
 const mongoose = require('mongoose'),
+    fs = require('fs'),
+    path = require('path'),
     User = require('../models/user'),
     logger = require('../config/logger'),
     bcrypt = require('bcrypt-nodejs'),
     Rate = require('../models/rate'),
-    employeeService = require('./employeeService');
+    employeeService = require('./employeeService'),
     employerService = require('./employerService');
 
 
@@ -109,11 +111,33 @@ class UserService {
         })
             .catch((err) => res.status(200).json({message: `${err}`}));
     }
+
+    imgs(req, res) {
+        console.log(req.body);
+        console.log(req.files);
+
+        let tempPath = req.files.file.path,
+            targetPath = path.resolve('./../uploads/user/image.png');
+        if (path.extname(req.files.file.name).toLowerCase() === '.png') {
+            fs.rename(tempPath, targetPath, function(err) {
+                if (err) throw err;
+                console.log("Upload completed!");
+                res.send('good');
+            });
+        } else {
+            fs.unlink(tempPath, function (err) {
+                if (err) throw err;
+                console.error("Only .png files are allowed!");
+                res.send('bad');
+            });
+        }
+    }
+
 }
 
 function getUserData(userId, req, res) {
     User.findById(userId)
-        .select('-_id -__v -password -rate')
+        .select('-__v -password -rate')
         .exec((err, data) => {
             if(err){
                 logger.error(err);

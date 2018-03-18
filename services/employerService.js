@@ -127,7 +127,7 @@ class EmployerService {
 
         Employer.findOne({user_id: userId}, (err, data) => {
             if(err) {
-                console.error(err);
+                logger.error(err);
                 return res.status(404).json({message: 'User not found'});
             }
 

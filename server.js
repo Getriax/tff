@@ -1,8 +1,8 @@
 const express = require('express'),
       bodyParser  = require('body-parser'),
       db = require('./services/database'),
-      cors = require('cors'),
-
+      cors = require('cors'), //allow 3rd party
+      busboy = require('connect-busboy'), //file manage
       config = require('./config/config'),
       router = require('./routes/routes'),
       logger = require('./config/logger'),
@@ -25,6 +25,7 @@ class Server {
         app.use(bodyParser.json());
         app.use(cors());
         app.use(bodyParser.urlencoded({extended: false}));
+      //  app.use(busboy());
     }
     initRoutes() {
         router.load(app, 'controllers');
