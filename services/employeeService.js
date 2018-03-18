@@ -5,43 +5,6 @@ const mongoose = require('mongoose'),
 
 class EmployeeService {
 
-    create(req, res) {
-        let userId = req.userID;
-        let userData = req.body;
-        User.findByIdAndUpdate(userId, {status: 0, first_name: userData.first_name, last_name: userData.last_name, phone: userData.phone, city: userData.city}, (err, data) => {
-            if(err)
-                return res.status(500).send({message: 'Cannot update user'});
-
-            let employee = new Employee({
-                user_id: userId,
-            });
-
-            employee.save((err) => {
-                if(err){
-                    logger.error(err);
-                    return res.status(500);
-                }
-                res.status(200).send({success: 'Employee created'})
-            });
-        });
-    }
-
-    getOne(req, res) {
-        let id_user = req.params.id;
-
-        User.findById(id_user, (err, usr) => {
-            if(err)
-                return res.status(404).send({message: 'User not found'});
-            let user_data = usr;
-            Employee.findOne({user_id: id_user}, (err, empl) => {
-                let data = {
-                    user: user_data,
-                    employee: empl
-                }
-                res.status(200).json(data);
-            });
-        });
-    };
 
     populateOne(userId) {
         return new Promise((resolve, reject) => {

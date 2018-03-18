@@ -23,9 +23,9 @@ class Manage {
             rateService.getAllOfOne.bind(this));
 
 
-        router.post('/password',
+        router.post('/update',
             authService.authenticateUser.bind(this),
-            userService.changePassword.bind(this));
+            userService.update.bind(this));
 
         router.post('/rate',
             authService.authenticateUser.bind(this),

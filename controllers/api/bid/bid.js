@@ -11,6 +11,10 @@ class Manage {
             employeeService.addBid.bind(this),
             askService.addBid.bind(this),
             bidService.create.bind(this));
+
+        router.post('/accept',
+            authService.authenticateUser.bind(this),
+            bidService.accept.bind(this));
     }
 }
 

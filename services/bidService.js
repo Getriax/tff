@@ -41,6 +41,21 @@ class BidService {
             });
         });
     }
+
+    accept(req, res) {
+        let bidId = req.params.id;
+
+        Bid.findByIdAndUpdate(bidId, {is_accepted: true}, (err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Cannot remove bid'});
+            }
+            if(!data)
+                return res.status(404).json({message: 'Bid with that id not found'});
+
+            return res.status(200).json({success: 'Bid updated'});
+        })
+    }
 }
 
 module.exports = new BidService();

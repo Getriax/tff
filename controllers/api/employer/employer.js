@@ -25,10 +25,6 @@ class Manage {
             employerService.getId.bind(this),
             companyService.getAllOfEmployer.bind(this));
 
-        router.post('/create',
-            authService.authenticateUser.bind(this),
-            employerService.create.bind(this));
-
         router.post('/update',
             authService.authenticateUser.bind(this),
             employerService.update.bind(this));

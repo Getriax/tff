@@ -9,27 +9,45 @@ const mongoose = require('mongoose'),
 
 class UserService {
 
-    changePassword(req, res) {
+
+    update(req, res) {
         let userId = req.userID;
-        let password = req.body.password;
+        let updateBody = req.body;
 
 
         let hashPromise = new Promise((resolve, reject) => {
-            bcrypt.hash(password, null, null, (err, hash) => {
-                if(err)
-                    reject({message: 'Password encrypting failed'})
-                resolve(hash);
-            });
-        });
-        hashPromise.then((hash) => {
-            User.findByIdAndUpdate(userId, {password: hash}, (err, data) => {
-                if(err)
-                    return res.status(500).send({message: 'Password update failed'});
-                res.json({success: 'password updated'});
-            });
-        });
-    }
 
+            if(updateBody.password) {
+                bcrypt.hash(password, null, null, (err, hash) => {
+                    if(err) {
+                        reject({message: 'Password encrypting failed'})
+                    }
+                    resolve(hash);
+                });
+            }
+            else
+                resolve(false);
+        })
+            .then((hash) => {
+
+            if(hash)
+                updateBody.password = hash;
+
+            User.findByIdAndUpdate(userId, updateBody, (err, data) => {
+                if(err) {
+                    logger.error(err);
+                    return res.status(500).json({message: 'Adding bid failed'});
+                }
+                if(!data)
+                    return res.status(404).json({message: 'User not found'});
+
+                return res.status(200).json({success: 'User updated'});
+            })
+
+        })
+            .catch((err) => {return res.status(500).json({message: err})});
+
+    }
 
     getOne(req, res) {
 

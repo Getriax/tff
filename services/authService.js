@@ -67,7 +67,7 @@ class Auth {
                     username: registerData.username,
                     password: hash,
                     email: registerData.email,
-                    status: -1
+                    status: registerData.status
                 });
 
                 newUser.save((err) => {
