@@ -276,6 +276,21 @@ certifications doesn't have level property - all the rest is the same languages 
 # Employee routes
 
 
+Auth header required in all routes
+
+**POST** `/api/employee/create`
+
+* String **first_name**
+
+* String **last_name**
+
+* String **phone**
+
+* String **city**
+
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+	
+----------
 **POST** `/api/employee/update`
 
 * String **description**
@@ -302,6 +317,19 @@ certifications doesn't have level property - all the rest is the same languages 
 # Employer routes
 > Auth header required in all routes
 
+**POST** `/api/employer/create`
+
+* String **first_name**
+
+* String **last_name**
+
+* String **phone**
+
+* String **city**
+
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+	
+----------
 
 **POST** `/api/employer/update`
 
@@ -451,7 +479,7 @@ certifications doesn't have level property - all the rest is the same languages 
 		    "count": 1,
 		    "asks": [
 			{
-			    "bids": [],
+			    "bids": 1,
 			    "is_active": true,
 			    "is_complete": false,
 			    "creation_date": "2018-03-14T16:14:00.253Z",
@@ -486,7 +514,7 @@ certifications doesn't have level property - all the rest is the same languages 
 				    "name": "Front-end developer"
 				}
 			    ],
-			    "_id": "5aa954ef5508eb109781b3c2",
+			    "_id": "5aaadac043fb9a3e9c0aab0a",
 			    "description": "ogloszenie 1",
 			    "salary": 1500,
 			    "work_time": 12,
@@ -513,45 +541,64 @@ certifications doesn't have level property - all the rest is the same languages 
 
 **GET** `/api/ask/:id`
 * **:id** - id of ask to show
-> Example route `/api/ask/5aa42a0861ba6718ae25c7b4`
+> Example route `/api/ask/5aaadac043fb9a3e9c0aab0a`
 
-    {
-	    "bids": [],
-	    "languages": [
-	        {
-	            "name": "English"
-	        },
-	        {
-	            "name": "French"
-	        }
-	    ],
-	    "software": [
-	        {
-	            "name": "Photoshop"
-	        },
-	        {
-	            "name": "Web Storm"
-	        }
-	    ],
-	    "specs": [],
-	    "certifications": [],
-	    "_id": "5aa42a0861ba6718ae25c7b4",
-	    "employer": {
-	        "asks": [
-	            "5aa42a0861ba6718ae25c7b4"
-	        ],
-	        "company": [],
-	        "_id": "5aa41cf16bb9a816cc7b880c",
-	        "user_id": "5aa40ded85f618149ea77e46",
-	        "__v": 21
+	{
+	    "ask": {
+		"is_active": true,
+		"is_complete": false,
+		"create_date": "2018-03-15T20:35:59.819Z",
+		"languages": [
+		    {
+			"name": "Spanish"
+		    }
+		],
+		"software": [
+		    {
+			"name": "Eclipse"
+		    }
+		],
+		"specs": [
+		    {
+			"name": "Java"
+		    }
+		],
+		"certifications": [
+		    {
+			"name": "CISCO1"
+		    }
+		],
+		"categories": [
+		    {
+			"name": "Android developer"
+		    }
+		],
+		"_id": "5aaadac043fb9a3e9c0aab0a",
+		"description": "Super ogloszenie nr 1",
+		"salary": 123,
+		"work_time": 12,
+		"employer": {
+		    "_id": "5aaada5c43fb9a3e9c0aab08",
+		    "user_id": "5aaada4043fb9a3e9c0aab06"
+		},
+		"__v": 1
 	    },
-	    "description": "ASK2",
-	    "salary": 1012,
-	    "work_time": 2411,
-	    "is_active": true,
-	    "is_complete": false,
-	    "__v": 0
-    }
+	    "bids": [
+		{
+		    "create_date": "2018-03-16T17:53:46.126Z",
+		    "is_accepted": false,
+		    "_id": "5aac0bbdf96d920dba28946b",
+		    "description": "no elo biore ta oferte",
+		    "salary": 2115,
+		    "employee": {
+			"_id": "5aaad2761752053ae942d329",
+			"user_id": "5aaad2641752053ae942d328"
+		    },
+		    "ask": "5aaadac043fb9a3e9c0aab0a",
+		    "__v": 0
+		}
+	    ]
+	}
 
 
 ----------
@@ -596,6 +643,13 @@ certifications doesn't have level property - all the rest is the same languages 
 * **:id** - id of ask to bid to
 * String **description**
 * Number **salary**
+
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+
+----------
+**POST** `/api/bid/accept/:id`
+
+* **:id** - id of bid to accept
 
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 ----------
