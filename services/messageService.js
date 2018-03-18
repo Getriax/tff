@@ -77,10 +77,18 @@ class messageService {
 
                         res.locals.num = ret.length;
 
-                        //ret = ret.slice()
+                        ret.sort((msg1, msg2) => {
+                            return msg2.send_date - msg1.send_date;
+                        });
 
-                        res.locals.messages = ret;
-                        next();
+                        ret = ret.slice(offset, pageSize);
+
+                        if(ret.length === 0)
+                            res.status(404).json({message: 'Wrong page or page size number'});
+                        else {
+                            res.locals.messages = ret;
+                            next();
+                        }
                     });
             });
     }

@@ -101,7 +101,10 @@ class UserService {
         });
 
         idToNamesPromise.then(() => {
-            res.status(200).json(messages);
+            res.status(200).json({
+                messages: messages,
+                count: res.locals.num
+            });
         })
             .catch((err) => res.status(200).json({message: `${err}`}));
     }
