@@ -42,7 +42,7 @@ class UserService {
                 if(!data)
                     return res.status(404).json({message: 'User not found'});
 
-                return res.status(200).json({success: 'User updated'});
+                return res.status(200).json({success: res.locals.msg ||'User updated'});
             })
 
         })
@@ -113,7 +113,7 @@ class UserService {
 
 function getUserData(userId, req, res) {
     User.findById(userId)
-        .select('-_id -__v -password')
+        .select('-_id -__v -password -rate')
         .exec((err, data) => {
             if(err){
                 logger.error(err);

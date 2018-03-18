@@ -1,5 +1,6 @@
 const authService = require('../../../services/authService'),
     employeeService = require('../../../services/employeeService'),
+    userService = require('../../../services/userService'),
     skillsService = require('../../../services/skillsService');
 
 
@@ -8,6 +9,11 @@ class Manage {
         router.get('/all',
             authService.authenticateUser.bind(this),
             employeeService.getAll.bind(this));
+
+        router.post('/create',
+            authService.authenticateUser.bind(this),
+            userService.update.bind(this),
+            employeeService.create.bind(this));
 
         router.post('/update',
             authService.authenticateUser.bind(this),

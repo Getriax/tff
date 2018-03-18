@@ -71,7 +71,9 @@ class CompanyService {
     getOne(req, res) {
         let companyId = req.params.id;
 
-        Company.findById(companyId, (err, data) => {
+        Company.findById(companyId)
+            .select('-__v')
+            .exec((err, data) => {
             if(err) {
                 logger.error(err);
                 return res.status(500).json({message: 'Internal error'});
@@ -85,9 +87,12 @@ class CompanyService {
     }
 
     getAllOfEmployer(req, res) {
-        let employerId = req.employerID || req.params.id;
+        let employerId = req.params.id || req.employerID;
 
-        Company.find({employer: employerId}, (err, data) => {
+        Company.find({employer: employerId})
+            .select('-__v')
+            .exec((err, data) => {
+
             if(err) {
                 logger.error(err);
                 return res.status(500).json({message: 'Internal error'});
@@ -97,7 +102,7 @@ class CompanyService {
                 return res.status(404).json({message: 'This user does not have any companies'});
 
             res.status(200).json(data);
-        })
+        });
     }
 }
 

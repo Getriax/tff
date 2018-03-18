@@ -111,7 +111,8 @@ class AskService {
                 .populate('software', 'name -_id')
                 .populate('specs', 'name -_id')
                 .populate('certifications', 'name -_id')
-                .populate('categories', 'name -_id');
+                .populate('categories', 'name -_id')
+                .select('-__v');
 
             askQuery.exec((err, data) => {
                 if(err) {
@@ -121,6 +122,7 @@ class AskService {
 
 
                 data = data.map(el => {
+                    el._doc.create_date = new Date(el.create_date).toLocaleString('en-US', {hour12: false});
                     el._doc.bids = el.bids.length;
                     return el;
                 });
@@ -146,6 +148,7 @@ class AskService {
             .populate('specs', 'name -_id')
             .populate('certifications', 'name -_id')
             .populate('categories', 'name -_id')
+            .select('-__v')
             .exec((err, data) => {
                 if(err) {
                     logger.error(err);
@@ -155,6 +158,7 @@ class AskService {
                 if(!data)
                     return res.status(404).json({message: 'Ask not found'});
 
+                data._doc.create_date = new Date(data.create_date).toLocaleString('en-US', {hour12: false});
                 res.locals.ask = data;
 
                 next();
@@ -196,6 +200,7 @@ class AskService {
             .populate('specs', 'name -_id')
             .populate('certifications', 'name -_id')
             .populate('categories', 'name -_id')
+            .select('-__v')
             .exec((err, data) => {
             if(err) {
                 logger.error(err);

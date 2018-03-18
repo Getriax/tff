@@ -88,6 +88,11 @@ class BidService {
             .then((popBids) => {
                 delete res.locals.ask._doc.bids;
 
+                popBids = popBids.map(el => {
+                    el._doc.create_date = new Date(el.create_date).toLocaleString('en-US', {hour12: false});
+                    return el;
+                });
+
                 let data = {
                     ask: res.locals.ask,
                     bids: popBids

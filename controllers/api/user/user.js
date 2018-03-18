@@ -29,7 +29,7 @@ class Manage {
 
         router.post('/rate',
             authService.authenticateUser.bind(this),
-            rateService.create.bind(this));
+            rateService.createOrUpdate.bind(this));
 
     }
 }

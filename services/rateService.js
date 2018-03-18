@@ -3,7 +3,7 @@ const mongoose = require('mongoose'),
     logger = require('../config/logger');
 
 class RateService {
-    create(req, res) {
+    createOrUpdate(req, res) {
         let userId = req.userID;
         let rateBody = req.body;
 
@@ -70,8 +70,8 @@ class RateService {
 
     getAllOfOne(req, res) {
         let userId = req.params.id;
-        let pagesize = req.query.pagesize || 10;
-        let offset = req.query.page * pagesize || 0;
+        let pageSize = req.query.pagesize || 10;
+        let offset = req.query.page * pageSize || 0;
 
         let countPromise = new Promise((resolve, reject) => {
             Rate.find({user_to: userId})
@@ -93,7 +93,7 @@ class RateService {
                 Rate.find({user_to: userId})
                     .populate('user_from', 'username first_name last_name _id')
                     .skip(offset)
-                    .limit(pagesize)
+                    .limit(pageSize)
                     .select('-__v -_id')
                     .exec((err, data) => {
                         if(err) {

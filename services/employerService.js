@@ -1,11 +1,23 @@
 const mongoose = require('mongoose'),
-    User = require('../models/user'),
     logger = require('../config/logger'),
-    Company = require('../models/company'),
     Employer = require('../models/employer');
 
 class EmployerService {
 
+    create(req, res, next) {
+        let userId = req.userID;
+
+        Employer.create({user_id: userId}, (err) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Creating user failed'});
+            }
+
+            res.locals.msg = 'Employer created';
+
+            next();
+        });
+    }
 
     update(req, res) {
         let userId = req.userID;
@@ -101,9 +113,8 @@ class EmployerService {
                 logger.error(err);
                 return res.status(500).json({message: 'Internal error'});
             }
-            if(!data)
-                return res.status(404).json({message: 'Employer not found'});
 
+            if(data)
             req.employerID = data._id;
 
             next();

@@ -1,9 +1,23 @@
 const mongoose = require('mongoose'),
     logger = require('../config/logger'),
-    User = require('../models/user'),
     Employee = require('../models/employee');
 
 class EmployeeService {
+
+    create(req, res, next) {
+        let userId = req.userID;
+
+        Employee.create({user_id: userId}, (err) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Creating user failed'});
+            }
+
+            res.locals.msg = 'Employer created';
+
+            next();
+        });
+    }
 
 
     populateOne(userId) {
