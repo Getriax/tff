@@ -240,6 +240,13 @@ String: **username**
 
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 ----------
+**POST** `/api/user/image/upload`
+> Save a user profile file and update property image of user to true
+
+* String **file** - multipart file
+ 
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+----------
 # Skills routes
 > Auth header required in all routes
 
