@@ -36,7 +36,7 @@ class ImagesService {
                             logger.error(err);
                             return res.status(500).json({message: 'Error while saving file'});
                         }
-                        req.body.image = true;
+                        req.body.image = fname + "." + extension;
                         next();
                     });
                 }

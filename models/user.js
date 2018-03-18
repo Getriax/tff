@@ -10,7 +10,7 @@ let userSchema = new Schema({
     status: Number, // -1: just user, 0: employee, 1: employer
     phone: String,
     city: String,
-    image: {type: Boolean, default: false}
+    image: String
 });
 
 module.exports = mongoose.model('User', userSchema);

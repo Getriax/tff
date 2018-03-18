@@ -25,7 +25,8 @@ class Server {
         app.use(bodyParser.json());
         app.use(cors());
         app.use(bodyParser.urlencoded({extended: false}));
-      //  app.use(busboy());
+        app.use(express.static(__dirname + '/uploads'));
+        app.use('/image', express.static(__dirname + '/uploads'));
     }
     initRoutes() {
         router.load(app, 'controllers');
@@ -33,6 +34,7 @@ class Server {
     initDatabse() {
         db.open(() => {console.log('Connection with database up')});
     }
+
 }
 
 module.exports = new Server();
