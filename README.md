@@ -133,7 +133,6 @@ String: **username**
 
     {
 	    "user": {
-	        "rate": [],
 	        "username": "niko1",
 	        "email": "some@ema2il.com",
 	        "city": "Sepolno3",
@@ -276,7 +275,7 @@ certifications doesn't have level property - all the rest is the same languages 
 # Employee routes
 
 
-Auth header required in all routes
+> Auth header required in all routes
 
 **POST** `/api/employee/create`
 
@@ -349,7 +348,7 @@ Auth header required in all routes
     
     [
 		    {
-		        "bids": [],
+		        "bids": [5aa80434696ead16a3deb1cb, 5aa80434696ead16a3deb1cc],
 		        "is_active": true,
 		        "is_complete": false,
 		        "creation_date": "2018-03-13T18:03:18.306Z",
@@ -363,7 +362,6 @@ Auth header required in all routes
 		        "salary": 1500,
 		        "work_time": 12,
 		        "employer": "5aa7f6fc696ead16a3deb1c8",
-		        "__v": 0
 		    },
 		    {
 		        "bids": [],
@@ -387,7 +385,6 @@ Auth header required in all routes
 		        "salary": 1500,
 		        "work_time": 12,
 		        "employer": "5aa7f6fc696ead16a3deb1c8",
-		        "__v": 0
 		    }
     ]
 
@@ -407,7 +404,6 @@ Auth header required in all routes
 		        "name": "firma1",
 		        "NIP": "123",
 		        "city": "dc",
-		        "__v": 0
 		    }
 	    ]
 
@@ -455,7 +451,6 @@ Auth header required in all routes
 		    "name": "firma1",
 		    "NIP": "123",
 		    "city": "dc",
-		    "__v": 0
 	    }
 
 ----------
@@ -482,7 +477,7 @@ Auth header required in all routes
 			    "bids": 1,
 			    "is_active": true,
 			    "is_complete": false,
-			    "creation_date": "2018-03-14T16:14:00.253Z",
+			    "creation_date": "3/15/2018, 21:35:59",
 			    "languages": [
 				{
 				    "name": "Spanish"
@@ -519,18 +514,9 @@ Auth header required in all routes
 			    "salary": 1500,
 			    "work_time": 12,
 			    "employer": {
-				"asks": [
-				    "5aa954ef5508eb109781b3c2",
-				    "5aa958b80e2d093ba2d936df"
-				],
-				"company": [
-				    "5aa80434696ead16a3deb1cb"
-				],
 				"_id": "5aa7f6fc696ead16a3deb1c8",
 				"user_id": "5aa7f6e9696ead16a3deb1c6",
-				"__v": 13
 			    },
-			    "__v": 0
 			}
 		    ]
 	    }
@@ -547,7 +533,7 @@ Auth header required in all routes
 	    "ask": {
 		"is_active": true,
 		"is_complete": false,
-		"create_date": "2018-03-15T20:35:59.819Z",
+		"create_date": "3/15/2018, 21:35:59",
 		"languages": [
 		    {
 			"name": "Spanish"
@@ -581,11 +567,10 @@ Auth header required in all routes
 		    "_id": "5aaada5c43fb9a3e9c0aab08",
 		    "user_id": "5aaada4043fb9a3e9c0aab06"
 		},
-		"__v": 1
 	    },
 	    "bids": [
 		{
-		    "create_date": "2018-03-16T17:53:46.126Z",
+		    "create_date": "3/16/2018, 18:53:46",
 		    "is_accepted": false,
 		    "_id": "5aac0bbdf96d920dba28946b",
 		    "description": "no elo biore ta oferte",
