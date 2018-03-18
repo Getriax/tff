@@ -27,16 +27,16 @@ String **password**
 
 **POST** `/api/auth/register`
 
-String **username**
+* String **username**
+* String **password**
+* String **email**
+* Number **status** - 0 - freelancer / 1 - employer
 
-String **password**
 
-
-String **email**
-
-    { 
-	    "token": "auth token string" 
-    }
+	    { 
+		    "token": "auth token string" 
+	    }
+    
 	
 **OR** if error
 
@@ -183,16 +183,6 @@ String: **username**
 > rate is the average of all rates
 
 
-
-----------
-
-
-**POST** `/api/user/password`
-> Changes password of the logged user
-
-String **password**
-
-> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 ----------
 
 **GET** `/api/user/:id/rates`
@@ -237,6 +227,18 @@ String **password**
 * String **description**
 * Number **grade**
 * String(id) **user_to** - id of a user to rate
+
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+----------
+**POST** `/api/user/update`
+> Updates user, password included
+* String **first_name**
+* String **last_name**
+* String **password**
+* String **email**
+* String **phone**
+* String **city** 
+
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 ----------
 # Skills routes
@@ -272,20 +274,7 @@ certifications doesn't have level property - all the rest is the same languages 
 
 
 # Employee routes
-> Auth header required in all routes
 
-**POST** /api/employee/create
-
-String **first_name**
-
-String **last_name**
-
-String **phone**
-
-String **city**
-
-> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
-----------
 
 **POST** `/api/employee/update`
 
@@ -313,17 +302,7 @@ String **city**
 # Employer routes
 > Auth header required in all routes
 
-**POST** `/api/employer/create`
 
-* String **first_name**
-* String **last_name**
-* String **phone**
-* String **city**
-
-    
-> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
-	  	  
-----------
 **POST** `/api/employer/update`
 
 * String **git_link**
@@ -633,26 +612,34 @@ String **city**
 **GET** `/api/messages/all`
 > **Returns** all of logged user latest messages 
 
-    [
-	    {
-	        "_id": "5aaada4043fb9a3e9c0aab06",
-	        "content": "Hello",
-	        "send_date": "1/19/2018, 19:20:14",
-	        "is_read": false,
-	        "username": "janek",
-	        "first_name": "Jan",
-	        "last_name": "Kowalski"
-	    },
-	    {
-	        "_id": "5aaad2641752053ae942d328",
-	        "content": "Przepisy",
-	        "send_date": "3/19/2018, 21:20:14",
-	        "is_read": true,
-	        "username": "mymaj",
-	        "first_name": "Krzysztof",
-	        "last_name": "Skoczek"
-	    }
-    ]
+* **pagesize** - number of messages to get (get param) - **default 10**
+* **page** - number of page/offset (get param) - **default 0**
+
+		 {
+		    "messages": [
+			{
+			    "_id": "5aaac7e584b8179c8a320ae7",
+			    "content": "friends?",
+			    "send_date": "3/18/2018, 15:05:39",
+			    "is_read": false,
+			    "username": "emp",
+			    "first_name": "Niko",
+			    "last_name": "qwe"
+			},
+			{
+			    "_id": "5aaad2641752053ae942d328",
+			    "content": "I may be sick but i'm not",
+			    "send_date": "3/18/2018, 15:02:12",
+			    "is_read": false,
+			    "username": "msz64",
+			    "first_name": "Mikolaj",
+			    "last_name": "Szczubial"
+			}
+		    ],
+		    "count": 4
+		}
+	
+> **count** is a maximum size of avaiable asks with given filter - **not the count of returned items**
 ----------    
 **GET** `/api/message/with/:id`
 > **Resturns** messages between logged user and given one. Newest ones are at the bottom.
