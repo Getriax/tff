@@ -12,9 +12,10 @@ class Manage {
             askService.addBid.bind(this),
             bidService.create.bind(this));
 
-        router.post('/accept',
+        router.post('/accept/:id',
             authService.authenticateUser.bind(this),
             bidService.accept.bind(this));
+
     }
 }
 

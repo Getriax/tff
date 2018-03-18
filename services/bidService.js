@@ -56,6 +56,48 @@ class BidService {
             return res.status(200).json({success: 'Bid updated'});
         })
     }
+
+
+    populateBids(req, res) {
+        let bids = res.locals.ask.bids;
+
+        let bidsPromise = new Promise((resolve, reject) => {
+            let populdatedBids = [];
+
+            for(let bidId of bids) {
+
+                Bid.findById(bidId)
+                    .populate('employee', '_id user_id')
+                    .exec((err, data) => {
+                    if(err) {
+                        logger.error(err);
+                        return reject({status: 500, msg: 'Error while looking for bid'})
+                    }
+                    if(!data)
+                        return reject({status: 404, msg: 'Bid not found'});
+
+                    populdatedBids.push(data);
+
+                    if(data._id.equals(bids[bids.length - 1]))
+                        resolve(populdatedBids);
+                });
+
+            }
+        });
+        bidsPromise
+            .then((popBids) => {
+                delete res.locals.ask._doc.bids;
+
+                let data = {
+                    ask: res.locals.ask,
+                    bids: popBids
+                };
+
+                res.status(200).json(data);
+            })
+            .catch((err) => {return res.status(err.status || 500).json({message: err.msg})});
+    }
+
 }
 
 module.exports = new BidService();

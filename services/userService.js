@@ -28,6 +28,7 @@ class UserService {
             else
                 resolve(false);
         })
+        hashPromise
             .then((hash) => {
 
             if(hash)

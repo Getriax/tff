@@ -72,7 +72,8 @@ class SkillsService {
     }
     languagesNamesToIds(req, res, next) {
 
-        if(!req.query.languages) {
+        if(!req.query.languages)  {
+            console.log('NEXT L');
             next();
         }
         else {
@@ -108,13 +109,10 @@ class SkillsService {
         }
     }
     categoriesNamesToIds(req, res, next) {
-        console.log('HAVE ');
-        console.log(req.query);
-        console.log('HAVE END');
 
 
         if(!req.query.categories) {
-            console.log('NEXT');
+            console.log('NEXT CA');
             next();
         }
         else {
@@ -154,7 +152,8 @@ class SkillsService {
     }
     softwareNamesToIds(req, res, next) {
 
-        if(!req.query.software) {
+        if(!req.query.software)  {
+            console.log('NEXT SO');
             next();
         }
         else {
@@ -190,7 +189,8 @@ class SkillsService {
     }
     specsNamesToIds(req, res, next) {
 
-        if(!req.query.specs) {
+        if(!req.query.specs)  {
+            console.log('NEXT SP');
             next();
         }
         else {
@@ -228,7 +228,8 @@ class SkillsService {
 
     certificationsNamesToIds(req, res, next) {
 
-        if(!req.query.certifications) {
+        if(!req.query.certifications)  {
+            console.log('NEXT CER');
             next();
         }
         else {

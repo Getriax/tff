@@ -17,7 +17,8 @@ class Manage {
 
        router.get('/:id',
            authService.authenticateUser.bind(this),
-           askService.getOne.bind(this));
+           askService.getOne.bind(this),
+           bidService.populateBids.bind(this));
 
 
        router.post('/create',

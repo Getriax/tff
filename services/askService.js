@@ -63,9 +63,6 @@ class AskService {
         let askQuery = Ask.find();
         let countQuery = Ask.find();
 
-        console.log("LOCALS: ");
-        console.log(res.locals);
-        console.log("END OF LOCALS: ")
 
         if(res.locals.languages) {
             askQuery
@@ -109,7 +106,7 @@ class AskService {
             askQuery
                 .skip(offset)
                 .limit(pageSize)
-                .populate('employer')
+                .populate('employer', 'user_id')
                 .populate('languages', 'name -_id')
                 .populate('software', 'name -_id')
                 .populate('specs', 'name -_id')
@@ -122,6 +119,13 @@ class AskService {
                     return res.status(500).json({message: 'Internal error'});
                 }
 
+
+                data = data.map(el => {
+                    el._doc.bids = el.bids.length;
+                    return el;
+                });
+
+
                 let responseData = {
                    count: amount,
                    asks: data
@@ -132,11 +136,11 @@ class AskService {
 
     }
 
-    getOne(req, res) {
+    getOne(req, res, next) {
         let askId = req.params.id;
 
         Ask.findById(askId)
-            .populate('employer')
+            .populate('employer', '_id user_id')
             .populate('languages', 'name -_id')
             .populate('software', 'name -_id')
             .populate('specs', 'name -_id')
@@ -151,7 +155,9 @@ class AskService {
                 if(!data)
                     return res.status(404).json({message: 'Ask not found'});
 
-                res.status(200).json(data);
+                res.locals.ask = data;
+
+                next();
             });
     }
 
