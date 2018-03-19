@@ -25,7 +25,6 @@ class Server {
         app.use(bodyParser.json());
         app.use(cors());
         app.use(bodyParser.urlencoded({extended: false}));
-        app.use(express.static(__dirname + '/uploads'));
         app.use('/image', express.static(__dirname + '/uploads'));
     }
     initRoutes() {

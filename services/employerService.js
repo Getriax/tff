@@ -34,6 +34,28 @@ class EmployerService {
             });
     }
 
+    getOne(req, res) {
+
+        let userId = req.userID;
+
+        Employer.findOne({user_id: userId})
+            .select('-__v -_id -user_id')
+            .exec((err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Error looking for employer'});
+            }
+            let result = {
+                user: res.locals.userData,
+                rate: res.locals.rate
+            };
+            if(data)
+                result.employer = data;
+
+            res.status(200).json(result);
+        });
+    }
+
     populateOne(userId)  {
         return new Promise((resolve, reject) => {
             Employer.findOne({user_id: userId})

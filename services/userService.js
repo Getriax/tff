@@ -7,9 +7,7 @@ const mongoose = require('mongoose'),
     Busboy = require('busboy'),
     fs = require('fs'),
     uploadPath = require('../config/config').imagePath,
-    limit = require('../config/config').imageLimit,
-    employeeService = require('./employeeService'),
-    employerService = require('./employerService');
+    limit = require('../config/config').imageLimit;
 
 
 class UserService {
@@ -55,11 +53,32 @@ class UserService {
 
     }
 
-    getOne(req, res) {
+    getOne(req, res, next) {
 
-        let userId = req.params.id;
-        getUserData(userId, req, res);
+        let userId = req.params.id || req.userID;
 
+        User.findById(userId)
+            .select('-__v -password -rate')
+            .exec((err, data) => {
+                if(err){
+                    logger.error(err);
+                    return res.status(500).send({message: 'Error while looking for user'});
+                }
+
+                if(data.status === 0) {
+                    res.locals.employee = true;
+                }
+                else if(data.status === 1) {
+                    res.locals.employer = true;
+                }
+                else {
+                    data._doc.rate = res.locals.rate;
+                    return res.status(200).json(data);
+                }
+
+                res.locals.userData = data;
+                next();
+            });
     }
 
     getAll(req, res) {
@@ -72,10 +91,7 @@ class UserService {
             res.status(200).json(body);
         });
     }
-    getLogged(req, res) {
-        let userId = req.userID;
-        getUserData(userId, req, res)
-    }
+
 
     userMessages(req, res) {
         let messages = res.locals.messages;
@@ -186,44 +202,6 @@ class UserService {
             .catch((err) => {return res.status(err.status).json({message: err.msg})});
     }
 
-}
-
-function getUserData(userId, req, res) {
-    User.findById(userId)
-        .select('-__v -password -rate')
-        .exec((err, data) => {
-            if(err){
-                logger.error(err);
-                return res.status(500).send({message: 'Error while looking for user'});
-            }
-
-
-            if(data.status == 0) {
-                employeeService.populateOne(userId).then((empdData) => {
-                    let payload = {
-                        user: data,
-                        employee: empdData,
-                        rate: res.locals.rate
-                    };
-                    res.status(200).json(payload);
-                }).catch((err) => {res.status(409).json({message: err})});
-            }
-            else if(data.status == 1){
-                employerService.populateOne(userId).then((empdData) => {
-                    let payload = {
-                        user: data,
-                        employer: empdData,
-                        rate: res.locals.rate
-                    };
-                    res.status(200).json(payload);
-                }).catch((err) => {res.status(409).json({message: err})});
-            }
-            else {
-                data._doc.rate = res.locals.rate;
-                res.status(200).json(data);
-            }
-
-        });
 }
 
 function createUploadDirectory(path) {

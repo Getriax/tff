@@ -1,5 +1,7 @@
 const authService = require('../../../services/authService'),
     rateService = require('../../../services/rateService'),
+    employeeService = require('../../../services/employeeService'),
+    employerService = require('../../../services/employerService'),
     userService = require('../../../services/userService');
 
 class Manage {
@@ -11,12 +13,16 @@ class Manage {
         router.get('/me',
             authService.authenticateUser.bind(this),
             rateService.getAverage.bind(this),
-            userService.getLogged.bind(this));
+            userService.getOne.bind(this),
+            employeeService.getOne.bind(this),
+            employerService.getOne.bind(this));
 
         router.get('/:id',
             authService.authenticateUser.bind(this),
             rateService.getAverage.bind(this),
-            userService.getOne.bind(this));
+            userService.getOne.bind(this),
+            employeeService.getOne.bind(this),
+            employerService.getOne.bind(this));
 
         router.get('/:id/rates',
             authService.authenticateUser.bind(this),

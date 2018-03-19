@@ -39,6 +39,35 @@ class EmployeeService {
         })
     }
 
+    getOne(req, res, next) {
+        if(!res.locals.employee)
+            return next();
+
+        let userId = req.userID;
+
+        Employee.findOne({user_id: userId})
+            .select('-__v -_id -user_id')
+            .populate('languages', 'name -_id')
+            .populate('software', 'name -_id')
+            .populate('specs', 'name -_id')
+            .populate('certifications', 'name -_id')
+            .populate('categories', 'name -_id')
+            .exec((err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Error looking for employer'});
+            }
+            let result = {
+                user: res.locals.userData,
+                rate: res.locals.rate
+            };
+            if(data)
+                result.employee = data;
+
+            res.status(200).json(result);
+        });
+    }
+
 
     getAll(req, res) {
         Employee.find()
