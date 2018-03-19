@@ -99,6 +99,8 @@ String: **username**
     [
         {
             "username": "niko1",
+	    "_id": "5aaada4043fb9a3e9c0aab06",
+	    "image": "5aaada4043fb9a3e9c0aab06.jpg",
             "email": "some@ema2il.com",
             "city": "Sepolno3",
             "phone": "555983212",
@@ -134,6 +136,8 @@ String: **username**
     {
 	    "user": {
 	        "username": "niko1",
+		"_id": "5aaada4043fb9a3e9c0aab06",
+		"image": "5aaada4043fb9a3e9c0aab06.jpg",
 	        "email": "some@ema2il.com",
 	        "city": "Sepolno3",
 	        "phone": "555983212",
@@ -251,6 +255,12 @@ String: **username**
 > Removes user image
  
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+----------
+**GET** `/image/user/:img`
+
+**:img** - name and extension of image to get, user property **image** cointains that value
+
+> **Returns** profile image of a user
 ----------
 # Skills routes
 > Auth header required in all routes
