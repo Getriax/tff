@@ -32,9 +32,14 @@ class Manage {
             authService.authenticateUser.bind(this),
             rateService.createOrUpdate.bind(this));
 
+        // router.post('/image/upload',
+        //     authService.authenticateUser.bind(this),
+        //     imagesService.upload.bind(this),
+        //     userService.update.bind(this));
+
         router.post('/image/upload',
             authService.authenticateUser.bind(this),
-            imagesService.upload.bind(this),
+            userService.imageUpload.bind(this),
             userService.update.bind(this));
     }
 }

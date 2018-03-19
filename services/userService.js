@@ -1,10 +1,13 @@
 const mongoose = require('mongoose'),
-    fs = require('fs'),
     path = require('path'),
     User = require('../models/user'),
     logger = require('../config/logger'),
     bcrypt = require('bcrypt-nodejs'),
     Rate = require('../models/rate'),
+    Busboy = require('busboy'),
+    fs = require('fs'),
+    uploadPath = require('../config/config').imagePath,
+    limit = require('../config/config').imageLimit,
     employeeService = require('./employeeService'),
     employerService = require('./employerService');
 
@@ -29,7 +32,7 @@ class UserService {
             }
             else
                 resolve(false);
-        })
+        });
         hashPromise
             .then((hash) => {
 
@@ -112,25 +115,75 @@ class UserService {
             .catch((err) => res.status(200).json({message: `${err}`}));
     }
 
-    imgs(req, res) {
-        console.log(req.body);
-        console.log(req.files);
+    imageUpload(req, res, next) {
+        let userId = req.userID;
 
-        let tempPath = req.files.file.path,
-            targetPath = path.resolve('./../uploads/user/image.png');
-        if (path.extname(req.files.file.name).toLowerCase() === '.png') {
-            fs.rename(tempPath, targetPath, function(err) {
-                if (err) throw err;
-                console.log("Upload completed!");
-                res.send('good');
+        //If user has already an image remove it
+        let removeImageIfExistsPromise = new Promise((resolve, reject) => {
+            User.findById(userId)
+                .select('image -_id')
+                .exec((err, data) => {
+                    if(err){
+                        logger.error(err);
+                        reject({status: 500, msg: 'Error while looking for user'});
+                    }
+
+                    if(!data.image)
+                        resolve();
+                    else {
+                        fs.unlink(uploadPath + '/' + data.image);
+                        resolve();
+                    }
+                });
+        });
+
+        removeImageIfExistsPromise
+            .then(() => {
+            let is_limit = false;
+
+            let busboy = new Busboy({ headers: req.headers, limits: {fileSize: limit}});
+            busboy.on('file', (fieldname, file, filename) => {
+
+                file.fileRead = [];
+                let size = 0;
+
+                let extension = filename.split('.')[filename.split('.').length - 1];
+
+                if(['jpg', 'png'].indexOf(extension) === -1)
+                    return res.status(409).json({message: 'Wrong image extension, we support only jpg & png files'});
+
+                file.on('data', function(data) {
+                    size += data.length;
+                    file.fileRead.push(data);
+                });
+
+                file.on('end', function() {
+                    if(is_limit)
+                        return res.status(409).json({message: 'File is to big'});
+                    else {
+                        if(!fs.existsSync(uploadPath)) {
+                            createUploadDirectory(uploadPath);
+                        }
+
+                        let data = Buffer.concat(file.fileRead, size);
+                        fs.writeFile(uploadPath + '/' + userId + "." + extension, data, null, (err) => {
+                            if(err) {
+                                logger.error(err);
+                                return res.status(500).json({message: 'Error while saving file'});
+                            }
+                            req.body.image = userId + "." + extension;
+                            next();
+                        });
+                    }
+                });
+                file.on('limit', () => {
+                    is_limit = true;
+                })
             });
-        } else {
-            fs.unlink(tempPath, function (err) {
-                if (err) throw err;
-                console.error("Only .png files are allowed!");
-                res.send('bad');
-            });
-        }
+
+            req.pipe(busboy);
+        })
+            .catch((err) => {return res.status(err.status).json({message: err.msg})});
     }
 
 }
@@ -141,8 +194,9 @@ function getUserData(userId, req, res) {
         .exec((err, data) => {
             if(err){
                 logger.error(err);
-                return res.status(404).send({message: 'User does not exist'});
+                return res.status(500).send({message: 'Error while looking for user'});
             }
+
 
             if(data.status == 0) {
                 employeeService.populateOne(userId).then((empdData) => {
@@ -170,5 +224,19 @@ function getUserData(userId, req, res) {
             }
 
         });
+}
+
+function createUploadDirectory(path) {
+    let previousDir = '';
+    for(let dir of path.split('/')) {
+        let directory =  previousDir + '/' + dir;
+        if(!fs.existsSync(directory)) {
+            fs.mkdirSync(directory)
+        }
+
+        if(dir !== '')
+            previousDir = directory;
+
+    }
 }
 module.exports = new UserService();
