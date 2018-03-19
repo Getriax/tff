@@ -41,6 +41,11 @@ class Manage {
             authService.authenticateUser.bind(this),
             userService.imageUpload.bind(this),
             userService.update.bind(this));
+
+        router.delete('/image/remove',
+            authService.authenticateUser.bind(this),
+            userService.imageRemove.bind(this),
+            userService.update.bind(this));
     }
 }
 

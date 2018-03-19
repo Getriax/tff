@@ -40,4 +40,7 @@ testem.log
 Thumbs.db
 
 # server logs
-/logs
+./logs
+
+# images
+./uploads

@@ -135,25 +135,7 @@ class UserService {
         let userId = req.userID;
 
         //If user has already an image remove it
-        let removeImageIfExistsPromise = new Promise((resolve, reject) => {
-            User.findById(userId)
-                .select('image -_id')
-                .exec((err, data) => {
-                    if(err){
-                        logger.error(err);
-                        reject({status: 500, msg: 'Error while looking for user'});
-                    }
-
-                    if(!data.image)
-                        resolve();
-                    else {
-                        fs.unlink(uploadPath + '/' + data.image);
-                        resolve();
-                    }
-                });
-        });
-
-        removeImageIfExistsPromise
+        removeImage(userId)
             .then(() => {
             let is_limit = false;
 
@@ -202,6 +184,19 @@ class UserService {
             .catch((err) => {return res.status(err.status).json({message: err.msg})});
     }
 
+    imageRemove(req, res, next) {
+        let userId = req.userID;
+
+        removeImage(userId)
+            .then(() => {
+                req.body.image = undefined;
+                next();
+            })
+            .catch((err) => {
+                return res.status(err.status).json({message: err.msg});
+            })
+    }
+
 }
 
 function createUploadDirectory(path) {
@@ -216,5 +211,30 @@ function createUploadDirectory(path) {
             previousDir = directory;
 
     }
+}
+function removeImage(userId) {
+    return new Promise((resolve, reject) => {
+        User.findById(userId)
+            .select('image -_id')
+            .exec((err, data) => {
+                if(err){
+                    logger.error(err);
+                    return reject({status: 500, msg: 'Error while looking for user'});
+                }
+
+                if(!data.image)
+                    return resolve();
+                else {
+
+                        fs.unlink(uploadPath + '/' + data.image, (err) => {
+                            if(err) {
+                                logger.error('Removing image ' + data.image + 'failed');
+                                return reject({status: 500, msg: 'Removing previous image failed'});
+                            }
+                        });
+                    return resolve();
+                }
+            });
+    });
 }
 module.exports = new UserService();
