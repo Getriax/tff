@@ -243,7 +243,7 @@ String: **username**
 **POST** `/api/user/image/upload`
 > Save a user profile file and update property image of user to file name
 
-* String **file** - multipart file
+* Multipart file: **file** - only png & jpg
  
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 ----------
