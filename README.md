@@ -247,6 +247,11 @@ String: **username**
  
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 ----------
+**DELETE** `/api/user/image/remove`
+> Removes user image
+ 
+> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+----------
 # Skills routes
 > Auth header required in all routes
 
@@ -441,7 +446,7 @@ certifications doesn't have level property - all the rest is the same languages 
    
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 ----------
-**POST** `/api/company/delete/:id`
+**DELETE** `/api/company/delete/:id`
 
 * **:id** - id of company to delete
 * String **NIP**
@@ -621,7 +626,7 @@ certifications doesn't have level property - all the rest is the same languages 
 
 > Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
 ----------
-**POST** `/api/ask/delete/:id`
+**DELETE** `/api/ask/delete/:id`
 
 * **:id** - id of ask to remove
 
