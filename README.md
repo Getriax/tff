@@ -672,7 +672,18 @@ certifications doesn't have level property - all the rest is the same languages 
 * String **content** - content of the message
 * String **to** - id of a user to send message to
 
-> Returns **success** if all went fine or **message** if error interrupted the post - both types are JSON
+	    {
+		    "success": "Message sent",
+		    "message": {
+			"content": "Nie wierze w to gowno zjebane ",
+			"send_date": "3/20/2018, 22:27:22",
+			"is_read": false,
+			"_id": "5ab17cba9b9c085b1b313a04",
+			"is_send": true
+		    }
+	    }
+		 
+> **Returns** message if error;
 ----------
 **GET** `/api/messages/all`
 > **Returns** all of logged user latest messages 
