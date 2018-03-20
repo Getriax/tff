@@ -687,6 +687,7 @@ certifications doesn't have level property - all the rest is the same languages 
 			    "content": "friends?",
 			    "send_date": "3/18/2018, 15:05:39",
 			    "is_read": false,
+			    "is_send": true,
 			    "username": "emp",
 			    "first_name": "Niko",
 			    "last_name": "qwe"
@@ -696,6 +697,7 @@ certifications doesn't have level property - all the rest is the same languages 
 			    "content": "I may be sick but i'm not",
 			    "send_date": "3/18/2018, 15:02:12",
 			    "is_read": false,
+			    "is_send": false,
 			    "username": "msz64",
 			    "first_name": "Mikolaj",
 			    "last_name": "Szczubial"
@@ -714,45 +716,43 @@ certifications doesn't have level property - all the rest is the same languages 
 * **page** - number of page/offset (get param) - **default 0**
 
 	    {
-		messages: [  
-		      {
-		        "send_date": "1/19/2018, 19:20:10",
-		        "is_read": false,
-		        "from": {
-		            "_id": "5aaac7e584b8179c8a320ae7",
-		            "username": "janek",
-		            "last_name": "Kowalski",
-		            "first_name": "Jan"
-		        },
-		        "to": {
-		            "_id": "5aaada4043fb9a3e9c0aab06",
-		            "username": "mymaj",
-		            "last_name": "Skoczek",
-		            "first_name": "Krzysztof"
-		        },
-		        "content": "Dzien dobry!",
-		        "is_sent": true
+		    "with": {
+			"_id": "5aaada4043fb9a3e9c0aab06",
+			"username": "qwe",
+			"last_name": "Pracodawca",
+			"first_name": "Jakis "
 		    },
-		    {
-		        "send_date": "1/19/2018 19:31:11",
-		        "is_read": false,
-		        "from": {
-		            "_id": "5aaada4043fb9a3e9c0aab06",
-		            "username": "mymaj",
-		            "last_name": "Skoczek",
-		            "first_name": "Krzysztof"
-		        },
-		        "to": {
-		            "_id": "5aaac7e584b8179c8a320ae7",
-		            "username": "janek",
-		            "last_name": "Kowalski",
-		            "first_name": "Jan"
-		        },
-		        "content": "Witam!",
-		        "is_sent": false
-		    }
-		],
-		"count": 5
+		    "messages": [
+			{
+			    "send_date": "3/20/2018, 19:19:29",
+			    "is_read": true,
+			    "_id": "5ab150b1d6f4bd53e781ee99",
+			    "content": "oh mate",
+			    "is_send": false
+			},
+			{
+			    "send_date": "3/20/2018, 19:19:32",
+			    "is_read": true,
+			    "_id": "5ab150b4d6f4bd53e781ee9a",
+			    "content": "am done",
+			    "is_send": false
+			},
+			{
+			    "send_date": "3/20/2018, 19:19:34",
+			    "is_read": false,
+			    "_id": "5ab150b6d6f4bd53e781ee9b",
+			    "content": "em",
+			    "is_send": true
+			},
+			{
+			    "send_date": "3/20/2018, 19:19:37",
+			    "is_read": false,
+			    "_id": "5ab150b9d6f4bd53e781ee9c",
+			    "content": "is anyone there?",
+			    "is_send": true
+			}
+		    ],
+		    "count": 4
 	    }
 > **count** is a maximum size of avaiable asks with given filter - **not the count of returned items**
-> **is_sent** tells whether message was received or sent.
+> **is_send** tells whether message was received or sent.
