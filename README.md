@@ -532,6 +532,7 @@ certifications doesn't have level property - all the rest is the same languages 
 				}
 			    ],
 			    "_id": "5aaadac043fb9a3e9c0aab0a",
+			    "title": "Ogloszenie 1",
 			    "description": "ogloszenie 1",
 			    "salary": 1500,
 			    "work_time": 12,
@@ -582,6 +583,7 @@ certifications doesn't have level property - all the rest is the same languages 
 		    }
 		],
 		"_id": "5aaadac043fb9a3e9c0aab0a",
+		"title": "Ogloszenie 1",
 		"description": "Super ogloszenie nr 1",
 		"salary": 123,
 		"work_time": 12,
@@ -610,6 +612,7 @@ certifications doesn't have level property - all the rest is the same languages 
 
 ----------
 **POST** `/api/ask/create`
+* String **title** (required)
 * String **description**
 * Number **salary**
 * Number **work_time**
@@ -625,6 +628,7 @@ certifications doesn't have level property - all the rest is the same languages 
 ----------
 **POST** `/api/ask/update/:id`
 * **:id** - id of ask to update
+* String **title**
 * String **description**
 * Number **salary**
 * Number **work_time**
