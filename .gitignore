@@ -44,3 +44,12 @@ Thumbs.db
 
 # images
 ./uploads
+
+{ path: 'messages', component: MessagesComponent},
+{ path: 'message/:id', component: MessageComponent},
+
+MessageService
+
+MessagesComponent,
+KeysPipe,
+MessageComponent

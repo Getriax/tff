@@ -13,12 +13,17 @@ class messageService {
         if(messageBody.from.equals(messageBody.to))
             res.status(409).json({success: 'You cannot send message to yourself'});
         else
-        Message.create(messageBody, (err) => {
+        Message.create(messageBody, (err, data) => {
             if(err) {
                 logger.error(err);
                 return res.status(500).json({message: 'Failed to send message'});
             }
-            res.status(200).json({success: 'Message sent'})
+            delete data._doc.to;
+            delete data._doc.from;
+            delete data._doc.__v;
+            data._doc.send_date = new Date(data._doc.send_date).toLocaleString('en-US', {hour12: false});
+            data._doc.is_send = true;
+            res.status(200).json({success: 'Message sent', message: data});
         });
     }
 
