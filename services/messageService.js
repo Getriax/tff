@@ -34,13 +34,21 @@ class messageService {
                 _id: "$from",
                 content: {$last: "$content"},
                 send_date: {$last: "$send_date"},
-                is_read: {$last: "$is_read"}
+                is_read: {$last: "$is_read"},
+
             })
             .exec((err, data) => {
                 if(err) {
                     logger.error(err);
-                    return res.status(500).json({message: 'Failed to send message'});
+                    return res.status(500).json({message: 'Get messages'});
                 }
+                if(Object.keys(data).length > 0)  {
+                    data = data.map(m => {
+                        m.is_send = false;
+                        return m;
+                    });
+                }
+
                 Message.aggregate()
                     .match({from: new mongoose.Types.ObjectId(userId)})
                     .sort({send_date: 1})
@@ -48,7 +56,7 @@ class messageService {
                         _id: "$to",
                         content: {$last: "$content"},
                         send_date: {$last: "$send_date"},
-                        is_read: {$last: "$is_read"}
+                        is_read: {$last: "$is_read"},
                     })
                     .exec((err2, data2) => {
                         if(err2) {
@@ -56,13 +64,19 @@ class messageService {
                             return res.status(500).json({message: 'Failed to load messages'});
                         }
 
+                        if(Object.keys(data2).length > 0)
+                            data2 = data2.map(m => {
+                                m.is_send = true;
+                                return m;
+                            });
+
                         let ret;
 
-                        if(data && data2)
+                        if(Object.keys(data).length > 0 && Object.keys(data2).length > 0)
                         ret = data2.concat(data);
-                        else if(data)
+                        else if(Object.keys(data).length > 0)
                             ret = data;
-                        else if(data2)
+                        else if(Object.keys(data2).length > 0)
                             ret = data2;
                         else
                             res.status(404).json({message: 'User does not have messages'});
@@ -127,7 +141,7 @@ class messageService {
                 .sort([['send_date', -1]])
                 .populate('from', 'username first_name last_name')
                 .populate('to', 'username first_name last_name')
-                .select('-__v -_id')
+                .select('-__v')
                 .skip(offset)
                 .limit(pageSize)
                 .exec((err, data) => {
@@ -141,18 +155,38 @@ class messageService {
 
                     data.sort((msg1, msg2) => msg1.send_date - msg2.send_date);
 
+
+
+                    let userWith = data[0].from._id.equals(userId) ? data[0].to : data[0].from;
+
                     let msgs = data.map(msg => {
-                        msg._doc.is_sent = msg.from._id.equals(userId);
+                        msg._doc.is_send = msg.from._id.equals(userId);
                         msg._doc.send_date = new Date(msg.send_date).toLocaleString('en-US', {hour12: false});
+                        delete msg._doc.from;
+                        delete msg._doc.to;
                         return msg;
                     });
 
                     let response = {
+                        with: userWith,
                         messages: msgs,
                         count: num
                     };
 
                     res.status(200).json(response);
+
+
+                    for(let rmsg of response.messages) {
+
+                        if(!rmsg._doc.is_read && !rmsg._doc.is_send) {
+                            Message.findByIdAndUpdate(rmsg._id, {is_read: true}, (err) => {
+                                if(err) {
+                                    logger.error(err);
+                                }
+                            });
+                        }
+                    }
+
                 });
         }).catch((err) => res.status(err.status).json(err.msg));
 

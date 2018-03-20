@@ -10,7 +10,7 @@ let askSchema = new Schema({
     work_time: Number,
     is_active: {type: Boolean, default: true},
     is_complete: {type: Boolean, default: false},
-    create_date: {type: Date, default: Date.now()},
+    create_date: {type: Date, default: Date.now },
     languages: [{type: Schema.Types.ObjectId, ref: 'Language'}],
     software: [{type: Schema.Types.ObjectId, ref: 'Software'}],
     specs: [{type: Schema.Types.ObjectId, ref: 'Spec'}],
