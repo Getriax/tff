@@ -20,25 +20,6 @@ class EmployeeService {
     }
 
 
-    populateOne(userId) {
-        return new Promise((resolve, reject) => {
-            Employee.findOne({user_id: userId})
-                .select('-__v -_id -user_id')
-                .populate('languages', 'name -_id')
-                .populate('software', 'name -_id')
-                .populate('specs', 'name -_id')
-                .populate('certifications', 'name -_id')
-                .populate('categories', 'name -_id')
-                .exec((err, data) => {
-                    if(!data)
-                        reject('Employer not found')
-                    if(err)
-                        reject('Internal error');
-                    resolve(data);
-                })
-        })
-    }
-
     getOne(req, res, next) {
         if(!res.locals.employee)
             return next();

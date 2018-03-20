@@ -7,7 +7,7 @@ let bidSchema = new Schema({
     description: String,
     salary: Number,
     create_date: {type: Date, default: Date.now()},
-    is_accepted: {type: Boolean, default:false}
+    is_accepted: {type: Boolean, default: false}
 });
 
 module.exports = mongoose.model('Bid', bidSchema);

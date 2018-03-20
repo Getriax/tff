@@ -4,6 +4,7 @@ const mongoose = require('mongoose'),
 let askSchema = new Schema({
     employer: {type: Schema.Types.ObjectId, ref: 'Employer'},
     bids: [{type: Schema.Types.ObjectId, ref: 'Bid'}],
+    title: [{type: String, required: true}],
     description: String,
     salary: Number,
     work_time: Number,
