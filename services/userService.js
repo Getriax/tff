@@ -170,6 +170,7 @@ class UserService {
                                 return res.status(500).json({message: 'Error while saving file'});
                             }
                             req.body.image = userId + "." + extension;
+                            res.locals.msg = 'Image updated';
                             next();
                         });
                     }
@@ -190,6 +191,7 @@ class UserService {
         removeImage(userId)
             .then(() => {
                 req.body.image = undefined;
+                res.locals.msg = 'Image removed';
                 next();
             })
             .catch((err) => {

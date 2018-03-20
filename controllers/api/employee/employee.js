@@ -12,8 +12,8 @@ class Manage {
 
         router.post('/create',
             authService.authenticateUser.bind(this),
-            userService.update.bind(this),
-            employeeService.create.bind(this));
+            employeeService.create.bind(this),
+            userService.update.bind(this));
 
         router.post('/update',
             authService.authenticateUser.bind(this),
