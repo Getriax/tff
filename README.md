@@ -756,6 +756,8 @@ certifications doesn't have level property - all the rest is the same languages 
 		    ],
 		    "count": 4
 		}
+
+> **_id** is a id of a user with these message is with
 	
 > **count** is a maximum size of avaiable asks with given filter - **not the count of returned items**
 ----------    
