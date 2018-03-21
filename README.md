@@ -133,55 +133,95 @@ String: **username**
 **:id** - id of user to GET - **me** stands for logged in user
 > Example of status 0
 
-    {
-	    "user": {
-	        "username": "niko1",
-		"_id": "5aaada4043fb9a3e9c0aab06",
-		"image": "5aaada4043fb9a3e9c0aab06.jpg",
-	        "email": "some@ema2il.com",
-	        "city": "Sepolno3",
-	        "phone": "555983212",
-	        "last_name": "French2",
-	        "first_name": "English1",
-	        "status": 0
-	    },
-	    "employee": {
-	        "bids": [],
-	        "languages": [
-	            {
-	                "name": "English"
-	            },
-	            {
-	                "name": "French"
-	            }
-	        ],
-	        "software": [
-	            {
-	                "name": "Eclipse"
-	            },
-	            {
-	                "name": "Photoshop"
-	            }
-	        ],
-	        "specs": [
-	            {
-	                "name": "Java"
-	            },
-	            {
-	                "name": "C++"
-	            }
-	        ],
-	        "certifications": [
-	            {
-	                "name": "CISCO2"
-	            },
-	            {
-	                "name": "CISCO1"
-	            }
-	        ]
-	    },
-	    "rate" : 3
-    }
+	 {
+		    "user": {
+			"create_date": [],
+			"_id": "5aaad2641752053ae942d328",
+			"username": "msz64",
+			"email": "msz64@wp.pl",
+			"status": 0,
+			"city": "Duza Cerkwica",
+			"phone": "123456789",
+			"last_name": "Szczu",
+			"first_name": "Miko",
+			"image": "5aaad2641752053ae942d328.png"
+		    },
+		    "rate": 0,
+		    "employee": {
+			"bids": [
+			    "5aac0bbdf96d920dba28946b",
+			    "5ab160b8f69d91293866456c",
+			    "5ab16625afd7722fb8494777",
+			    "5ab1663fafd7722fb8494778",
+			    "5ab16642afd7722fb8494779",
+			    "5ab16659afd7722fb849477a",
+			    "5ab16660afd7722fb849477b"
+			],
+			"languages": [
+			    {
+				"name": "Spanish"
+			    }
+			],
+			"software": [
+			    {
+				"name": "Microsoft World"
+			    }
+			],
+			"specs": [
+			    {
+				"name": "Angular 2"
+			    }
+			],
+			"certifications": [
+			    {
+				"name": "CISCO2"
+			    }
+			],
+			"categories": [
+			    {
+				"name": "Android developer"
+			    }
+			],
+			"_id": "5aaad2761752053ae942d329",
+			"finished_asks": 1,
+			"in_progress_asks": 1,
+			"waiting_asks": 5
+		    }
+	    }
+
+> Example of status 1
+
+	    {
+		    "user": {
+			"create_date": [],
+			"_id": "5aaada4043fb9a3e9c0aab06",
+			"username": "qwe",
+			"email": "qwe@wp.pl",
+			"status": 1,
+			"city": "Gch",
+			"phone": "321321321",
+			"last_name": "Pracodawca",
+			"first_name": "Jakis ",
+			"image": "5aaada4043fb9a3e9c0aab06.png"
+		    },
+		    "rate": 0,
+		    "employer": {
+			"asks": [
+			    "5aaadac043fb9a3e9c0aab0a",
+			    "5aac0ebbf96d920dba28946c",
+			    "5ab144dff69d912938664525",
+			    "5ab145c9f69d91293866452c"
+			],
+			"company": [
+			    "5aaada7e43fb9a3e9c0aab09"
+			],
+			"_id": "5aaada5c43fb9a3e9c0aab08",
+			"active_asks": 4,
+			"finished_asks": 1,
+			"in_progress_asks": 0
+		    }
+	    }
+
 
 > rate is the average of all rates
 
