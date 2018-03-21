@@ -27,7 +27,7 @@ class EmployeeService {
         let userId = req.userID;
 
         Employee.findOne({user_id: userId})
-            .select('-__v -_id -user_id')
+            .select('-__v -user_id')
             .populate('languages', 'name -_id')
             .populate('software', 'name -_id')
             .populate('specs', 'name -_id')
@@ -42,10 +42,14 @@ class EmployeeService {
                 user: res.locals.userData,
                 rate: res.locals.rate
             };
-            if(data)
+            if(data) {
                 result.employee = data;
-
-            res.status(200).json(result);
+                res.locals.result = result;
+                res.locals.employeeID = data._id;
+                next();
+            }
+            else
+                res.status(200).json(result);
         });
     }
 

@@ -122,7 +122,6 @@ class AskService {
 
 
                 data = data.map(el => {
-                    el._doc.create_date = new Date(el.create_date).toLocaleString('en-US', {hour12: false});
                     el._doc.bids = el.bids.length;
                     return el;
                 });
@@ -158,7 +157,6 @@ class AskService {
                 if(!data)
                     return res.status(404).json({message: 'Ask not found'});
 
-                data._doc.create_date = new Date(data.create_date).toLocaleString('en-US', {hour12: false});
                 res.locals.ask = data;
 
                 next();
@@ -212,6 +210,82 @@ class AskService {
 
             res.status(200).json(data);
         });
+    }
+
+    getUserAsksOrBidStatus(req, res) {
+        if(res.locals.employerID) {
+            let employerID = res.locals.employerID;
+            Ask.find({employer: employerID})
+                .exec((err, data) => {
+                    if(err) {
+                        logger.error(err);
+                        return res.status(500).json({message: 'Internal error while looking for employer'});
+                    }
+                    let result = res.locals.result;
+
+                    if(data) {
+                        let active_asks = data.filter(ask => ask.is_active).length;
+                        let finished_asks = data.filter(ask => ask.is_complete).length;
+                        let in_progress_asks = data.filter(ask => !ask.is_active && !ask.is_complete).length;
+
+                        result.employer._doc.active_asks = active_asks;
+                        result.employer._doc.finished_asks = finished_asks;
+                        result.employer._doc.in_progress_asks = in_progress_asks;
+                    }
+
+
+                    res.status(200).json(result);
+                });
+        }
+        else {
+            //Count active and finished asks
+            let activeAsksPromise = new Promise((resolve, reject) => {
+                let returnAsks = {
+                    active: 0,
+                    finished: 0
+                };
+                if(!res.locals.accepted_asks)
+                    resolve(returnAsks);
+                else {
+
+                    Ask.find({
+                        _id: {$in: res.locals.accepted_asks}
+                    }, (err, data) => {
+                        if(err) {
+                            logger.error(err);
+                            reject({status: 500, msg: 'Error while looking for asks'});
+                        }
+
+                        if(Object.keys(data).length === 0)
+                            resolve(returnAsks);
+
+
+
+                        returnAsks.active = data.filter(ask => !ask.is_complete).length;
+                        returnAsks.finished = data.filter(ask => ask.is_complete).length;
+
+
+                        resolve(returnAsks);
+                    });
+                }
+            });
+
+            activeAsksPromise
+                .then((data) => {
+                    let result = res.locals.result;
+                    result.employee._doc.finished_asks = data.finished;
+                    result.employee._doc.in_progress_asks = data.active;
+                    result.employee._doc.waiting_asks = res.locals.waiting_asks ? res.locals.waiting_asks.length : 0;
+
+                    return res.status(200).json(result);
+                })
+                .catch((err) =>{ res.status(err.status || 500).json({message: err.msg || err}); }
+                );
+        }
+
+
+
+
     }
 
 }

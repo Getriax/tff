@@ -110,7 +110,6 @@ class UserService {
                    element.username = data.username;
                    element.first_name = data.first_name;
                    element.last_name = data.last_name;
-                   element.send_date = new Date(element.send_date).toLocaleString('en-US', {hour12: false});
 
 
 

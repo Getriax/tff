@@ -21,7 +21,6 @@ class messageService {
             delete data._doc.to;
             delete data._doc.from;
             delete data._doc.__v;
-            data._doc.send_date = new Date(data._doc.send_date).toLocaleString('en-US', {hour12: false});
             data._doc.is_send = true;
             res.status(200).json({success: 'Message sent', message: data});
         });
@@ -166,7 +165,6 @@ class messageService {
 
                     let msgs = data.map(msg => {
                         msg._doc.is_send = msg.from._id.equals(userId);
-                        msg._doc.send_date = new Date(msg.send_date).toLocaleString('en-US', {hour12: false});
                         delete msg._doc.from;
                         delete msg._doc.to;
                         return msg;

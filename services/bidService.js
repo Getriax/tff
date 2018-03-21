@@ -88,11 +88,6 @@ class BidService {
             .then((popBids) => {
                 delete res.locals.ask._doc.bids;
 
-                popBids = popBids.map(el => {
-                    el._doc.create_date = new Date(el.create_date).toLocaleString('en-US', {hour12: false});
-                    return el;
-                });
-
                 let data = {
                     ask: res.locals.ask,
                     bids: popBids
@@ -103,6 +98,45 @@ class BidService {
             .catch((err) => {return res.status(err.status || 500).json({message: err.msg})});
     }
 
+    getAccepted(req, res, next) {
+        if(!res.locals.employeeID)
+            return next();
+
+        console.log('Active bids');
+
+        let employeeID = res.locals.employeeID;
+        Bid.find({employee: employeeID, is_accepted: true}, (err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'error while looking for bid'});
+            }
+            if(Object.keys(data).length === 0)
+                return next();
+
+            console.log(data);
+            res.locals.accepted_asks = data.map(bid => bid.ask);
+            next();
+        });
+    }
+
+    getWaiting(req, res, next) {
+        if(!res.locals.employeeID)
+            return next();
+
+
+        let employeeID = res.locals.employeeID;
+        Bid.find({employee: employeeID, is_accepted: false}, (err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'error while looking for bid'});
+            }
+            if(Object.keys(data).length === 0)
+                return next();
+
+            res.locals.waiting_asks = data.map(bid => bid.ask);
+            next();
+        });
+    }
 }
 
 module.exports = new BidService();

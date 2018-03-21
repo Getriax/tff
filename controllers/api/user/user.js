@@ -2,6 +2,8 @@ const authService = require('../../../services/authService'),
     rateService = require('../../../services/rateService'),
     employeeService = require('../../../services/employeeService'),
     employerService = require('../../../services/employerService'),
+    bidService = require('../../../services/bidService'),
+    askService = require('../../../services/askService'),
     userService = require('../../../services/userService');
 
 class Manage {
@@ -15,14 +17,20 @@ class Manage {
             rateService.getAverage.bind(this),
             userService.getOne.bind(this),
             employeeService.getOne.bind(this),
-            employerService.getOne.bind(this));
+            bidService.getAccepted.bind(this),
+            bidService.getWaiting.bind(this),
+            employerService.getOne.bind(this),
+            askService.getUserAsksOrBidStatus.bind(this));
 
         router.get('/:id',
             authService.authenticateUser.bind(this),
             rateService.getAverage.bind(this),
             userService.getOne.bind(this),
             employeeService.getOne.bind(this),
-            employerService.getOne.bind(this));
+            bidService.getAccepted.bind(this),
+            bidService.getWaiting.bind(this),
+            employerService.getOne.bind(this),
+            askService.getUserAsksOrBidStatus.bind(this));
 
         router.get('/:id/rates',
             authService.authenticateUser.bind(this),

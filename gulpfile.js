@@ -410,3 +410,16 @@ gulp.task('file', (done) => {
 
 
 });
+
+gulp.task('inarr', (done) => {
+    database.open(() => {});
+    let arrofid = ['5aaac7e584b8179c8a320ae7', '5aaad2641752053ae942d328', '5aaada4043fb9a3e9c0aab06'];
+    user.find({
+        _id: {$in: arrofid}
+    }, (err, data) => {
+        if(err)
+            console.log(err)
+
+        console.log(data);
+    });
+});
