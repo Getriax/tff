@@ -24,7 +24,7 @@ class EmployeeService {
         if(!res.locals.employee)
             return next();
 
-        let userId = req.userID;
+        let userId = req.params.id || req.userID;
 
         Employee.findOne({user_id: userId})
             .select('-__v -user_id')

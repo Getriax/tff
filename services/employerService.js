@@ -39,7 +39,7 @@ class EmployerService {
         if(!res.locals.employer)
             return next();
 
-        let userId = req.userID;
+        let userId = req.params.id || req.userID;
 
         Employer.findOne({user_id: userId})
             .select('-__v -user_id')

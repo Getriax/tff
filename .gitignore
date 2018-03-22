@@ -40,16 +40,8 @@ testem.log
 Thumbs.db
 
 # server logs
-./logs
+logs/
 
 # images
-./uploads
+uploads/
 
-{ path: 'messages', component: MessagesComponent},
-{ path: 'message/:id', component: MessageComponent},
-
-MessageService
-
-MessagesComponent,
-KeysPipe,
-MessageComponent

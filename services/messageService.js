@@ -223,6 +223,20 @@ class messageService {
 
     }
 
+    getHasUnreadMessages(req, res, next) {
+        let userId = req.params.id || req.userID;
+
+        Message.find({to: userId, is_read: false}, (err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Failed to load messages'});
+            }
+
+            res.locals.userData._doc.unread_messages = data.length;
+            next();
+        })
+    }
+
 }
 
 module.exports = new messageService();

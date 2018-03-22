@@ -46,7 +46,7 @@ class RateService {
 
     getAverage(req, res, next) {
 
-        let userId = new mongoose.Types.ObjectId(req.params.id) || new mongoose.Types.ObjectId(req.userId);
+        let userId = req.params.id || req.userID;
         Rate.aggregate()
             .match({user_to: userId})
             .group({
