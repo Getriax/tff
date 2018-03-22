@@ -187,6 +187,29 @@ class EmployerService {
                 });
             });
     }
+
+    acceptBid(req, res, next) {
+        let userId = req.userID;
+        let askId = res.locals.askID;
+
+        Employer.findOne({user_id: userId})
+            .select('_id asks')
+            .exec((err, data) => {
+                if(err) {
+                    logger.error(err);
+                    return res.status(500).json({message: 'Something went wrong'});
+                }
+                if(!data)
+                    return res.status(404).json({message: 'Employer with that id not found'});
+
+                if(data.asks.filter(askID => askID.equals(askId)).length === 1) {
+                    next();
+                }
+                else {
+                    return res.status(401).json({message: 'You are not authorized to do that'});
+                }
+            })
+    }
 }
 
 module.exports = new EmployerService();

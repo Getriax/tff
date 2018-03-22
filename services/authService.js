@@ -31,7 +31,7 @@ class Auth {
                 let authToken = jwt.sign(payload, config.tokenPass);
 
 
-                res.status(200).json({token: authToken});
+                res.status(200).json({token: authToken, type: usr.status});
             });
         });
     }
@@ -78,13 +78,13 @@ class Auth {
 
 
                     let payload = {
-                        id: newUser._id,
+                        id: newUser._id
                     };
 
                     let authToken = jwt.sign(payload, config.tokenPass);
 
 
-                    res.status(200).json({token: authToken});
+                    res.status(200).json({token: authToken, type: newUser.status});
                 });
             });
         })

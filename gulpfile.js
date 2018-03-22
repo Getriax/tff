@@ -423,3 +423,24 @@ gulp.task('inarr', (done) => {
         console.log(data);
     });
 });
+
+gulp.task('toplance', (data) => {
+    database.open(() => {});
+
+    topLance = require('/config/config').topLance;
+    bcrypt = require('bcrypt-nodejs');
+
+    bcrypt.hash('GloryBoyz98',null, null, (err, hash) => {
+        let topLance = new user({
+            _id: topLance,
+            username: 'TopLance',
+            first_name: 'TopLance',
+            password: hash,
+            email: 'wannabeprogrammerz@gmail.com'
+        });
+
+        user.create(topLance, (err) => {if(err) console.log(err)});
+    });
+
+
+})

@@ -110,6 +110,24 @@ class EmployeeService {
             });
         });
     }
+
+    getUserID(req, res, next) {
+        let employeeId = res.locals.employeeID;
+
+        Employee.findById(employeeId, (err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Adding bid failed'});
+            }
+            if(!data) {
+                return res.status(404).json({message: 'Bid creator does not exist'});
+            }
+
+            res.locals.userToId = data.user_id;
+            next();
+        })
+
+    }
 }
 
 

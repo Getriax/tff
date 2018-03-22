@@ -100,16 +100,19 @@ class UserService {
             for(let element of messages) {
                 User.findById(element._id, (err, data) => {
                    if(err) {
+                       console.log(err);
                        logger.error(err);
                        reject(err);
                    }
                    if(!data) {
                        reject('User not found');
                    }
+                    else {
+                       element.username = data.username;
+                       element.first_name = data.first_name;
+                       element.last_name = data.last_name;
+                   }
 
-                   element.username = data.username;
-                   element.first_name = data.first_name;
-                   element.last_name = data.last_name;
 
 
 

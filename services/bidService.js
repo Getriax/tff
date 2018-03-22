@@ -48,13 +48,28 @@ class BidService {
         Bid.findByIdAndUpdate(bidId, {is_accepted: true}, (err, data) => {
             if(err) {
                 logger.error(err);
-                return res.status(500).json({message: 'Cannot remove bid'});
+                return res.status(500).json({message: 'Error while looking for bid'});
+            }
+
+            return res.status(200).json({success: 'Bid updated'});
+        })
+    }
+
+    getAskAndEmployeeID(req, res, next) {
+        let bidId = req.params.id;
+
+        Bid.findById(bidId, (err, data) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Error while looking for bid'});
             }
             if(!data)
                 return res.status(404).json({message: 'Bid with that id not found'});
 
-            return res.status(200).json({success: 'Bid updated'});
-        })
+            res.locals.askID = data.ask;
+            res.locals.employeeID = data.employee;
+            next();
+        });
     }
 
 
@@ -101,8 +116,6 @@ class BidService {
     getAccepted(req, res, next) {
         if(!res.locals.employeeID)
             return next();
-
-        console.log('Active bids');
 
         let employeeID = res.locals.employeeID;
         Bid.find({employee: employeeID, is_accepted: true}, (err, data) => {

@@ -1,6 +1,7 @@
 const mongoose = require('mongoose'),
     logger = require('../config/logger'),
     Message = require('../models/message');
+    topLance = require('../config/config').topLance;
 
 class messageService {
 
@@ -12,6 +13,9 @@ class messageService {
 
         if(messageBody.from.equals(messageBody.to))
             res.status(409).json({success: 'You cannot send message to yourself'});
+        else if(topLance.equals(messageBody.to)) {
+            res.status(409).json({success: 'You cannot send message to the bot'});
+        }
         else
         Message.create(messageBody, (err, data) => {
             if(err) {
@@ -74,7 +78,7 @@ class messageService {
                                 return m;
                             });
 
-                        let ret;
+                        let ret = [];
 
                         if(Object.keys(data).length > 0 && Object.keys(data2).length > 0)
                         ret = data2.concat(data);
@@ -83,7 +87,7 @@ class messageService {
                         else if(Object.keys(data2).length > 0)
                             ret = data2;
                         else
-                            res.status(404).json({message: 'User does not have messages'});
+                            return res.status(404).json({message: 'User does not have messages'});
 
                         ret = ret.filter((element, index, self) => {
 
@@ -192,7 +196,30 @@ class messageService {
 
                 });
         }).catch((err) => res.status(err.status).json(err.msg));
+    }
 
+    sendMessageBot(req, res, next) {
+        let toId = res.locals.userToId;
+        let userId = req.userID;
+        let text = `<strong> Witaj! </strong>
+            <p> Jedna z Twoich ofet została właśnie zaakceptowana. </p>
+            <p> Napisz do pracodawcy: <a href='/message/${userId}'>Kliknij tutaj!</a></p>
+        `;
+
+        let messageBody = {
+            to: toId,
+            from: topLance,
+            content: text
+        };
+
+        Message.create(messageBody, (err) => {
+            if(err) {
+                logger.error(err);
+                return res.status(500).json({message: 'Failed to send message'});
+            }
+
+            next();
+        });
 
     }
 
