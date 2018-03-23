@@ -56,8 +56,8 @@ class AskService {
 
     getAllLimit(req, res) {
 
-        let pageSize = req.query.pagesize || 10;
-        let offset = req.query.page * pageSize || 0;
+        let pageSize = parseInt(req.query.pagesize) || 10;
+        let offset = parseInt(req.query.page) * pageSize || 0;
 
 
         let askQuery = Ask.find();

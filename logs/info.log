@@ -16,3 +16,6 @@ info: Connected at port 3000 {}
 info: Connected at port 3000 {}
 info: Connected at port 3000 {}
 info: Connected at port 3000 {}
+info: Connected at port 3000 {}
+error: Failed to parse: { find: "messages", filter: { $or: [ { $and: [ { from: ObjectId('5ab420afbc0aec9e79699871') }, { to: ObjectId('5ab421a03fa68c0a1fd2ea09') } ] }, { $and: [ { from: ObjectId('5ab421a03fa68c0a1fd2ea09') }, { to: ObjectId('5ab420afbc0aec9e79699871') } ] } ] }, sort: { send_date: -1 }, projection: { __v: 0 }, limit: "15" }. 'limit' field must be numeric. {"name":"MongoError","ok":0,"errmsg":"Failed to parse: { find: \"messages\", filter: { $or: [ { $and: [ { from: ObjectId('5ab420afbc0aec9e79699871') }, { to: ObjectId('5ab421a03fa68c0a1fd2ea09') } ] }, { $and: [ { from: ObjectId('5ab421a03fa68c0a1fd2ea09') }, { to: ObjectId('5ab420afbc0aec9e79699871') } ] } ] }, sort: { send_date: -1 }, projection: { __v: 0 }, limit: \"15\" }. 'limit' field must be numeric.","code":9,"codeName":"FailedToParse"}
+info: Connected at port 3000 {}

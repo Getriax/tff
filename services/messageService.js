@@ -118,8 +118,8 @@ class messageService {
     getAllWithOne(req, res) {
         let userId = new mongoose.Types.ObjectId(req.userID);
         let withId = new mongoose.Types.ObjectId(req.params.id);
-        let pageSize = req.query.pagesize || 10;
-        let offset = req.query.page * pageSize || 0;
+        let pageSize = parseInt(req.query.pagesize) || 10;
+        let offset = parseInt(req.query.page) * pageSize || 0;
 
         let countPrimise = new Promise((resolve, reject) => {
             Message.find({$or : [

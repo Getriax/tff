@@ -69,8 +69,8 @@ class RateService {
 
     getAllOfOne(req, res) {
         let userId = req.params.id;
-        let pageSize = req.query.pagesize || 10;
-        let offset = req.query.page * pageSize || 0;
+        let pageSize = parseInt(req.query.pagesize) || 10;
+        let offset = parseInt(req.query.page) * pageSize || 0;
 
         let countPromise = new Promise((resolve, reject) => {
             Rate.find({user_to: userId})
