@@ -111,6 +111,7 @@ class UserService {
                        element.username = data.username;
                        element.first_name = data.first_name;
                        element.last_name = data.last_name;
+                       element.image = data.image || null;
                    }
 
 

@@ -147,8 +147,8 @@ class messageService {
                 ]
             })
                 .sort([['send_date', -1]])
-                .populate('from', 'username first_name last_name')
-                .populate('to', 'username first_name last_name')
+                .populate('from', 'username first_name last_name image')
+                .populate('to', 'username first_name last_name image')
                 .select('-__v')
                 .skip(offset)
                 .limit(pageSize)
@@ -166,6 +166,7 @@ class messageService {
 
 
                     let userWith = data[0].from._id.equals(userId) ? data[0].to : data[0].from;
+                    let myData = data[0].from._id.equals(userId) ? data[0].from : data[0].to;
 
                     let msgs = data.map(msg => {
                         msg._doc.is_send = msg.from._id.equals(userId);
@@ -176,6 +177,7 @@ class messageService {
 
                     let response = {
                         with: userWith,
+                        me: myData,
                         messages: msgs,
                         count: num
                     };

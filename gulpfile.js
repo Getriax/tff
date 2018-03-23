@@ -427,12 +427,12 @@ gulp.task('inarr', (done) => {
 gulp.task('toplance', (data) => {
     database.open(() => {});
 
-    topLance = require('/config/config').topLance;
-    bcrypt = require('bcrypt-nodejs');
+    let tL = require('./config/config').topLance;
+    let bcrypt = require('bcrypt-nodejs');
 
     bcrypt.hash('GloryBoyz98',null, null, (err, hash) => {
         let topLance = new user({
-            _id: topLance,
+            _id: tL,
             username: 'TopLance',
             first_name: 'TopLance',
             password: hash,
@@ -443,4 +443,144 @@ gulp.task('toplance', (data) => {
     });
 
 
-})
+
+
+    Language.create({name: 'Angielski'}, (err) => {});
+    Language.create({name: 'Niemiecki'}, (err) => {});
+    Language.create({name: 'Hiszpański'}, (err) => {});
+    Language.create({name: 'Japoński'}, (err) => {});
+    Language.create({name: 'Chiński'}, (err) => {});
+    Language.create({name: 'Włoski'}, (err) => {});
+    Language.create({name: 'Polski'}, (err) => {});
+    Language.create({name: 'Czeski'}, (err) => {});
+    Language.create({name: 'Ukraiński'}, (err) => {});
+    Language.create({name: 'Ruski'}, (err) => {});
+    Language.create({name: 'Holenderski'}, (err) => {});
+    Language.create({name: 'Francuski'}, (err) => {});
+    Language.create({name: 'Portugalski'}, (err) => {});
+    Language.create({name: 'Koreański'}, (err) => {});
+    Language.create({name: 'Mandaryński'}, (err) => {});
+    Language.create({name: 'Niderlandzki'}, (err) => {});
+    Language.create({name: 'Szwedzki'}, (err) => {});
+
+
+    Spec.create({name: 'Java'}, (err) => {});
+    Spec.create({name: 'C++'}, (err) => {});
+    Spec.create({name: 'animal law'}, (err) => {});
+    Spec.create({name: 'Angular 2+'}, (err) => {});
+    Spec.create({name: 'C#'}, (err) => {});
+    Spec.create({name: 'Objective-C'}, (err) => {});
+    Spec.create({name: 'AngularJS'}, (err) => {});
+    Spec.create({name: 'Vue.js'}, (err) => {});
+    Spec.create({name: 'Go'}, (err) => {});
+    Spec.create({name: 'Spring'}, (err) => {});
+    Spec.create({name: 'Spring-boot'}, (err) => {});
+    Spec.create({name: 'React.js'}, (err) => {});
+    Spec.create({name: 'Node.js'}, (err) => {});
+    Spec.create({name: 'Express.js'}, (err) => {});
+    Spec.create({name: 'MySQL'}, (err) => {});
+    Spec.create({name: 'MsSQL'}, (err) => {});
+    Spec.create({name: 'MongoDB'}, (err) => {});
+    Spec.create({name: 'Python'}, (err) => {});
+    Spec.create({name: 'JavaScript'}, (err) => {});
+    Spec.create({name: 'C'}, (err) => {});
+    Spec.create({name: 'Assembler'}, (err) => {});
+    Spec.create({name: 'Swift'}, (err) => {});
+    Spec.create({name: 'Prawo umów'}, (err) => {});
+    Spec.create({name: 'Prawo konsumenckie'}, (err) => {});
+    Spec.create({name: 'Prawo krane'}, (err) => {});
+    Spec.create({name: 'Prawo korporacyjne'}, (err) => {});
+    Spec.create({name: 'Prawo rodzinne'}, (err) => {});
+    Spec.create({name: 'Prawo własności intelektualnej'}, (err) => {});
+    Spec.create({name: 'Ochrona danych osobowych'}, (err) => {});
+    Spec.create({name: 'Machine Lerning'}, (err) => {});
+    Spec.create({name: 'Animacje'}, (err) => {});
+    Spec.create({name: 'Audio'}, (err) => {});
+    Spec.create({name: 'Grafika'}, (err) => {});
+    Spec.create({name: 'Ilustracje'}, (err) => {});
+    Spec.create({name: 'Produkcja wideo'}, (err) => {});
+    Spec.create({name: 'Fotografie'}, (err) => {});
+    Spec.create({name: 'Copywriting'}, (err) => {});
+    Spec.create({name: 'Pisanie artykułów & blogów'}, (err) => {});
+    Spec.create({name: 'Tłumaczenie prawa'}, (err) => {});
+    Spec.create({name: 'Tłumaczenie medyczne'}, (err) => {});
+    Spec.create({name: 'Tłumaczenie techniczne'}, (err) => {});
+    Spec.create({name: 'Tłumaczenie ogłolne'}, (err) => {});
+    Spec.create({name: 'Relacje publiczne'}, (err) => {});
+
+    Software.create({name: 'Microsoft World'}, (err) => {});
+    Software.create({name: 'Photoshop'}, (err) => {});
+    Software.create({name: 'Eclipse'}, (err) => {});
+    Software.create({name: 'Web Storm'}, (err) => {});
+    Software.create({name: 'PHP Storm'}, (err) => {});
+    Software.create({name: 'IntelliJ IDEA'}, (err) => {});
+    Software.create({name: 'Netbeans'}, (err) => {});
+    Software.create({name: 'Atom'}, (err) => {});
+    Software.create({name: 'Microsoft Excel'}, (err) => {});
+    Software.create({name: 'Microsoft Powerpoint'}, (err) => {});
+    Software.create({name: 'OpenOffice'}, (err) => {});
+    Software.create({name: 'Microsoft Access'}, (err) => {});
+    Software.create({name: 'Android Studio'}, (err) => {});
+    Software.create({name: 'QuickBooks'}, (err) => {});
+    Software.create({name: 'Xero'}, (err) => {});
+    Software.create({name: 'Zoho Books'}, (err) => {});
+    Software.create({name: 'FreshBooks'}, (err) => {});
+    Software.create({name: 'Adobe After Effect'}, (err) => {});
+    Software.create({name: 'Vegas Pro'}, (err) => {});
+    Software.create({name: 'ScreenFlow'}, (err) => {});
+    Software.create({name: 'iMovie'}, (err) => {});
+    Software.create({name: 'Camtasia'}, (err) => {});
+    Software.create({name: 'Adobe Premiere'}, (err) => {});
+    Software.create({name: 'Final Cut Pro'}, (err) => {});
+    Software.create({name: 'Gimp'}, (err) => {});
+    Software.create({name: 'Inkscape'}, (err) => {});
+    Software.create({name: 'CorelDRAW'}, (err) => {});
+    Software.create({name: 'Visual Code Studio'}, (err) => {});
+    Software.create({name: 'CLion'}, (err) => {});
+    Software.create({name: 'AppCode'}, (err) => {});
+    Software.create({name: 'PyCharm'}, (err) => {});
+    Software.create({name: 'ReSharper'}, (err) => {});
+
+    Certification.create({name: 'Cisco Certified Entry Networking Technician'}, (err) => {});
+    Certification.create({name: 'Cisco Certified Network Professional'}, (err) => {});
+    Certification.create({name: 'Cisco Certified Internetwork Professional'}, (err) => {});
+    Certification.create({name: 'Cisco Certified Internetwork Expert'}, (err) => {});
+    Certification.create({name: 'Cisco Certified Voice Professional'}, (err) => {});
+    Certification.create({name: 'Cisco Certified Design Associate'}, (err) => {});
+    Certification.create({name: 'Cisco Certified Design Professional'}, (err) => {});
+    Certification.create({name: 'Cisco Certified Design Expert'}, (err) => {});
+    Certification.create({name: 'Microsoft Technology Associate'}, (err) => {});
+    Certification.create({name: 'Microsoft Certified Solutions Associate'}, (err) => {});
+    Certification.create({name: 'Microsoft Certified Solutions Expert'}, (err) => {});
+    Certification.create({name: 'Microsoft Office Specialist Certification'}, (err) => {});
+    Certification.create({name: 'Microsoft Certified Solutions Developer'}, (err) => {});
+    Certification.create({name: 'First Certificate in English'}, (err) => {});
+    Certification.create({name: 'Certificate in Advanced English'}, (err) => {});
+    Certification.create({name: 'Certificate of Proficiency in English'}, (err) => {});
+    Certification.create({name: 'Czech Language Certificate Exam'}, (err) => {});
+    Certification.create({name: 'Zentrale Mittelstufenprüfung'}, (err) => {});
+    Certification.create({name: 'Zertifikat Deutsch'}, (err) => {});
+    Certification.create({name: 'Zentrale Oberstufenprüfung'}, (err) => {});
+    Certification.create({name: 'DELF'}, (err) => {});
+    Certification.create({name: 'DALF'}, (err) => {});
+    Certification.create({name: 'Certificazione di Italiano come Lingua Straniera'}, (err) => {});
+    Certification.create({name: 'Certificato di Lingua Italiana'}, (err) => {});
+    Certification.create({name: 'Diplomas de Español como Lengua Extranjera'}, (err) => {});
+    Certification.create({name: 'Diploma Avancado de PLE'}, (err) => {});
+    Certification.create({name: 'PURJ'}, (err) => {});
+    Certification.create({name: 'TELC'}, (err) => {});
+
+
+    Category.create({name: 'Strony internetowe'}, (err) => {});
+    Category.create({name: 'Inżynieria programów'}, (err) => {});
+    Category.create({name: 'Prawo'}, (err) => {});
+    Category.create({name: 'Architektura danych'}, (err) => {});
+    Category.create({name: 'Zdjęcia i obróbka'}, (err) => {});
+    Category.create({name: 'Filmy i montaż'}, (err) => {});
+    Category.create({name: 'Tłumaczenie'}, (err) => {});
+    Category.create({name: 'Pisanie'}, (err) => {});
+    Category.create({name: 'Księgowość'}, (err) => {});
+    Category.create({name: 'Marketing'}, (err) => {});
+    Category.create({name: 'Twórczość i kreatywność'}, (err) => {});
+    Category.create({name: 'Sieci komputerowe'}, (err) => {});
+});
