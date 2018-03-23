@@ -144,6 +144,7 @@ String: **username**
 			"phone": "123456789",
 			"last_name": "Szczu",
 			"first_name": "Miko",
+			"unread_messages": 1
 			"image": "5aaad2641752053ae942d328.png"
 		    },
 		    "rate": 0,
@@ -202,6 +203,7 @@ String: **username**
 			"phone": "321321321",
 			"last_name": "Pracodawca",
 			"first_name": "Jakis ",
+			"unread_messages": 0
 			"image": "5aaada4043fb9a3e9c0aab06.png"
 		    },
 		    "rate": 0,
